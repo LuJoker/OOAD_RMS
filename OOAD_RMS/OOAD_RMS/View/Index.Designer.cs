@@ -64,6 +64,7 @@
             this._addProjectBtn.TabIndex = 0;
             this._addProjectBtn.Text = "新增專案";
             this._addProjectBtn.UseVisualStyleBackColor = true;
+            this._addProjectBtn.Click += new System.EventHandler(this.ClickAddBtn);
             // 
             // _projectExistLabel
             // 

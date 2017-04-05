@@ -9,7 +9,7 @@ namespace OOAD_RMS
     {
         private string _projectName;
         private string _projectDescription;
-        private List<string> _requirements = new List<string>();
+        private List<Requirement> _requirements = new List<Requirement>();
 
         //example set,get projectName
         //public void setProjectName(string name) {

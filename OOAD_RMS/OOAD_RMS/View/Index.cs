@@ -11,10 +11,13 @@ namespace OOAD_RMS
 {
     public partial class Index : Form
     {
-        BindingList<Project> _projectList = new BindingList<Project>();
-        public Index()
+        BindingList<Project> _projectList;
+        User _user;
+        public Index(User user)
         {
             InitializeComponent();
+            _user = user;
+            _projectList = new BindingList<Project>(_user.GetInProjects());
             BindingSource projectSource = new BindingSource(_projectList, null);
             _projectGridView.DataSource = projectSource;
         }

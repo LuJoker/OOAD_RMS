@@ -39,5 +39,15 @@ namespace OOAD_RMS
                 _projectDescription = value;
             }
         }
+
+        public void AddRequirement(Requirement requirement)
+        {
+            _requirements.Add(requirement);
+        }
+
+        public List<Requirement> GetRequirements()
+        {
+            return _requirements;
+        }
     }
 }

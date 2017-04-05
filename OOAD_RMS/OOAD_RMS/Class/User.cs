@@ -17,6 +17,10 @@ namespace OOAD_RMS
             Project project1 = new Project();
             project1.ProjectName = "Project1";
             project1.ProjectDescription = "Project1 123";
+            Requirement requirement1 = new Requirement();
+            requirement1.RequirementName = "Re1";
+            requirement1.RequirementDescription = "Re1 123";
+            project1.AddRequirement(requirement1);
 
             Project project2 = new Project();
             project2.ProjectName = "Project2";
@@ -25,6 +29,14 @@ namespace OOAD_RMS
             Project project3 = new Project();
             project3.ProjectName = "Project3";
             project3.ProjectDescription = "Project3 789";
+            Requirement requirement2 = new Requirement();
+            requirement2.RequirementName = "Re1";
+            requirement2.RequirementDescription = "Re1 123";
+            project3.AddRequirement(requirement2);
+            Requirement requirement3 = new Requirement();
+            requirement3.RequirementName = "Re2";
+            requirement3.RequirementDescription = "Re2 456";
+            project3.AddRequirement(requirement3);
 
             _inProjects.Add(project1);
             _inProjects.Add(project2);

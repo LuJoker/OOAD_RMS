@@ -16,7 +16,7 @@ namespace OOAD_RMS
             InitializeComponent();
         }
 
-        private void ClickOkBtn(object sender, EventArgs e)
+        private void LoginCheck(object sender, EventArgs e)
         {
             string account = _accountTextBox.Text;
             string password = _passwordTextBox.Text;

@@ -78,7 +78,7 @@
             this._okButton.TabIndex = 4;
             this._okButton.Text = "確定";
             this._okButton.UseVisualStyleBackColor = true;
-            this._okButton.Click += new System.EventHandler(this.ClickOkBtn);
+            this._okButton.Click += new System.EventHandler(this.LoginCheck);
             // 
             // Login
             // 

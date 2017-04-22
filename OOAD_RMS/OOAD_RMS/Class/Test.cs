@@ -9,7 +9,7 @@ namespace OOAD_RMS
     {
         private string _testName;
         private string _testDescription;
-        private List<Requirement> _tests = new List<Requirement>();
+        private List<Requirement> _requirement = new List<Requirement>();
 
         public string testName
         {

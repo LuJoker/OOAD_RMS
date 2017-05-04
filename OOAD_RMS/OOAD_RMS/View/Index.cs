@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -14,12 +13,14 @@ namespace OOAD_RMS
         BindingList<Project> _projectList;
         BindingList<Requirement> _requirementList;
         BindingList<Test> _testList;
+        Model _model;
         User _user;
-        public Index(User user)
+        public Index(User user, Model model)
         {
             InitializeComponent();
+            _model = model;
             _user = user;
-            _projectList = new BindingList<Project>(_user.GetInProjects());
+            _projectList = _model.GetProjects();
             BindingSource projectSource = new BindingSource(_projectList, null);
             _projectGridView.DataSource = projectSource;
             _projectComboBox.DataSource = projectSource;
@@ -38,10 +39,18 @@ namespace OOAD_RMS
         {
             ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog();
             if (showAddProjectDialog.ShowDialog() == DialogResult.OK) {
-                Project project = showAddProjectDialog.GetProject();
-                Console.WriteLine("projectName: " + project.ProjectName);
-                Console.WriteLine("projectDescription: " + project.ProjectDescription);
-                _projectList.Add(project);
+                string projectName = showAddProjectDialog.GetProjectName();
+                string projectDescription = showAddProjectDialog.GetProjectDescription();
+                Console.WriteLine("binding: " + _projectList.Count);
+                _model.addProject(projectName, projectDescription);
+                Console.WriteLine("binding: " + _projectList.Count);
+
+                //Project project = new Project();
+                //project.ProjectName = showAddProjectDialog.GetProjectName();
+                //project.ProjectDescription = showAddProjectDialog.GetProjectDescription();
+
+                //_projectList.Add(project);
+
             }
         }
 

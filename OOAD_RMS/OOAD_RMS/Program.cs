@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace OOAD_RMS
@@ -13,9 +12,10 @@ namespace OOAD_RMS
         [STAThread]
         static void Main()
         {
+            Model model = new Model();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            Application.Run(new Login(model));
         }
     }
 }

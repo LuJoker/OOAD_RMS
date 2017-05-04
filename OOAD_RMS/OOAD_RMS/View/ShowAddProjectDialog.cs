@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -11,22 +10,19 @@ namespace OOAD_RMS
 {
     public partial class ShowAddProjectDialog : Form
     {
-        private Project _project;
         public ShowAddProjectDialog()
         {
             InitializeComponent();
-            _project = new Project();
         }
 
-        private void ClickOkBtn(object sender, EventArgs e)
+        public string GetProjectName()
         {
-            _project.ProjectName = _projectNameTxt.Text;
-            _project.ProjectDescription = _projectDescriptionTxt.Text;
+            return _projectNameTxt.Text;
         }
 
-        public Project GetProject()
+        public string GetProjectDescription()
         {
-            return _project;
+            return _projectDescriptionTxt.Text;
         }
     }
 }

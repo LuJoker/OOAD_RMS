@@ -21,16 +21,9 @@ namespace OOAD_RMS
         {
             string account = _accountTextBox.Text;
             string password = _passwordTextBox.Text;
-            User manager = new User();
-            manager.UserAccount = "admin";
-            manager.UserPassword = "admin";
-            manager.UserIdentity = "Manager";
-
-            if (account == manager.UserAccount && password == manager.UserPassword)
-            {
+            if (_model.checkUser(account, password)) {
                 Hide();
-                _model.setProject(manager);
-                Index indexForm = new Index(manager, _model);
+                Index indexForm = new Index(_model);
                 indexForm.ShowDialog();
                 Close();
             }

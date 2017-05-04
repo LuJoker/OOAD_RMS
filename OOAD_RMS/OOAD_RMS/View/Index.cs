@@ -10,18 +10,12 @@ namespace OOAD_RMS
 {
     public partial class Index : Form
     {
-        BindingList<Project> _projectList;
-        BindingList<Requirement> _requirementList;
-        BindingList<Test> _testList;
         Model _model;
-        User _user;
-        public Index(User user, Model model)
+        public Index(Model model)
         {
             InitializeComponent();
             _model = model;
-            _user = user;
-            _projectList = _model.GetProjects();
-            BindingSource projectSource = new BindingSource(_projectList, null);
+            BindingSource projectSource = new BindingSource(_model.GetProjects(), null);
             _projectGridView.DataSource = projectSource;
             _projectComboBox.DataSource = projectSource;
             _projectComboBox.DisplayMember = "ProjectName";
@@ -30,9 +24,9 @@ namespace OOAD_RMS
             //BindingSource requirementSource = new BindingSource(_requirementList, null);
             //_requirementGridView.DataSource = requirementSource;
 
-            _testList = new BindingList<Test>();
-            BindingSource testSource = new BindingSource(_testList, null);
-            _testGridView.DataSource = testSource;
+            //_testList = new BindingList<Test>();
+            //BindingSource testSource = new BindingSource(_testList, null);
+            //_testGridView.DataSource = testSource;
         }
 
         private void ClickAddProjectBtn(object sender, EventArgs e)
@@ -41,9 +35,7 @@ namespace OOAD_RMS
             if (showAddProjectDialog.ShowDialog() == DialogResult.OK) {
                 string projectName = showAddProjectDialog.GetProjectName();
                 string projectDescription = showAddProjectDialog.GetProjectDescription();
-                Console.WriteLine("binding: " + _projectList.Count);
                 _model.addProject(projectName, projectDescription);
-                Console.WriteLine("binding: " + _projectList.Count);
 
                 //Project project = new Project();
                 //project.ProjectName = showAddProjectDialog.GetProjectName();
@@ -58,14 +50,12 @@ namespace OOAD_RMS
         {
             ShowAddRequirementDialog showAddRequirementDialog = new ShowAddRequirementDialog();
             showAddRequirementDialog.Text = _projectComboBox.Text;
-
-            Console.WriteLine("TestGetProjectIndex: " + _projectList[_projectComboBox.SelectedIndex].ProjectName);
+            
             if (showAddRequirementDialog.ShowDialog() == DialogResult.OK)
             {
-                Requirement requirement = showAddRequirementDialog.GetRequirement();
-                Console.WriteLine("requirementName: " + requirement.RequirementName);
-                Console.WriteLine("requirementDescription: " + requirement.RequirementDescription);
-                _requirementList.Add(requirement);
+                string requirementName = showAddRequirementDialog.GetRequirementName();
+                string requirementDescription = showAddRequirementDialog.GetRequirementDescription();
+                _model.addRequirement(requirementName, requirementDescription);
             }
         }
 
@@ -77,14 +67,13 @@ namespace OOAD_RMS
                 Test test = showAddTestDialog.GetTest();
                 Console.WriteLine("testName: " + test.testName);
                 Console.WriteLine("testDescription: " + test.testDescription);
-                _testList.Add(test);
+                //_testList.Add(test);
             }
         }
 
         private void ComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            _requirementList = new BindingList<Requirement>(_projectList[_projectComboBox.SelectedIndex].GetRequirements());
-            BindingSource requirementSource = new BindingSource(_requirementList, null);
+            BindingSource requirementSource = new BindingSource(_model.getRequirementFromSelectProject(_projectComboBox.SelectedIndex), null);
             _requirementGridView.DataSource = requirementSource;
         }
     }

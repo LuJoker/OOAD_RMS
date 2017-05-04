@@ -39,12 +39,12 @@
             this._addRequirementBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this._requirementGridView = new System.Windows.Forms.DataGridView();
+            this._projectComboBox = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this._addTestBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this._testGridView = new System.Windows.Forms.DataGridView();
-            this._projectComboBox = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
@@ -202,6 +202,15 @@
             this._requirementGridView.Size = new System.Drawing.Size(458, 177);
             this._requirementGridView.TabIndex = 2;
             // 
+            // _projectComboBox
+            // 
+            this._projectComboBox.FormattingEnabled = true;
+            this._projectComboBox.Location = new System.Drawing.Point(99, 3);
+            this._projectComboBox.Name = "_projectComboBox";
+            this._projectComboBox.Size = new System.Drawing.Size(121, 23);
+            this._projectComboBox.TabIndex = 3;
+            this._projectComboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSelectedIndexChanged);
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.tableLayoutPanel2);
@@ -265,15 +274,6 @@
             this._testGridView.RowTemplate.Height = 24;
             this._testGridView.Size = new System.Drawing.Size(464, 182);
             this._testGridView.TabIndex = 2;
-            // 
-            // _projectComboBox
-            // 
-            this._projectComboBox.FormattingEnabled = true;
-            this._projectComboBox.Location = new System.Drawing.Point(99, 3);
-            this._projectComboBox.Name = "_projectComboBox";
-            this._projectComboBox.Size = new System.Drawing.Size(121, 23);
-            this._projectComboBox.TabIndex = 3;
-            this._projectComboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSelectedIndexChanged);
             // 
             // Index
             // 

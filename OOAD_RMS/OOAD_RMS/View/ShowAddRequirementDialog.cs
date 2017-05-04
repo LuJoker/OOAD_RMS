@@ -10,22 +10,20 @@ namespace OOAD_RMS
 {
     public partial class ShowAddRequirementDialog : Form
     {
-        private Requirement _requirement;
         public ShowAddRequirementDialog()
         {
             InitializeComponent();
-            _requirement = new Requirement();
+        }
+        
+
+        public string GetRequirementName()
+        {
+            return _requirementNameTxt.Text;
         }
 
-        private void ClickOkBtn(object sender, EventArgs e)
+        public string GetRequirementDescription()
         {
-            _requirement.RequirementName = _requirementNameTxt.Text;
-            _requirement.RequirementDescription = _requirementDescriptionTxt.Text;
-        }
-
-        public Requirement GetRequirement()
-        {
-            return _requirement;
+            return _requirementDescriptionTxt.Text;
         }
     }
 }

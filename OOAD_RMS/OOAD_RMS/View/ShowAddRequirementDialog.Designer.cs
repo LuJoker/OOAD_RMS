@@ -69,7 +69,6 @@
             this._okBtn.TabIndex = 0;
             this._okBtn.Text = "確定";
             this._okBtn.UseVisualStyleBackColor = true;
-            this._okBtn.Click += new System.EventHandler(this.ClickOkBtn);
             // 
             // _requirementNameLabel
             // 

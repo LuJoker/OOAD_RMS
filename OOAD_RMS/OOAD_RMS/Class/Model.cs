@@ -10,20 +10,82 @@ namespace OOAD_RMS
         BindingList<Project> _projectList;
         BindingList<Requirement> _requirementList;
         BindingList<Test> _testList;
+        List<User> _userList;
+
+        public Model()
+        {
+            _userList = new List<User>();
+
+            Project project1 = new Project();
+            project1.ProjectName = "Project1";
+            project1.ProjectDescription = "Project1 123";
+            Requirement requirement1 = new Requirement();
+            requirement1.RequirementName = "Re1";
+            requirement1.RequirementDescription = "Re1 123";
+            project1.AddRequirement(requirement1);
+
+            Project project2 = new Project();
+            project2.ProjectName = "Project2";
+            project2.ProjectDescription = "Project2 456";
+
+            Project project3 = new Project();
+            project3.ProjectName = "Project3";
+            project3.ProjectDescription = "Project3 789";
+            Requirement requirement2 = new Requirement();
+            requirement2.RequirementName = "Re1";
+            requirement2.RequirementDescription = "Re1 123";
+            project3.AddRequirement(requirement2);
+            Requirement requirement3 = new Requirement();
+            requirement3.RequirementName = "Re2";
+            requirement3.RequirementDescription = "Re2 456";
+            project3.AddRequirement(requirement3);
+
+            User user1 = new User();
+            user1.UserAccount = "admin";
+            user1.UserPassword = "admin";
+            user1.UserIdentity = "Manager";
+            user1.addProject(project1);
+            user1.addProject(project2);
+            user1.addProject(project3);
+
+            _userList.Add(user1);
+        }
 
         public void addProject(string projectName, string projectDescription)
         {
             Project project = new Project();
             project.ProjectName = projectName;
             project.ProjectDescription = projectDescription;
-            Console.WriteLine(project.ProjectName);
-            Console.WriteLine(project.ProjectDescription);
-            Console.WriteLine(_projectList.Count);
             _projectList.Add(project);
-            Console.WriteLine(_projectList.Count);
         }
 
-        public void setProject(User user)
+        public BindingList<Requirement> getRequirementFromSelectProject(int projectIndex)
+        {
+            _requirementList = new BindingList<Requirement>(_projectList[projectIndex].GetRequirements());
+            return _requirementList;
+        }
+
+        public void addRequirement(string requirementName, string requirementDescription)
+        {
+            Requirement requirement = new Requirement();
+            requirement.RequirementName = requirementName;
+            requirement.RequirementDescription = requirementDescription;
+            _requirementList.Add(requirement);
+        }
+
+        public bool checkUser(string account, string password)
+        {
+            List<User> user = _userList.FindAll(x => (x.UserAccount == account) && (x.UserPassword == password));
+            if (user.Count == 1)
+            {
+                setProject(user[0]);
+                return true;
+            }
+            else
+                return false;
+        }
+
+        private void setProject(User user)
         {
             _projectList = new BindingList<Project>(user.GetInProjects());
         }

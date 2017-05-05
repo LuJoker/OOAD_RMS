@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-
+using System.Windows.Forms;
 namespace OOAD_RMS
 {
     public class Model
@@ -11,7 +11,7 @@ namespace OOAD_RMS
         BindingList<Requirement> _requirementList;
         BindingList<Test> _testList;
         List<User> _userList;
-
+        Button c = new Button();
         public Model()
         {
             _userList = new List<User>();
@@ -19,6 +19,7 @@ namespace OOAD_RMS
             Project project1 = new Project();
             project1.ProjectName = "Project1";
             project1.ProjectDescription = "Project1 123";
+          
             Requirement requirement1 = new Requirement();
             requirement1.RequirementName = "Re1";
             requirement1.RequirementDescription = "Re1 123";

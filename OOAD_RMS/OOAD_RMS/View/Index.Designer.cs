@@ -125,6 +125,7 @@
             // 
             // _projectGridView
             // 
+            this._projectGridView.AllowUserToAddRows = false;
             this._projectGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this._projectGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._projectGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -133,6 +134,7 @@
             this._projectGridView.RowTemplate.Height = 24;
             this._projectGridView.Size = new System.Drawing.Size(458, 177);
             this._projectGridView.TabIndex = 2;
+            this._projectGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._projectGridView_CellContentClick);
             // 
             // tabPage2
             // 

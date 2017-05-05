@@ -11,14 +11,25 @@ namespace OOAD_RMS
     public partial class Index : Form
     {
         Model _model;
+        DataGridViewButtonColumn deleteBtn;
         public Index(Model model)
         {
             InitializeComponent();
             _model = model;
+
             BindingSource projectSource = new BindingSource(_model.GetProjects(), null);
+             deleteBtn = new DataGridViewButtonColumn();
+            _projectGridView.Columns.Add(deleteBtn);
             _projectGridView.DataSource = projectSource;
             _projectComboBox.DataSource = projectSource;
             _projectComboBox.DisplayMember = "ProjectName";
+            deleteBtn.Text = "Edit";
+            deleteBtn.Name = "deleteBtn";
+            deleteBtn.UseColumnTextForButtonValue = true;
+            deleteBtn.HeaderText = "Edit";
+            deleteBtn.Width = 50;
+            deleteBtn.DisplayIndex = 2;
+           
 
             //_requirementList = new BindingList<Requirement>();
             //BindingSource requirementSource = new BindingSource(_requirementList, null);
@@ -28,6 +39,8 @@ namespace OOAD_RMS
             //BindingSource testSource = new BindingSource(_testList, null);
             //_testGridView.DataSource = testSource;
         }
+
+       
 
         private void ClickAddProjectBtn(object sender, EventArgs e)
         {
@@ -75,6 +88,29 @@ namespace OOAD_RMS
         {
             BindingSource requirementSource = new BindingSource(_model.getRequirementFromSelectProject(_projectComboBox.SelectedIndex), null);
             _requirementGridView.DataSource = requirementSource;
+        }
+
+        private void _projectGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int selectedRow = e.RowIndex;
+            if (e.ColumnIndex == 0)
+            {
+                String getProjecNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[1].Value.ToString();
+                String getProjecDescriptionFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
+
+                ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog();
+                showAddProjectDialog.EditProjectName(getProjecNameFromDataGridView);
+                showAddProjectDialog.EditProjectDescription(getProjecDescriptionFromDataGridView);
+             
+
+                if (showAddProjectDialog.ShowDialog() == DialogResult.OK)
+                {
+                    _projectGridView.Rows[selectedRow].Cells[2].Value= showAddProjectDialog.GetProjectDescription();
+                    _projectGridView.Rows[selectedRow].Cells[1].Value = showAddProjectDialog.GetProjectName();
+                }
+
+
+            }
         }
     }
 }

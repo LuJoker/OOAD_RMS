@@ -126,6 +126,10 @@
             // 
             // _projectGridView
             // 
+            this._projectGridView.AllowUserToAddRows = false;
+            this._projectGridView.AllowUserToDeleteRows = false;
+            this._projectGridView.AllowUserToResizeColumns = false;
+            this._projectGridView.AllowUserToResizeRows = false;
             this._projectGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this._projectGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._projectGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -134,6 +138,7 @@
             this._projectGridView.RowTemplate.Height = 24;
             this._projectGridView.Size = new System.Drawing.Size(458, 177);
             this._projectGridView.TabIndex = 2;
+            this._projectGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this._projectGridView_CellContentClick);
             // 
             // tabPage2
             // 
@@ -193,6 +198,10 @@
             // 
             // _requirementGridView
             // 
+            this._requirementGridView.AllowUserToAddRows = false;
+            this._requirementGridView.AllowUserToDeleteRows = false;
+            this._requirementGridView.AllowUserToResizeColumns = false;
+            this._requirementGridView.AllowUserToResizeRows = false;
             this._requirementGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this._requirementGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this._requirementGridView, 2);
@@ -268,6 +277,10 @@
             // 
             // _testGridView
             // 
+            this._testGridView.AllowUserToAddRows = false;
+            this._testGridView.AllowUserToDeleteRows = false;
+            this._testGridView.AllowUserToResizeColumns = false;
+            this._testGridView.AllowUserToResizeRows = false;
             this._testGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this._testGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel2.SetColumnSpan(this._testGridView, 2);

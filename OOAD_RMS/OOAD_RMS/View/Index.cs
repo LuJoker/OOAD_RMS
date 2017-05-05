@@ -15,9 +15,8 @@ namespace OOAD_RMS
         {
             InitializeComponent();
             _model = model;
-            BindingSource projectSource = new BindingSource(_model.GetProjects(), null);
 
-            _projectGridView.DataSource = projectSource;
+            BindingSource projectSource = new BindingSource(_model.GetProjects(), null);
 
             _projectComboBox.DataSource = projectSource;
             _projectComboBox.DisplayMember = "ProjectName";
@@ -27,14 +26,18 @@ namespace OOAD_RMS
             _projectComboBoxTest.DisplayMember = "ProjectName";
             _projectComboBoxTest.SelectedIndex = 0;
 
-            //_requirementList = new BindingList<Requirement>();
-            //BindingSource requirementSource = new BindingSource(_requirementList, null);
-            //_requirementGridView.DataSource = requirementSource;
-
-            //_testList = new BindingList<Test>();
-            //BindingSource testSource = new BindingSource(_testList, null);
-            //_testGridView.DataSource = testSource;
+            DataGridViewButtonColumn deleteBtn = new DataGridViewButtonColumn();
+            _projectGridView.Columns.Add(deleteBtn);
+            _projectGridView.DataSource = projectSource;
+            deleteBtn.Text = "Edit";
+            deleteBtn.Name = "deleteBtn";
+            deleteBtn.UseColumnTextForButtonValue = true;
+            deleteBtn.HeaderText = "Edit";
+            deleteBtn.Width = 50;
+            deleteBtn.DisplayIndex = 2;
         }
+
+       
 
         private void ClickAddProjectBtn(object sender, EventArgs e)
         {
@@ -84,12 +87,34 @@ namespace OOAD_RMS
             BindingSource requirementSource = new BindingSource(_model.getRequirementFromSelectProject(_projectComboBox.SelectedIndex), null);
             _requirementGridView.DataSource = requirementSource;
         }
-
+        
         private void TestComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             Console.WriteLine(_projectComboBoxTest.SelectedIndex);
             BindingSource testSource = new BindingSource(_model.getTestFromSelectProject(_projectComboBoxTest.SelectedIndex), null);
             _testGridView.DataSource = testSource;
+        }
+
+        private void _projectGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int selectedRow = e.RowIndex;
+            if (e.ColumnIndex == 0)
+            {
+                String getProjecNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[1].Value.ToString();
+                String getProjecDescriptionFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
+
+                ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog();
+                showAddProjectDialog.EditProjectName(getProjecNameFromDataGridView);
+                showAddProjectDialog.EditProjectDescription(getProjecDescriptionFromDataGridView);
+             
+
+                if (showAddProjectDialog.ShowDialog() == DialogResult.OK)
+                {
+                    _projectGridView.Rows[selectedRow].Cells[2].Value= showAddProjectDialog.GetProjectDescription();
+                    _projectGridView.Rows[selectedRow].Cells[1].Value = showAddProjectDialog.GetProjectName();
+                }
+                
+            }
         }
     }
 }

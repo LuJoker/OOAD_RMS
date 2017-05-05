@@ -15,6 +15,13 @@ namespace OOAD_RMS
             InitializeComponent();
         }
 
+        public void EditProjectName(String projectName) {
+            _projectNameTxt.Text = projectName;
+        }
+        public void EditProjectDescription(String projectDescription) {
+            _projectDescriptionTxt.Text = projectDescription;
+        }
+
         public string GetProjectName()
         {
             return _projectNameTxt.Text;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace OOAD_RMS
 {
@@ -8,6 +9,7 @@ namespace OOAD_RMS
     {
         private string _projectName;
         private string _projectDescription;
+        Button c;
         private List<Requirement> _requirements = new List<Requirement>();
         private List<Test> _tests = new List<Test>();
 
@@ -39,6 +41,8 @@ namespace OOAD_RMS
                 _projectDescription = value;
             }
         }
+
+       
 
         public void AddRequirement(Requirement requirement)
         {

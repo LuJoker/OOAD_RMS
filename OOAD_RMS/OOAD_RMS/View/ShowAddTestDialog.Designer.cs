@@ -34,6 +34,8 @@
             this._testNameTxt = new System.Windows.Forms.TextBox();
             this._requirementDescriptionLabel = new System.Windows.Forms.Label();
             this._testDescriptionTxt = new System.Windows.Forms.TextBox();
+            this._testRequirementComboBox = new System.Windows.Forms.ComboBox();
+            this._editRequirementList = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,12 +44,14 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.33123F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.66877F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
             this.tableLayoutPanel1.Controls.Add(this._okBtn, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this._testNameLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this._testNameTxt, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this._requirementDescriptionLabel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this._testDescriptionTxt, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this._testRequirementComboBox, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this._editRequirementList, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -84,9 +88,9 @@
             // 
             this._testNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this._testNameTxt, 2);
-            this._testNameTxt.Location = new System.Drawing.Point(115, 3);
+            this._testNameTxt.Location = new System.Drawing.Point(114, 3);
             this._testNameTxt.Name = "_testNameTxt";
-            this._testNameTxt.Size = new System.Drawing.Size(325, 22);
+            this._testNameTxt.Size = new System.Drawing.Size(326, 22);
             this._testNameTxt.TabIndex = 2;
             // 
             // _requirementDescriptionLabel
@@ -107,6 +111,23 @@
             this._testDescriptionTxt.Name = "_testDescriptionTxt";
             this._testDescriptionTxt.Size = new System.Drawing.Size(434, 167);
             this._testDescriptionTxt.TabIndex = 4;
+            // 
+            // _testRequirementComboBox
+            // 
+            this._testRequirementComboBox.FormattingEnabled = true;
+            this._testRequirementComboBox.Location = new System.Drawing.Point(114, 234);
+            this._testRequirementComboBox.Name = "_testRequirementComboBox";
+            this._testRequirementComboBox.Size = new System.Drawing.Size(121, 20);
+            this._testRequirementComboBox.TabIndex = 5;
+            // 
+            // _editRequirementList
+            // 
+            this._editRequirementList.Location = new System.Drawing.Point(3, 234);
+            this._editRequirementList.Name = "_editRequirementList";
+            this._editRequirementList.Size = new System.Drawing.Size(75, 23);
+            this._editRequirementList.TabIndex = 6;
+            this._editRequirementList.Text = "選擇需求";
+            this._editRequirementList.UseVisualStyleBackColor = true;
             // 
             // ShowAddTestDialog
             // 
@@ -130,5 +151,7 @@
         private System.Windows.Forms.TextBox _testNameTxt;
         private System.Windows.Forms.Label _requirementDescriptionLabel;
         private System.Windows.Forms.TextBox _testDescriptionTxt;
+        private System.Windows.Forms.ComboBox _testRequirementComboBox;
+        private System.Windows.Forms.Button _editRequirementList;
     }
 }

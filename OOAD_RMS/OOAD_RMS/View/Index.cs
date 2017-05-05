@@ -26,18 +26,28 @@ namespace OOAD_RMS
             _projectComboBoxTest.DisplayMember = "ProjectName";
             _projectComboBoxTest.SelectedIndex = 0;
 
-            DataGridViewButtonColumn deleteBtn = new DataGridViewButtonColumn();
-            _projectGridView.Columns.Add(deleteBtn);
+            DataGridViewButtonColumn editProjectBtn = new DataGridViewButtonColumn();
+            _projectGridView.Columns.Add(editProjectBtn);
             _projectGridView.DataSource = projectSource;
-            deleteBtn.Text = "Edit";
-            deleteBtn.Name = "deleteBtn";
-            deleteBtn.UseColumnTextForButtonValue = true;
-            deleteBtn.HeaderText = "Edit";
-            deleteBtn.Width = 50;
-            deleteBtn.DisplayIndex = 2;
+            editProjectBtn.Text = "Edit";
+            editProjectBtn.Name = "editBtn";
+            editProjectBtn.UseColumnTextForButtonValue = true;
+            editProjectBtn.HeaderText = "Edit";
+            editProjectBtn.Width = 50;
+            editProjectBtn.DisplayIndex = 2;
+
+            DataGridViewButtonColumn editRequirementBtn = new DataGridViewButtonColumn();
+            _requirementGridView.Columns.Add(editRequirementBtn);
+            editRequirementBtn.Text = "Edit";
+            editRequirementBtn.Name = "editBtn";
+            editRequirementBtn.UseColumnTextForButtonValue = true;
+            editRequirementBtn.HeaderText = "Edit";
+            editRequirementBtn.Width = 50;
+            editRequirementBtn.DisplayIndex = 2;
+
         }
 
-       
+
 
         private void ClickAddProjectBtn(object sender, EventArgs e)
         {
@@ -95,17 +105,17 @@ namespace OOAD_RMS
             _testGridView.DataSource = testSource;
         }
 
-        private void _projectGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void EditProject(object sender, DataGridViewCellEventArgs e)
         {
             int selectedRow = e.RowIndex;
             if (e.ColumnIndex == 0)
             {
-                String getProjecNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[1].Value.ToString();
-                String getProjecDescriptionFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
+                String getProjectNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[1].Value.ToString();
+                String getProjectDescriptionFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
 
                 ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog();
-                showAddProjectDialog.EditProjectName(getProjecNameFromDataGridView);
-                showAddProjectDialog.EditProjectDescription(getProjecDescriptionFromDataGridView);
+                showAddProjectDialog.EditProjectName(getProjectNameFromDataGridView);
+                showAddProjectDialog.EditProjectDescription(getProjectDescriptionFromDataGridView);
              
 
                 if (showAddProjectDialog.ShowDialog() == DialogResult.OK)
@@ -114,6 +124,28 @@ namespace OOAD_RMS
                     _projectGridView.Rows[selectedRow].Cells[1].Value = showAddProjectDialog.GetProjectName();
                 }
                 
+            }
+        }
+
+        private void EditRequirement(object sender, DataGridViewCellEventArgs e)
+        {
+            int selectedRow = e.RowIndex;
+            if (e.ColumnIndex == 0)
+            {
+                String getRequirementNameFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[1].Value.ToString();
+                String getRequirementDescriptionFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[2].Value.ToString();
+
+                ShowAddRequirementDialog requirementDialog = new ShowAddRequirementDialog();
+                requirementDialog.EditRequirementName(getRequirementNameFromDataGridView);
+                requirementDialog.EditRequirementDescription(getRequirementDescriptionFromDataGridView);
+
+
+                if (requirementDialog.ShowDialog() == DialogResult.OK)
+                {
+                    _requirementGridView.Rows[selectedRow].Cells[2].Value = requirementDialog.GetRequirementDescription();
+                    _requirementGridView.Rows[selectedRow].Cells[1].Value = requirementDialog.GetRequirementName();
+                }
+
             }
         }
     }

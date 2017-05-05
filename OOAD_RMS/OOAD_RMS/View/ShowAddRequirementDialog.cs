@@ -14,7 +14,16 @@ namespace OOAD_RMS
         {
             InitializeComponent();
         }
-        
+
+        public void EditRequirementName(string requirementName)
+        {
+            _requirementNameTxt.Text = requirementName;
+        }
+
+        public void EditRequirementDescription(string requirementDescription)
+        {
+            _requirementDescriptionTxt.Text = requirementDescription;
+        }
 
         public string GetRequirementName()
         {

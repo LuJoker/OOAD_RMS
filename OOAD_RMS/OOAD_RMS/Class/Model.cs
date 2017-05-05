@@ -92,6 +92,14 @@ namespace OOAD_RMS
             _requirementList.Add(requirement);
         }
 
+        public void addTest(string testName, string testDescription)
+        {
+            Test test = new Test();
+            test.testName = testName;
+            test.testDescription = testDescription;
+            _testList.Add(test);
+        }
+
         public bool checkUser(string account, string password)
         {
             List<User> user = _userList.FindAll(x => (x.UserAccount == account) && (x.UserPassword == password));

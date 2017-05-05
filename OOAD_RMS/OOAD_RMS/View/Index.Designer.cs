@@ -45,6 +45,7 @@
             this._addTestBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this._testGridView = new System.Windows.Forms.DataGridView();
+            this._projectComboBoxTest = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
@@ -224,12 +225,13 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.2766F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.7234F));
             this.tableLayoutPanel2.Controls.Add(this._addTestBtn, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this._testGridView, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this._projectComboBoxTest, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -246,7 +248,7 @@
             this._addTestBtn.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._addTestBtn.Location = new System.Drawing.Point(3, 217);
             this._addTestBtn.Name = "_addTestBtn";
-            this._addTestBtn.Size = new System.Drawing.Size(96, 38);
+            this._addTestBtn.Size = new System.Drawing.Size(94, 38);
             this._addTestBtn.TabIndex = 0;
             this._addTestBtn.Text = "新增測試";
             this._addTestBtn.UseVisualStyleBackColor = true;
@@ -268,12 +270,22 @@
             // 
             this._testGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this._testGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableLayoutPanel2.SetColumnSpan(this._testGridView, 2);
             this._testGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._testGridView.Location = new System.Drawing.Point(3, 29);
             this._testGridView.Name = "_testGridView";
             this._testGridView.RowTemplate.Height = 24;
             this._testGridView.Size = new System.Drawing.Size(464, 182);
             this._testGridView.TabIndex = 2;
+            // 
+            // _projectComboBoxTest
+            // 
+            this._projectComboBoxTest.FormattingEnabled = true;
+            this._projectComboBoxTest.Location = new System.Drawing.Point(103, 3);
+            this._projectComboBoxTest.Name = "_projectComboBoxTest";
+            this._projectComboBoxTest.Size = new System.Drawing.Size(121, 25);
+            this._projectComboBoxTest.TabIndex = 3;
+            this._projectComboBoxTest.SelectedIndexChanged += new System.EventHandler(this.TestComboBoxSelectedIndexChanged);
             // 
             // Index
             // 
@@ -319,5 +331,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView _testGridView;
         private System.Windows.Forms.ComboBox _projectComboBox;
+        private System.Windows.Forms.ComboBox _projectComboBoxTest;
     }
 }

@@ -45,9 +45,19 @@ namespace OOAD_RMS
             _requirements.Add(requirement);
         }
 
+        public void AddTest(Test test)
+        {
+            _tests.Add(test);
+        }
+
         public List<Requirement> GetRequirements()
         {
             return _requirements;
+        }
+
+        public List<Test> GetTests()
+        {
+            return _tests;
         }
     }
 }

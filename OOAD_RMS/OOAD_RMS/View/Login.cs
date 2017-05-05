@@ -15,6 +15,7 @@ namespace OOAD_RMS
         {
             _model = model;
             InitializeComponent();
+            _passwordTextBox.PasswordChar = '*';
         }
 
         private void LoginCheck(object sender, EventArgs e)

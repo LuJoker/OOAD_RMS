@@ -23,6 +23,14 @@ namespace OOAD_RMS
             requirement1.RequirementName = "Re1";
             requirement1.RequirementDescription = "Re1 123";
             project1.AddRequirement(requirement1);
+            Test test1 = new Test();
+            test1.testName = "Te1";
+            test1.testDescription = "Te1 123";
+            project1.AddTest(test1);
+            Test test2 = new Test();
+            test2.testName = "Te2";
+            test2.testDescription = "Te2 123";
+            project1.AddTest(test2);
 
             Project project2 = new Project();
             project2.ProjectName = "Project2";
@@ -39,6 +47,10 @@ namespace OOAD_RMS
             requirement3.RequirementName = "Re2";
             requirement3.RequirementDescription = "Re2 456";
             project3.AddRequirement(requirement3);
+            Test test3 = new Test();
+            test3.testName = "Te3";
+            test3.testDescription = "Te3 123";
+            project3.AddTest(test3);
 
             User user1 = new User();
             user1.UserAccount = "admin";
@@ -63,6 +75,12 @@ namespace OOAD_RMS
         {
             _requirementList = new BindingList<Requirement>(_projectList[projectIndex].GetRequirements());
             return _requirementList;
+        }
+
+        public BindingList<Test> getTestFromSelectProject(int projectIndex)
+        {
+            _testList = new BindingList<Test>(_projectList[projectIndex].GetTests());
+            return _testList;
         }
 
         public void addRequirement(string requirementName, string requirementDescription)

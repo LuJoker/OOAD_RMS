@@ -16,9 +16,16 @@ namespace OOAD_RMS
             InitializeComponent();
             _model = model;
             BindingSource projectSource = new BindingSource(_model.GetProjects(), null);
+
             _projectGridView.DataSource = projectSource;
+
             _projectComboBox.DataSource = projectSource;
             _projectComboBox.DisplayMember = "ProjectName";
+            _projectComboBox.SelectedIndex = 0;
+
+            _projectComboBoxTest.DataSource = projectSource;
+            _projectComboBoxTest.DisplayMember = "ProjectName";
+            _projectComboBoxTest.SelectedIndex = 0;
 
             //_requirementList = new BindingList<Requirement>();
             //BindingSource requirementSource = new BindingSource(_requirementList, null);
@@ -73,8 +80,16 @@ namespace OOAD_RMS
 
         private void ComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
+            Console.WriteLine(_projectComboBox.SelectedIndex);
             BindingSource requirementSource = new BindingSource(_model.getRequirementFromSelectProject(_projectComboBox.SelectedIndex), null);
             _requirementGridView.DataSource = requirementSource;
+        }
+
+        private void TestComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine(_projectComboBoxTest.SelectedIndex);
+            BindingSource testSource = new BindingSource(_model.getTestFromSelectProject(_projectComboBoxTest.SelectedIndex), null);
+            _testGridView.DataSource = testSource;
         }
     }
 }

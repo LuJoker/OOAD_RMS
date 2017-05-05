@@ -10,22 +10,19 @@ namespace OOAD_RMS
 {
     public partial class ShowAddTestDialog : Form
     {
-        private Test _test;
         public ShowAddTestDialog()
         {
             InitializeComponent();
-            _test = new Test();
         }
 
-        private void ClickOkBtn(object sender, EventArgs e)
+        public string GetTestName()
         {
-            _test.testName = _testNameTxt.Text;
-            _test.testDescription = _testDescriptionTxt.Text;
+            return _testNameTxt.Text;
         }
 
-        public Test GetTest()
+        public string GetTestDescription()
         {
-            return _test;
+            return _testDescriptionTxt.Text;
         }
     }
 }

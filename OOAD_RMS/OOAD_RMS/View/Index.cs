@@ -74,10 +74,9 @@ namespace OOAD_RMS
             ShowAddTestDialog showAddTestDialog = new ShowAddTestDialog();
             if (showAddTestDialog.ShowDialog() == DialogResult.OK)
             {
-                Test test = showAddTestDialog.GetTest();
-                Console.WriteLine("testName: " + test.testName);
-                Console.WriteLine("testDescription: " + test.testDescription);
-                //_testList.Add(test);
+                string testName = showAddTestDialog.GetTestName();
+                string testDescription = showAddTestDialog.GetTestDescription();
+                _model.addTest(testName, testDescription);
             }
         }
 

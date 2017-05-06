@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace OOAD_RMS
@@ -8,7 +9,7 @@ namespace OOAD_RMS
     {
         private string _testName;
         private string _testDescription;
-        private List<Requirement> _requirement = new List<Requirement>();
+        private BindingList<Requirement> _requirements = new BindingList<Requirement>();
 
         public string testName
         {
@@ -34,6 +35,21 @@ namespace OOAD_RMS
             }
         }
 
+        public void AddRequirement(Requirement requirement)
+        {
+            _requirements.Add(requirement);
+        }
 
+        public BindingList<Requirement> requirements
+        {
+            get
+            {
+                return _requirements;
+            }
+            set
+            {
+                _requirements = value;
+            }
+        }
     }
 }

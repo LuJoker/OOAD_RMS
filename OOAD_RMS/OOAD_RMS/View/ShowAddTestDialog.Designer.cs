@@ -44,7 +44,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.33123F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.66877F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
             this.tableLayoutPanel1.Controls.Add(this._okBtn, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this._testNameLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this._testNameTxt, 1, 0);
@@ -73,6 +73,7 @@
             this._okBtn.TabIndex = 0;
             this._okBtn.Text = "確定";
             this._okBtn.UseVisualStyleBackColor = true;
+            this._okBtn.Click += new System.EventHandler(this._okBtn_Click);
             // 
             // _testNameLabel
             // 
@@ -88,9 +89,9 @@
             // 
             this._testNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this._testNameTxt, 2);
-            this._testNameTxt.Location = new System.Drawing.Point(114, 3);
+            this._testNameTxt.Location = new System.Drawing.Point(113, 3);
             this._testNameTxt.Name = "_testNameTxt";
-            this._testNameTxt.Size = new System.Drawing.Size(326, 22);
+            this._testNameTxt.Size = new System.Drawing.Size(327, 22);
             this._testNameTxt.TabIndex = 2;
             // 
             // _requirementDescriptionLabel
@@ -114,20 +115,23 @@
             // 
             // _testRequirementComboBox
             // 
+            this._testRequirementComboBox.Dock = System.Windows.Forms.DockStyle.Left;
             this._testRequirementComboBox.FormattingEnabled = true;
-            this._testRequirementComboBox.Location = new System.Drawing.Point(114, 234);
+            this._testRequirementComboBox.Location = new System.Drawing.Point(113, 234);
             this._testRequirementComboBox.Name = "_testRequirementComboBox";
             this._testRequirementComboBox.Size = new System.Drawing.Size(121, 20);
             this._testRequirementComboBox.TabIndex = 5;
             // 
             // _editRequirementList
             // 
+            this._editRequirementList.Dock = System.Windows.Forms.DockStyle.Left;
             this._editRequirementList.Location = new System.Drawing.Point(3, 234);
             this._editRequirementList.Name = "_editRequirementList";
-            this._editRequirementList.Size = new System.Drawing.Size(75, 23);
+            this._editRequirementList.Size = new System.Drawing.Size(82, 31);
             this._editRequirementList.TabIndex = 6;
             this._editRequirementList.Text = "選擇需求";
             this._editRequirementList.UseVisualStyleBackColor = true;
+            this._editRequirementList.Click += new System.EventHandler(this._editRequirementList_Click);
             // 
             // ShowAddTestDialog
             // 

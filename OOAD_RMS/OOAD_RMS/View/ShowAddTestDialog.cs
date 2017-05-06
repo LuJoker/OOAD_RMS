@@ -10,19 +10,33 @@ namespace OOAD_RMS
 {
     public partial class ShowAddTestDialog : Form
     {
-        public ShowAddTestDialog()
+        Model _model;
+        Test _test;
+        public ShowAddTestDialog(Model model)
         {
+            _model = model;
+            _test = new Test();
             InitializeComponent();
+            _testRequirementComboBox.DisplayMember = "RequirementName";
         }
 
-        public string GetTestName()
+        private void _editRequirementList_Click(object sender, EventArgs e)
         {
-            return _testNameTxt.Text;
+            RequirementCheckList requirementCheckList = new RequirementCheckList(_model);
+
+            if (requirementCheckList.ShowDialog() == DialogResult.OK)
+            {
+                _test.requirements = requirementCheckList.getRequirements();
+                BindingSource testSource = new BindingSource(requirementCheckList.getRequirements(), null);
+                _testRequirementComboBox.DataSource = testSource;
+            }
         }
 
-        public string GetTestDescription()
+        private void _okBtn_Click(object sender, EventArgs e)
         {
-            return _testDescriptionTxt.Text;
+            _test.testName = _testNameTxt.Text;
+            _test.testDescription = _testDescriptionTxt.Text;
+            _model.addTest(_test);
         }
     }
 }

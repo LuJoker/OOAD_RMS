@@ -11,6 +11,7 @@ namespace OOAD_RMS
     public partial class Index : Form
     {
         Model _model;
+        BindingList<Test> testList;
         public Index(Model model)
         {
             InitializeComponent();
@@ -45,6 +46,11 @@ namespace OOAD_RMS
             editRequirementBtn.Width = 50;
             editRequirementBtn.DisplayIndex = 2;
 
+            RequirementsColumn.DisplayMember = "RequirementName";
+            //DataGridViewComboBoxColumn requirementComboBoxList = new DataGridViewComboBoxColumn();
+            //_testGridView.Columns.Add(requirementComboBoxList);
+            //requirementComboBoxList.HeaderText = "RequirementList";
+            //requirementComboBoxList.DisplayIndex = 2;
         }
 
 
@@ -56,12 +62,6 @@ namespace OOAD_RMS
                 string projectName = showAddProjectDialog.GetProjectName();
                 string projectDescription = showAddProjectDialog.GetProjectDescription();
                 _model.addProject(projectName, projectDescription);
-
-                //Project project = new Project();
-                //project.ProjectName = showAddProjectDialog.GetProjectName();
-                //project.ProjectDescription = showAddProjectDialog.GetProjectDescription();
-
-                //_projectList.Add(project);
 
             }
         }
@@ -81,26 +81,20 @@ namespace OOAD_RMS
 
         private void ClickAddTestBtn(object sender, EventArgs e)
         {
-            ShowAddTestDialog showAddTestDialog = new ShowAddTestDialog();
-            if (showAddTestDialog.ShowDialog() == DialogResult.OK)
-            {
-                string testName = showAddTestDialog.GetTestName();
-                string testDescription = showAddTestDialog.GetTestDescription();
-                _model.addTest(testName, testDescription);
-            }
+            ShowAddTestDialog showAddTestDialog = new ShowAddTestDialog(_model);
+            showAddTestDialog.ShowDialog();
         }
 
         private void ComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(_projectComboBox.SelectedIndex);
             BindingSource requirementSource = new BindingSource(_model.getRequirementFromSelectProject(_projectComboBox.SelectedIndex), null);
             _requirementGridView.DataSource = requirementSource;
         }
         
         private void TestComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(_projectComboBoxTest.SelectedIndex);
-            BindingSource testSource = new BindingSource(_model.getTestFromSelectProject(_projectComboBoxTest.SelectedIndex), null);
+            testList = _model.getTestFromSelectProject(_projectComboBoxTest.SelectedIndex);
+            BindingSource testSource = new BindingSource(testList, null);
             _testGridView.DataSource = testSource;
         }
 
@@ -145,6 +139,16 @@ namespace OOAD_RMS
                     _requirementGridView.Rows[selectedRow].Cells[1].Value = requirementDialog.GetRequirementName();
                 }
 
+            }
+        }
+
+        private void _testGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            for (int i = 0; i < _testGridView.Rows.Count; i++)
+            {
+                DataGridViewComboBoxCell combo = (DataGridViewComboBoxCell)_testGridView.Rows[i].Cells[0];
+                BindingSource requirementsSource = new BindingSource(testList[i].requirements, null);
+                combo.DataSource = requirementsSource;
             }
         }
     }

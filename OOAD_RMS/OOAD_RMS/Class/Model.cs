@@ -51,6 +51,7 @@ namespace OOAD_RMS
             Test test3 = new Test();
             test3.testName = "Te3";
             test3.testDescription = "Te3 123";
+            test3.AddRequirement(requirement3);
             project3.AddTest(test3);
 
             User user1 = new User();
@@ -92,11 +93,8 @@ namespace OOAD_RMS
             _requirementList.Add(requirement);
         }
 
-        public void addTest(string testName, string testDescription)
+        public void addTest(Test test)
         {
-            Test test = new Test();
-            test.testName = testName;
-            test.testDescription = testDescription;
             _testList.Add(test);
         }
 
@@ -120,6 +118,11 @@ namespace OOAD_RMS
         public BindingList<Project> GetProjects()
         {
             return _projectList;
+        }
+
+        public BindingList<Requirement> GetRequirement()
+        {
+            return _requirementList;
         }
     }
 }

@@ -45,7 +45,6 @@
             this._addTestBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this._testGridView = new System.Windows.Forms.DataGridView();
-            this.RequirementsColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this._projectComboBoxTest = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -288,8 +287,6 @@
             this._testGridView.AllowUserToResizeRows = false;
             this._testGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this._testGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._testGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.RequirementsColumn});
             this.tableLayoutPanel2.SetColumnSpan(this._testGridView, 2);
             this._testGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._testGridView.Location = new System.Drawing.Point(3, 29);
@@ -297,12 +294,7 @@
             this._testGridView.RowTemplate.Height = 24;
             this._testGridView.Size = new System.Drawing.Size(464, 182);
             this._testGridView.TabIndex = 2;
-            this._testGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.CompleteGridViewDataBinding);
-            // 
-            // RequirementsColumn
-            // 
-            this.RequirementsColumn.HeaderText = "Requirements";
-            this.RequirementsColumn.Name = "RequirementsColumn";
+            this._testGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SelectTestGridViewEvent);
             // 
             // _projectComboBoxTest
             // 
@@ -358,6 +350,5 @@
         private System.Windows.Forms.DataGridView _testGridView;
         private System.Windows.Forms.ComboBox _projectComboBox;
         private System.Windows.Forms.ComboBox _projectComboBoxTest;
-        private System.Windows.Forms.DataGridViewComboBoxColumn RequirementsColumn;
     }
 }

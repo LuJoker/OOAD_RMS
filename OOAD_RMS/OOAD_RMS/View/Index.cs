@@ -11,7 +11,6 @@ namespace OOAD_RMS
     public partial class Index : Form
     {
         Model _model;
-        BindingList<Test> testList;
         public Index(Model model)
         {
             InitializeComponent();
@@ -57,8 +56,7 @@ namespace OOAD_RMS
             editRequirementBtn.HeaderText = "Edit";
             editRequirementBtn.Width = 50;
             editRequirementBtn.DisplayIndex = 2;
-
-            RequirementsColumn.DisplayMember = "RequirementName";
+            
             DataGridViewButtonColumn deleteRequirementBtn = new DataGridViewButtonColumn();
             _requirementGridView.Columns.Add(deleteRequirementBtn);
             deleteRequirementBtn.Text = "x";
@@ -67,6 +65,25 @@ namespace OOAD_RMS
             deleteRequirementBtn.HeaderText = "Delete";
             deleteRequirementBtn.Width = 50;
             deleteRequirementBtn.DisplayIndex = 3;
+
+
+            DataGridViewButtonColumn editTestBtn = new DataGridViewButtonColumn();
+            _testGridView.Columns.Add(editTestBtn);
+            editTestBtn.Text = "Edit";
+            editTestBtn.Name = "editBtn";
+            editTestBtn.UseColumnTextForButtonValue = true;
+            editTestBtn.HeaderText = "Edit";
+            editTestBtn.Width = 50;
+            editTestBtn.DisplayIndex = 2;
+
+            DataGridViewButtonColumn deleteTestBtn = new DataGridViewButtonColumn();
+            _testGridView.Columns.Add(deleteTestBtn);
+            deleteTestBtn.Text = "x";
+            deleteTestBtn.Name = "deleteBtn";
+            deleteTestBtn.UseColumnTextForButtonValue = true;
+            deleteTestBtn.HeaderText = "Delete";
+            deleteTestBtn.Width = 50;
+            deleteTestBtn.DisplayIndex = 3;
         }
 
 
@@ -98,7 +115,10 @@ namespace OOAD_RMS
         private void ClickAddTestBtn(object sender, EventArgs e)
         {
             ShowAddTestDialog showAddTestDialog = new ShowAddTestDialog(_model);
-            showAddTestDialog.ShowDialog();
+            if (showAddTestDialog.ShowDialog() == DialogResult.OK)
+            {
+                _model.addTest(showAddTestDialog.GetTest());
+            }
         }
 
         private void ComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -109,8 +129,7 @@ namespace OOAD_RMS
         
         private void TestComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            testList = _model.getTestFromSelectProject(_projectComboBoxTest.SelectedIndex);
-            BindingSource testSource = new BindingSource(testList, null);
+            BindingSource testSource = new BindingSource(_model.getTestFromSelectProject(_projectComboBoxTest.SelectedIndex), null);
             _testGridView.DataSource = testSource;
         }
 
@@ -182,16 +201,31 @@ namespace OOAD_RMS
 
             }
         }
-        
-        private void CompleteGridViewDataBinding(object sender, DataGridViewBindingCompleteEventArgs e)
+
+        private void SelectTestGridViewEvent(object sender, DataGridViewCellEventArgs e)
         {
-            for (int i = 0; i < _testGridView.Rows.Count; i++)
+            int selectedRow = e.RowIndex;
+            String getTesrNameFromDataGridView;
+            String getTestDescriptionFromDataGridView;
+
+            if (e.ColumnIndex == 0 && selectedRow > -1)
             {
-                DataGridViewComboBoxCell combo = (DataGridViewComboBoxCell)_testGridView.Rows[i].Cells[0];
-                foreach (Requirement re in testList[i].requirements)
-                    Console.WriteLine("requirementsName: " + re.RequirementName);
-                BindingSource requirementsSource = new BindingSource(testList[i].requirements, null);
-                combo.DataSource = requirementsSource;
+                ShowAddTestDialog testDialog = new ShowAddTestDialog((Test)_testGridView.Rows[selectedRow].DataBoundItem, _model);
+
+                if (testDialog.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+            else if (e.ColumnIndex == 1 && selectedRow > -1)
+            {
+                getTesrNameFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[2].Value.ToString();
+                getTestDescriptionFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[3].Value.ToString();
+                DialogResult result = MessageBox.Show("確定要刪除需求: " + getTesrNameFromDataGridView + " 嗎?", "確定刪除", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    _model.deleteTest(selectedRow);
+                }
+
             }
         }
     }

@@ -116,12 +116,19 @@ namespace OOAD_RMS
 
         public void deleteRequirement(int index)
         {
+            foreach (Test test in _testList)
+                test.requirements.Remove(_requirementList[index]);
             _requirementList.RemoveAt(index);
         }
 
         public void addTest(Test test)
         {
             _testList.Add(test);
+        }
+
+        public void deleteTest(int index)
+        {
+            _testList.RemoveAt(index);
         }
 
         public bool checkUser(string account, string password)

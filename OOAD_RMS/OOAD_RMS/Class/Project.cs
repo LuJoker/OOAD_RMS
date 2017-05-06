@@ -9,7 +9,6 @@ namespace OOAD_RMS
     {
         private string _projectName;
         private string _projectDescription;
-        Button c;
         private List<Requirement> _requirements = new List<Requirement>();
         private List<Test> _tests = new List<Test>();
 

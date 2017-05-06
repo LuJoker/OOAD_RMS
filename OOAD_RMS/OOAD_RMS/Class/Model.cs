@@ -73,6 +73,18 @@ namespace OOAD_RMS
             _projectList.Add(project);
         }
 
+        public void editProject(string projectName, string projectDesciption,int index)
+        {
+            _projectList[index].ProjectName = projectName;
+            _projectList[index].ProjectDescription = projectDesciption;
+            _projectList.ResetBindings();
+        }
+
+        public void deleteProject(int index)
+        {
+            _projectList.RemoveAt(index);
+        }
+
         public BindingList<Requirement> getRequirementFromSelectProject(int projectIndex)
         {
             if (projectIndex > -1) 
@@ -93,6 +105,18 @@ namespace OOAD_RMS
             requirement.RequirementName = requirementName;
             requirement.RequirementDescription = requirementDescription;
             _requirementList.Add(requirement);
+        }
+
+        public void editRequirement(string requirementName, string requirementDescription, int index)
+        {
+            _requirementList[index].RequirementName = requirementName;
+            _requirementList[index].RequirementDescription = requirementDescription;
+            _requirementList.ResetBindings();
+        }
+
+        public void deleteRequirement(int index)
+        {
+            _requirementList.RemoveAt(index);
         }
 
         public void addTest(Test test)

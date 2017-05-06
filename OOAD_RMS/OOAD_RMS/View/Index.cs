@@ -135,8 +135,7 @@ namespace OOAD_RMS
 
                 if (showAddProjectDialog.ShowDialog() == DialogResult.OK)
                 {
-                    _projectGridView.Rows[selectedRow].Cells[2].Value = showAddProjectDialog.GetProjectName();
-                    _projectGridView.Rows[selectedRow].Cells[3].Value= showAddProjectDialog.GetProjectDescription();
+                    _model.editProject(showAddProjectDialog.GetProjectName(), showAddProjectDialog.GetProjectDescription(), selectedRow);
                 }
                 
             }
@@ -145,7 +144,7 @@ namespace OOAD_RMS
                 getProjectNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
                 result=MessageBox.Show("確定要刪除專案: "+ getProjectNameFromDataGridView+" 嗎?", "確定刪除",MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes) {
-                    _projectGridView.Rows.RemoveAt(selectedRow);
+                    _model.deleteProject(selectedRow);
                 }
             }
         }
@@ -168,8 +167,7 @@ namespace OOAD_RMS
 
                 if (requirementDialog.ShowDialog() == DialogResult.OK)
                 {
-                    _requirementGridView.Rows[selectedRow].Cells[3].Value = requirementDialog.GetRequirementDescription();
-                    _requirementGridView.Rows[selectedRow].Cells[2].Value = requirementDialog.GetRequirementName();
+                    _model.editRequirement(requirementDialog.GetRequirementName(), requirementDialog.GetRequirementDescription(), selectedRow);
                 }
             }
             else if (e.ColumnIndex == 1 && selectedRow > -1)
@@ -179,7 +177,7 @@ namespace OOAD_RMS
                 result = MessageBox.Show("確定要刪除需求: " + getRequirementNameFromDataGridView + " 嗎?", "確定刪除", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    _requirementGridView.Rows.RemoveAt(selectedRow);
+                    _model.deleteRequirement(selectedRow);
                 }
 
             }

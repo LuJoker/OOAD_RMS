@@ -22,11 +22,6 @@ namespace OOAD_RMS
             _projectDescriptionTxt.Text = projectDescription;
         }
 
-        public void EditRequirement(string requirementName)
-        {
-            
-        }
-
         public string GetProjectName()
         {
             return _projectNameTxt.Text;

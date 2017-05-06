@@ -185,7 +185,7 @@ namespace OOAD_RMS
             }
         }
         
-        private void _testGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void CompleteGridViewDataBinding(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             for (int i = 0; i < _testGridView.Rows.Count; i++)
             {

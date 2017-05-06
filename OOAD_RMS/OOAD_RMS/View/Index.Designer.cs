@@ -139,7 +139,7 @@
             this._projectGridView.RowTemplate.Height = 24;
             this._projectGridView.Size = new System.Drawing.Size(458, 177);
             this._projectGridView.TabIndex = 2;
-            this._projectGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EditProject);
+            this._projectGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SelectProjectGridViewEvent);
             // 
             // tabPage2
             // 
@@ -210,9 +210,10 @@
             this._requirementGridView.Location = new System.Drawing.Point(3, 28);
             this._requirementGridView.Name = "_requirementGridView";
             this._requirementGridView.RowTemplate.Height = 24;
+            this._requirementGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this._requirementGridView.Size = new System.Drawing.Size(458, 177);
             this._requirementGridView.TabIndex = 2;
-            this._requirementGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EditRequirement);
+            this._requirementGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SelectRequirementGridViewEvent);
             // 
             // _projectComboBox
             // 

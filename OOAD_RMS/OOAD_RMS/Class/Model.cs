@@ -124,7 +124,7 @@ namespace OOAD_RMS
             _testList.Add(test);
         }
 
-        public bool checkUser(string account, string password)
+        public bool LoginCheck(string account, string password)
         {
             List<User> user = _userList.FindAll(x => (x.UserAccount == account) && (x.UserPassword == password));
             if (user.Count == 1)

@@ -209,9 +209,10 @@
             this._requirementGridView.Location = new System.Drawing.Point(3, 28);
             this._requirementGridView.Name = "_requirementGridView";
             this._requirementGridView.RowTemplate.Height = 24;
+            this._requirementGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this._requirementGridView.Size = new System.Drawing.Size(458, 177);
             this._requirementGridView.TabIndex = 2;
-            this._requirementGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EditRequirement);
+            this._requirementGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SelectRequirementGridViewEvent);
             // 
             // _projectComboBox
             // 

@@ -57,6 +57,15 @@ namespace OOAD_RMS
             editRequirementBtn.Width = 50;
             editRequirementBtn.DisplayIndex = 2;
 
+            DataGridViewButtonColumn deleteRequirementBtn = new DataGridViewButtonColumn();
+            _requirementGridView.Columns.Add(deleteRequirementBtn);
+            deleteRequirementBtn.Text = "x";
+            deleteRequirementBtn.Name = "deleteBtn";
+            deleteRequirementBtn.UseColumnTextForButtonValue = true;
+            deleteRequirementBtn.HeaderText = "Delete";
+            deleteRequirementBtn.Width = 50;
+            deleteRequirementBtn.DisplayIndex = 3;
+
         }
 
 
@@ -119,6 +128,7 @@ namespace OOAD_RMS
         private void SelectProjectGridViewEvent(object sender, DataGridViewCellEventArgs e)
         {
             int selectedRow = e.RowIndex;
+
             String getProjectNameFromDataGridView;
             String getProjectDescriptionFromDataGridView;
             DialogResult result;
@@ -127,6 +137,7 @@ namespace OOAD_RMS
               
                 getProjectNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
                 getProjectDescriptionFromDataGridView = _projectGridView.Rows[selectedRow].Cells[3].Value.ToString();
+
 
                 ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog();
                 showAddProjectDialog.EditProjectName(getProjectNameFromDataGridView);
@@ -143,37 +154,47 @@ namespace OOAD_RMS
             if (e.ColumnIndex == 1 && selectedRow > -1)
             {
                 getProjectNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
-                result=MessageBox.Show("確定要刪除專案:"+ getProjectNameFromDataGridView+" 嗎?", "確定刪除",MessageBoxButtons.YesNo);
+                result=MessageBox.Show("確定要刪除專案: "+ getProjectNameFromDataGridView+" 嗎?", "確定刪除",MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes) {
                     _projectGridView.Rows.RemoveAt(selectedRow);
                 }
             }
         }
 
-       
 
-
-
-        private void EditRequirement(object sender, DataGridViewCellEventArgs e)
+        private void SelectRequirementGridViewEvent(object sender, DataGridViewCellEventArgs e)
         {
             int selectedRow = e.RowIndex;
-            if (e.ColumnIndex == 0)
-            {
-                String getRequirementNameFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[1].Value.ToString();
-                String getRequirementDescriptionFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[2].Value.ToString();
+            String getRequirementNameFromDataGridView;
+            String getRequirementDescriptionFromDataGridView;
+            DialogResult result;
 
+            if (e.ColumnIndex == 0 && selectedRow > -1)
+            {
+                getRequirementNameFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[2].Value.ToString();
+                getRequirementDescriptionFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[3].Value.ToString();
                 ShowAddRequirementDialog requirementDialog = new ShowAddRequirementDialog();
                 requirementDialog.EditRequirementName(getRequirementNameFromDataGridView);
                 requirementDialog.EditRequirementDescription(getRequirementDescriptionFromDataGridView);
 
-
                 if (requirementDialog.ShowDialog() == DialogResult.OK)
                 {
-                    _requirementGridView.Rows[selectedRow].Cells[2].Value = requirementDialog.GetRequirementDescription();
-                    _requirementGridView.Rows[selectedRow].Cells[1].Value = requirementDialog.GetRequirementName();
+                    _requirementGridView.Rows[selectedRow].Cells[3].Value = requirementDialog.GetRequirementDescription();
+                    _requirementGridView.Rows[selectedRow].Cells[2].Value = requirementDialog.GetRequirementName();
+                }
+            }
+            else if (e.ColumnIndex == 1 && selectedRow > -1)
+            {
+                getRequirementNameFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[2].Value.ToString();
+                getRequirementDescriptionFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[3].Value.ToString();
+                result = MessageBox.Show("確定要刪除需求: " + getRequirementNameFromDataGridView + " 嗎?", "確定刪除", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    _requirementGridView.Rows.RemoveAt(selectedRow);
                 }
 
             }
         }
+
     }
 }

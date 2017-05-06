@@ -50,7 +50,7 @@
             this._selectReOk.TabIndex = 1;
             this._selectReOk.Text = "button1";
             this._selectReOk.UseVisualStyleBackColor = true;
-            this._selectReOk.Click += new System.EventHandler(this._selectReOk_Click);
+            this._selectReOk.Click += new System.EventHandler(this.ClickSelectReOkClick);
             // 
             // RequirementCheckList
             // 

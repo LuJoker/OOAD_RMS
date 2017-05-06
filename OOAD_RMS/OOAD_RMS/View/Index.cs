@@ -190,6 +190,8 @@ namespace OOAD_RMS
             for (int i = 0; i < _testGridView.Rows.Count; i++)
             {
                 DataGridViewComboBoxCell combo = (DataGridViewComboBoxCell)_testGridView.Rows[i].Cells[0];
+                foreach (Requirement re in testList[i].requirements)
+                    Console.WriteLine("requirementsName: " + re.RequirementName);
                 BindingSource requirementsSource = new BindingSource(testList[i].requirements, null);
                 combo.DataSource = requirementsSource;
             }

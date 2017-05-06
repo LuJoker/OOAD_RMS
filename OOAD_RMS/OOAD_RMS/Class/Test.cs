@@ -9,7 +9,7 @@ namespace OOAD_RMS
     {
         private string _testName;
         private string _testDescription;
-        private BindingList<Requirement> _requirements = new BindingList<Requirement>();
+        private List<Requirement> _requirements = new List<Requirement>();
 
         public string testName
         {
@@ -40,7 +40,7 @@ namespace OOAD_RMS
             _requirements.Add(requirement);
         }
 
-        public BindingList<Requirement> requirements
+        public List<Requirement> requirements
         {
             get
             {

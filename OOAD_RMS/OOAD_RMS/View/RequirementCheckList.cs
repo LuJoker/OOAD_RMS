@@ -11,7 +11,7 @@ namespace OOAD_RMS
     public partial class RequirementCheckList : Form
     {
         Model _model;
-        BindingList<Requirement> _checkedRequirements = new BindingList<Requirement>();
+        List<Requirement> _checkedRequirements = new List<Requirement>();
         public RequirementCheckList(Model model)
         {
             _model = model;
@@ -23,7 +23,7 @@ namespace OOAD_RMS
 
         }
 
-        private void _selectReOk_Click(object sender, EventArgs e)
+        private void ClickSelectReOkClick(object sender, EventArgs e)
         {
             for (int i = 0; i < _requirementCheckedListBox.Items.Count; i++)
             {
@@ -34,7 +34,7 @@ namespace OOAD_RMS
             }
         }
 
-        public BindingList<Requirement> getRequirements()
+        public List<Requirement> getRequirements()
         {
             foreach (Requirement re in _checkedRequirements)
                 Console.WriteLine("RequirementName: " + re.RequirementName);

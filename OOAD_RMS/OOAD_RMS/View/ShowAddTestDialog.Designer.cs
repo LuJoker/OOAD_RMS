@@ -73,7 +73,7 @@
             this._okBtn.TabIndex = 0;
             this._okBtn.Text = "確定";
             this._okBtn.UseVisualStyleBackColor = true;
-            this._okBtn.Click += new System.EventHandler(this._okBtn_Click);
+            this._okBtn.Click += new System.EventHandler(this.ClickOkBtn);
             // 
             // _testNameLabel
             // 
@@ -131,7 +131,7 @@
             this._editRequirementList.TabIndex = 6;
             this._editRequirementList.Text = "選擇需求";
             this._editRequirementList.UseVisualStyleBackColor = true;
-            this._editRequirementList.Click += new System.EventHandler(this._editRequirementList_Click);
+            this._editRequirementList.Click += new System.EventHandler(this.ClickEditRequirementList);
             // 
             // ShowAddTestDialog
             // 

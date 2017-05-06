@@ -20,7 +20,7 @@ namespace OOAD_RMS
             _testRequirementComboBox.DisplayMember = "RequirementName";
         }
 
-        private void _editRequirementList_Click(object sender, EventArgs e)
+        private void ClickEditRequirementList(object sender, EventArgs e)
         {
             RequirementCheckList requirementCheckList = new RequirementCheckList(_model);
 
@@ -32,7 +32,7 @@ namespace OOAD_RMS
             }
         }
 
-        private void _okBtn_Click(object sender, EventArgs e)
+        private void ClickOkBtn(object sender, EventArgs e)
         {
             _test.testName = _testNameTxt.Text;
             _test.testDescription = _testDescriptionTxt.Text;

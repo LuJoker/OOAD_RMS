@@ -74,8 +74,10 @@ namespace OOAD_RMS
 
         public BindingList<Requirement> getRequirementFromSelectProject(int projectIndex)
         {
+            if (projectIndex > -1) 
             _requirementList = new BindingList<Requirement>(_projectList[projectIndex].GetRequirements());
             return _requirementList;
+            
         }
 
         public BindingList<Test> getTestFromSelectProject(int projectIndex)

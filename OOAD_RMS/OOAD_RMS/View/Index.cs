@@ -36,6 +36,18 @@ namespace OOAD_RMS
             editProjectBtn.Width = 50;
             editProjectBtn.DisplayIndex = 2;
 
+            DataGridViewButtonColumn deleteProjectBtn = new DataGridViewButtonColumn();
+            _projectGridView.Columns.Add(deleteProjectBtn);
+            _projectGridView.DataSource = projectSource;
+            deleteProjectBtn.Text = "x";
+            deleteProjectBtn.Name = "deleteBtn";
+            deleteProjectBtn.UseColumnTextForButtonValue = true;
+            deleteProjectBtn.HeaderText = "Delete";
+            deleteProjectBtn.Width = 50;
+            deleteProjectBtn.DisplayIndex = 3;
+
+
+
             DataGridViewButtonColumn editRequirementBtn = new DataGridViewButtonColumn();
             _requirementGridView.Columns.Add(editRequirementBtn);
             editRequirementBtn.Text = "Edit";
@@ -104,13 +116,17 @@ namespace OOAD_RMS
             _testGridView.DataSource = testSource;
         }
 
-        private void EditProject(object sender, DataGridViewCellEventArgs e)
+        private void SelectProjectGridViewEvent(object sender, DataGridViewCellEventArgs e)
         {
             int selectedRow = e.RowIndex;
-            if (e.ColumnIndex == 0)
+            String getProjectNameFromDataGridView;
+            String getProjectDescriptionFromDataGridView;
+            DialogResult result;
+            if (e.ColumnIndex == 0 && selectedRow>-1)
             {
-                String getProjectNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[1].Value.ToString();
-                String getProjectDescriptionFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
+              
+                getProjectNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
+                getProjectDescriptionFromDataGridView = _projectGridView.Rows[selectedRow].Cells[3].Value.ToString();
 
                 ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog();
                 showAddProjectDialog.EditProjectName(getProjectNameFromDataGridView);
@@ -119,12 +135,24 @@ namespace OOAD_RMS
 
                 if (showAddProjectDialog.ShowDialog() == DialogResult.OK)
                 {
-                    _projectGridView.Rows[selectedRow].Cells[2].Value= showAddProjectDialog.GetProjectDescription();
-                    _projectGridView.Rows[selectedRow].Cells[1].Value = showAddProjectDialog.GetProjectName();
+                    _projectGridView.Rows[selectedRow].Cells[2].Value = showAddProjectDialog.GetProjectName();
+                    _projectGridView.Rows[selectedRow].Cells[3].Value= showAddProjectDialog.GetProjectDescription();
                 }
                 
             }
+            if (e.ColumnIndex == 1 && selectedRow > -1)
+            {
+                getProjectNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
+                result=MessageBox.Show("確定要刪除專案:"+ getProjectNameFromDataGridView+" 嗎?", "確定刪除",MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes) {
+                    _projectGridView.Rows.RemoveAt(selectedRow);
+                }
+            }
         }
+
+       
+
+
 
         private void EditRequirement(object sender, DataGridViewCellEventArgs e)
         {

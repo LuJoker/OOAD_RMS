@@ -74,7 +74,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.tableLayoutPanel);
-            this.tabPage1.Font = new System.Drawing.Font("微軟正黑體", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tabPage1.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -104,7 +104,7 @@
             // _addProjectBtn
             // 
             this._addProjectBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this._addProjectBtn.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._addProjectBtn.Font = new System.Drawing.Font("Microsoft JhengHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._addProjectBtn.Location = new System.Drawing.Point(3, 211);
             this._addProjectBtn.Name = "_addProjectBtn";
             this._addProjectBtn.Size = new System.Drawing.Size(96, 38);
@@ -117,7 +117,7 @@
             // 
             this._projectExistLabel.AutoSize = true;
             this._projectExistLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this._projectExistLabel.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._projectExistLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._projectExistLabel.Location = new System.Drawing.Point(3, 0);
             this._projectExistLabel.Name = "_projectExistLabel";
             this._projectExistLabel.Size = new System.Drawing.Size(69, 25);
@@ -136,6 +136,7 @@
             this._projectGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._projectGridView.Location = new System.Drawing.Point(3, 28);
             this._projectGridView.Name = "_projectGridView";
+            this._projectGridView.ReadOnly = true;
             this._projectGridView.RowTemplate.Height = 24;
             this._projectGridView.Size = new System.Drawing.Size(458, 177);
             this._projectGridView.TabIndex = 2;
@@ -144,7 +145,7 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage2.Font = new System.Drawing.Font("微軟正黑體", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tabPage2.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -176,7 +177,7 @@
             // _addRequirementBtn
             // 
             this._addRequirementBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this._addRequirementBtn.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._addRequirementBtn.Font = new System.Drawing.Font("Microsoft JhengHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._addRequirementBtn.Location = new System.Drawing.Point(3, 211);
             this._addRequirementBtn.Name = "_addRequirementBtn";
             this._addRequirementBtn.Size = new System.Drawing.Size(90, 38);
@@ -189,7 +190,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label1.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label1.Font = new System.Drawing.Font("Microsoft JhengHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 25);
@@ -209,6 +210,7 @@
             this._requirementGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._requirementGridView.Location = new System.Drawing.Point(3, 28);
             this._requirementGridView.Name = "_requirementGridView";
+            this._requirementGridView.ReadOnly = true;
             this._requirementGridView.RowTemplate.Height = 24;
             this._requirementGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this._requirementGridView.Size = new System.Drawing.Size(458, 177);
@@ -227,7 +229,7 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.tableLayoutPanel2);
-            this.tabPage3.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tabPage3.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(470, 258);
@@ -257,7 +259,7 @@
             // _addTestBtn
             // 
             this._addTestBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this._addTestBtn.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._addTestBtn.Font = new System.Drawing.Font("Microsoft JhengHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._addTestBtn.Location = new System.Drawing.Point(3, 217);
             this._addTestBtn.Name = "_addTestBtn";
             this._addTestBtn.Size = new System.Drawing.Size(94, 38);
@@ -270,7 +272,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label2.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2.Font = new System.Drawing.Font("Microsoft JhengHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 26);

@@ -22,7 +22,7 @@ namespace OOAD_RMS
         {
             string account = _accountTextBox.Text;
             string password = _passwordTextBox.Text;
-            if (_model.checkUser(account, password)) {
+            if (_model.LoginCheck(account, password)) {
                 Hide();
                 Index indexForm = new Index(_model);
                 indexForm.ShowDialog();

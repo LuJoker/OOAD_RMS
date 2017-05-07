@@ -141,7 +141,7 @@ namespace OOAD_RMS
                 return false;
         }
 
-        private void setProject(User user)
+        public void setProject(User user)
         {
             _projectList = new BindingList<Project>(user.GetInProjects());
         }

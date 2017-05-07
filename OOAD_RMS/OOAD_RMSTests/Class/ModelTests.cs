@@ -11,10 +11,18 @@ namespace OOAD_RMS.Tests
     [TestClass()]
     public class ModelTests
     {
+        Model _model;
+        [TestInitialize()]
+        public void ModelInitialize()
+        {
+            string _projectName = "test_ProjectName";
+            string _projectDescription = "test_ProjectDescription";
+            _model = new Model();
+        }
         [TestMethod()]
         public void ModelTest()
         {
-            Assert.Fail();
+            Assert.IsTrue(_model.LoginCheck("admin","admin"));
         }
 
         [TestMethod()]

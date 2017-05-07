@@ -11,7 +11,6 @@ namespace OOAD_RMS
         BindingList<Requirement> _requirementList;
         BindingList<Test> _testList;
         List<User> _userList;
-        Button c = new Button();
         public Model()
         {
             _userList = new List<User>();

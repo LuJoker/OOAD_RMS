@@ -15,8 +15,6 @@ namespace OOAD_RMS.Tests
         [TestInitialize()]
         public void ModelInitialize()
         {
-            string _projectName = "test_ProjectName";
-            string _projectDescription = "test_ProjectDescription";
             _model = new Model();
         }
         [TestMethod()]

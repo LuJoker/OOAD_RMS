@@ -11,8 +11,8 @@ namespace OOAD_RMS
     public partial class RequirementCheckList : Form
     {
         Model _model;
-        BindingList<Requirement> _checkedRequirements = new BindingList<Requirement>();
-        public RequirementCheckList(Model model)
+        List<Requirement> _checkedRequirements = new List<Requirement>();
+        public RequirementCheckList(List<Requirement> requirements, Model model)
         {
             _model = model;
             InitializeComponent();
@@ -20,10 +20,22 @@ namespace OOAD_RMS
             BindingSource bs = new BindingSource(_model.GetRequirement(), null);
             ((ListBox)_requirementCheckedListBox).DataSource = bs;
             ((ListBox)_requirementCheckedListBox).DisplayMember = "RequirementName";
+            Height = 90 + _model.GetRequirement().Count * 20;
 
+            for (int i = 0; i < _requirementCheckedListBox.Items.Count; i++)
+            {
+                foreach (Requirement requirement in requirements)
+                {
+                    if (_requirementCheckedListBox.Items[i].Equals(requirement))
+                    {
+                        _requirementCheckedListBox.SetItemChecked(i, true);
+                        break;
+                    }
+                }
+            }
         }
 
-        private void _selectReOk_Click(object sender, EventArgs e)
+        private void ClickSelectReOkClick(object sender, EventArgs e)
         {
             for (int i = 0; i < _requirementCheckedListBox.Items.Count; i++)
             {
@@ -34,7 +46,7 @@ namespace OOAD_RMS
             }
         }
 
-        public BindingList<Requirement> getRequirements()
+        public List<Requirement> getRequirements()
         {
             foreach (Requirement re in _checkedRequirements)
                 Console.WriteLine("RequirementName: " + re.RequirementName);

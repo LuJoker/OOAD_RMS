@@ -28,35 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._requirementCheckedListBox = new System.Windows.Forms.CheckedListBox();
             this._selectReOk = new System.Windows.Forms.Button();
+            this._requirementCheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
-            // 
-            // _requirementCheckedListBox
-            // 
-            this._requirementCheckedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._requirementCheckedListBox.FormattingEnabled = true;
-            this._requirementCheckedListBox.Location = new System.Drawing.Point(0, 0);
-            this._requirementCheckedListBox.Name = "_requirementCheckedListBox";
-            this._requirementCheckedListBox.Size = new System.Drawing.Size(120, 309);
-            this._requirementCheckedListBox.TabIndex = 0;
             // 
             // _selectReOk
             // 
             this._selectReOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this._selectReOk.Location = new System.Drawing.Point(33, 274);
+            this._selectReOk.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this._selectReOk.Location = new System.Drawing.Point(0, 285);
             this._selectReOk.Name = "_selectReOk";
-            this._selectReOk.Size = new System.Drawing.Size(75, 23);
+            this._selectReOk.Size = new System.Drawing.Size(120, 23);
             this._selectReOk.TabIndex = 1;
-            this._selectReOk.Text = "button1";
+            this._selectReOk.Text = "OK";
             this._selectReOk.UseVisualStyleBackColor = true;
-            this._selectReOk.Click += new System.EventHandler(this._selectReOk_Click);
+            this._selectReOk.Click += new System.EventHandler(this.ClickSelectReOkClick);
+            // 
+            // _requirementCheckedListBox
+            // 
+            this._requirementCheckedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._requirementCheckedListBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._requirementCheckedListBox.FormattingEnabled = true;
+            this._requirementCheckedListBox.Location = new System.Drawing.Point(0, 0);
+            this._requirementCheckedListBox.Name = "_requirementCheckedListBox";
+            this._requirementCheckedListBox.Size = new System.Drawing.Size(120, 308);
+            this._requirementCheckedListBox.TabIndex = 0;
             // 
             // RequirementCheckList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(120, 309);
+            this.ClientSize = new System.Drawing.Size(120, 308);
             this.Controls.Add(this._selectReOk);
             this.Controls.Add(this._requirementCheckedListBox);
             this.Name = "RequirementCheckList";
@@ -67,7 +69,7 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckedListBox _requirementCheckedListBox;
         private System.Windows.Forms.Button _selectReOk;
+        private System.Windows.Forms.CheckedListBox _requirementCheckedListBox;
     }
 }

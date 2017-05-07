@@ -115,6 +115,8 @@ namespace OOAD_RMS
 
         public void deleteRequirement(int index)
         {
+            foreach (Test test in _testList)
+                test.requirements.Remove(_requirementList[index]);
             _requirementList.RemoveAt(index);
         }
 
@@ -123,6 +125,10 @@ namespace OOAD_RMS
             _testList.Add(test);
         }
 
+        public void deleteTest(int index)
+        {
+            _testList.RemoveAt(index);
+        }
         public bool LoginCheck(string account, string password)
         {
             List<User> user = _userList.FindAll(x => (x.UserAccount == account) && (x.UserPassword == password));

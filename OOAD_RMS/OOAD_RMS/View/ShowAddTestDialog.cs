@@ -20,9 +20,22 @@ namespace OOAD_RMS
             _testRequirementComboBox.DisplayMember = "RequirementName";
         }
 
-        private void _editRequirementList_Click(object sender, EventArgs e)
+        public ShowAddTestDialog(Test test, Model model)
         {
-            RequirementCheckList requirementCheckList = new RequirementCheckList(_model);
+            _model = model;
+            _test = test;
+            InitializeComponent();
+            _testRequirementComboBox.DisplayMember = "RequirementName";
+
+            _testNameTxt.Text = _test.testName;
+            _testDescriptionTxt.Text = _test.testDescription;
+            BindingSource testSource = new BindingSource(_test.requirements, null);
+            _testRequirementComboBox.DataSource = testSource;
+        }
+
+        private void ClickEditRequirementList(object sender, EventArgs e)
+        {
+            RequirementCheckList requirementCheckList = new RequirementCheckList(_test.requirements, _model);
 
             if (requirementCheckList.ShowDialog() == DialogResult.OK)
             {
@@ -32,11 +45,15 @@ namespace OOAD_RMS
             }
         }
 
-        private void _okBtn_Click(object sender, EventArgs e)
+        private void ClickOkBtn(object sender, EventArgs e)
         {
             _test.testName = _testNameTxt.Text;
             _test.testDescription = _testDescriptionTxt.Text;
-            _model.addTest(_test);
+        }
+
+        public Test GetTest()
+        {
+            return _test;
         }
     }
 }

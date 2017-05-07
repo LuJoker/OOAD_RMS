@@ -205,7 +205,7 @@ namespace OOAD_RMS
         private void SelectTestGridViewEvent(object sender, DataGridViewCellEventArgs e)
         {
             int selectedRow = e.RowIndex;
-            String getTesrNameFromDataGridView;
+            String getTestNameFromDataGridView;
             String getTestDescriptionFromDataGridView;
 
             if (e.ColumnIndex == 0 && selectedRow > -1)
@@ -218,14 +218,19 @@ namespace OOAD_RMS
             }
             else if (e.ColumnIndex == 1 && selectedRow > -1)
             {
-                getTesrNameFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[2].Value.ToString();
-                getTestDescriptionFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[3].Value.ToString();
-                DialogResult result = MessageBox.Show("確定要刪除需求: " + getTesrNameFromDataGridView + " 嗎?", "確定刪除", MessageBoxButtons.YesNo);
+                getTestNameFromDataGridView = _testGridView.Rows[selectedRow].Cells[2].Value.ToString();
+                getTestDescriptionFromDataGridView = _testGridView.Rows[selectedRow].Cells[3].Value.ToString();
+                DialogResult result = MessageBox.Show("確定要刪除需求: " + getTestNameFromDataGridView + " 嗎?", "確定刪除", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     _model.deleteTest(selectedRow);
                 }
 
+            }
+            else
+            {
+                TestDetailInfo testInfo = new TestDetailInfo((Test)_testGridView.Rows[selectedRow].DataBoundItem);
+                testInfo.Show();
             }
         }
     }

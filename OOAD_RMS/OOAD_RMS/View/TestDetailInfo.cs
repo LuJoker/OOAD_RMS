@@ -18,10 +18,14 @@ namespace OOAD_RMS
             _testNameLabel.Text = "測試名稱: " + _test.testName;
             _testDescriptionLabel.Text = "測試描述: " + _test.testDescription;
             _testReqInfo.DataSource = _test.requirements;
-            Height = 140 + _test.requirements.Count * 20;
+            Height = 170 + _test.requirements.Count * 20;
 
             if (_test.requirements.Count == 0)
+            {
+                Height = 150;
+                _testReqLabel.Visible = false;
                 _testReqInfo.Visible = false;
+            }
         }
 
         private void FormatTestReqInfo(object sender, ListControlConvertEventArgs e)

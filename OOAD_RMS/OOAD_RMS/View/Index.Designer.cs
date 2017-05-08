@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this._traceMatrix = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this._addProjectBtn = new System.Windows.Forms.Button();
@@ -46,7 +46,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this._testGridView = new System.Windows.Forms.DataGridView();
             this._projectComboBoxTest = new System.Windows.Forms.ComboBox();
-            this.tabControl1.SuspendLayout();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this._traceMatrix.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._projectGridView)).BeginInit();
@@ -58,17 +59,18 @@
             ((System.ComponentModel.ISupportInitialize)(this._testGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // _traceMatrix
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(478, 284);
-            this.tabControl1.TabIndex = 0;
+            this._traceMatrix.Controls.Add(this.tabPage1);
+            this._traceMatrix.Controls.Add(this.tabPage2);
+            this._traceMatrix.Controls.Add(this.tabPage3);
+            this._traceMatrix.Controls.Add(this.tabPage4);
+            this._traceMatrix.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._traceMatrix.Location = new System.Drawing.Point(0, 0);
+            this._traceMatrix.Name = "_traceMatrix";
+            this._traceMatrix.SelectedIndex = 0;
+            this._traceMatrix.Size = new System.Drawing.Size(478, 284);
+            this._traceMatrix.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -291,6 +293,7 @@
             this._testGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._testGridView.Location = new System.Drawing.Point(3, 29);
             this._testGridView.Name = "_testGridView";
+            this._testGridView.ReadOnly = true;
             this._testGridView.RowTemplate.Height = 24;
             this._testGridView.Size = new System.Drawing.Size(464, 182);
             this._testGridView.TabIndex = 2;
@@ -305,15 +308,25 @@
             this._projectComboBoxTest.TabIndex = 3;
             this._projectComboBoxTest.SelectedIndexChanged += new System.EventHandler(this.TestComboBoxSelectedIndexChanged);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(470, 258);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // Index
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 284);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this._traceMatrix);
             this.Name = "Index";
             this.Text = "Index";
-            this.tabControl1.ResumeLayout(false);
+            this._traceMatrix.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
@@ -332,7 +345,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl _traceMatrix;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.Button _addProjectBtn;
@@ -350,5 +363,6 @@
         private System.Windows.Forms.DataGridView _testGridView;
         private System.Windows.Forms.ComboBox _projectComboBox;
         private System.Windows.Forms.ComboBox _projectComboBoxTest;
+        private System.Windows.Forms.TabPage tabPage4;
     }
 }

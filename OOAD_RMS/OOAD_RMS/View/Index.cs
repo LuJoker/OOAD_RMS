@@ -230,7 +230,7 @@ namespace OOAD_RMS
             else
             {
                 TestDetailInfo testInfo = new TestDetailInfo((Test)_testGridView.Rows[selectedRow].DataBoundItem);
-                testInfo.Show();
+                testInfo.ShowDialog();
             }
         }
     }

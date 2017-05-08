@@ -44,7 +44,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.84615F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.15385F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 131F));
             this.tableLayoutPanel1.Controls.Add(this._okBtn, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this._testNameLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this._testNameTxt, 1, 0);
@@ -89,9 +89,9 @@
             // 
             this._testNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this._testNameTxt, 2);
-            this._testNameTxt.Location = new System.Drawing.Point(93, 3);
+            this._testNameTxt.Location = new System.Drawing.Point(92, 3);
             this._testNameTxt.Name = "_testNameTxt";
-            this._testNameTxt.Size = new System.Drawing.Size(347, 22);
+            this._testNameTxt.Size = new System.Drawing.Size(348, 22);
             this._testNameTxt.TabIndex = 2;
             // 
             // _requirementDescriptionLabel
@@ -117,7 +117,7 @@
             // 
             this._testRequirementComboBox.Dock = System.Windows.Forms.DockStyle.Left;
             this._testRequirementComboBox.FormattingEnabled = true;
-            this._testRequirementComboBox.Location = new System.Drawing.Point(93, 234);
+            this._testRequirementComboBox.Location = new System.Drawing.Point(92, 234);
             this._testRequirementComboBox.Name = "_testRequirementComboBox";
             this._testRequirementComboBox.Size = new System.Drawing.Size(121, 20);
             this._testRequirementComboBox.TabIndex = 5;

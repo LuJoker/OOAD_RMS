@@ -126,6 +126,11 @@ namespace OOAD_RMS
             _testList.Add(test);
         }
 
+        public void editTest()
+        {
+            _testList.ResetBindings();
+        }
+
         public void deleteTest(int index)
         {
             _testList.RemoveAt(index);

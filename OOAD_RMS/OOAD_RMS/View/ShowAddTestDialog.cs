@@ -49,6 +49,7 @@ namespace OOAD_RMS
         {
             _test.testName = _testNameTxt.Text;
             _test.testDescription = _testDescriptionTxt.Text;
+            _model.editTest();
         }
 
         public Test GetTest()

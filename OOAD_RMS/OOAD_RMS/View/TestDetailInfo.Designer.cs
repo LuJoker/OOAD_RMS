@@ -32,6 +32,7 @@
             this._testReqInfo = new System.Windows.Forms.ListBox();
             this._testNameLabel = new System.Windows.Forms.Label();
             this._testDescriptionLabel = new System.Windows.Forms.Label();
+            this._testReqLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,15 +40,17 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this._testReqInfo, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this._testReqInfo, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this._testNameLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this._testDescriptionLabel, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this._testReqLabel, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(284, 261);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -58,10 +61,10 @@
             this._testReqInfo.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._testReqInfo.FormattingEnabled = true;
             this._testReqInfo.ItemHeight = 20;
-            this._testReqInfo.Location = new System.Drawing.Point(3, 83);
+            this._testReqInfo.Location = new System.Drawing.Point(3, 108);
             this._testReqInfo.Name = "_testReqInfo";
             this._testReqInfo.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this._testReqInfo.Size = new System.Drawing.Size(278, 175);
+            this._testReqInfo.Size = new System.Drawing.Size(278, 150);
             this._testReqInfo.TabIndex = 0;
             this._testReqInfo.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatTestReqInfo);
             // 
@@ -89,6 +92,18 @@
             this._testDescriptionLabel.Text = "label2";
             this._testDescriptionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // _testReqLabel
+            // 
+            this._testReqLabel.AutoSize = true;
+            this._testReqLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._testReqLabel.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._testReqLabel.Location = new System.Drawing.Point(3, 80);
+            this._testReqLabel.Name = "_testReqLabel";
+            this._testReqLabel.Size = new System.Drawing.Size(278, 25);
+            this._testReqLabel.TabIndex = 3;
+            this._testReqLabel.Text = "測試的需求:";
+            this._testReqLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
             // TestDetailInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -109,5 +124,6 @@
         private System.Windows.Forms.ListBox _testReqInfo;
         private System.Windows.Forms.Label _testNameLabel;
         private System.Windows.Forms.Label _testDescriptionLabel;
+        private System.Windows.Forms.Label _testReqLabel;
     }
 }

@@ -46,7 +46,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this._testGridView = new System.Windows.Forms.DataGridView();
             this._projectComboBoxTest = new System.Windows.Forms.ComboBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this._traceMatrix.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
@@ -64,7 +63,6 @@
             this._traceMatrix.Controls.Add(this.tabPage1);
             this._traceMatrix.Controls.Add(this.tabPage2);
             this._traceMatrix.Controls.Add(this.tabPage3);
-            this._traceMatrix.Controls.Add(this.tabPage4);
             this._traceMatrix.Dock = System.Windows.Forms.DockStyle.Fill;
             this._traceMatrix.Location = new System.Drawing.Point(0, 0);
             this._traceMatrix.Name = "_traceMatrix";
@@ -308,16 +306,6 @@
             this._projectComboBoxTest.TabIndex = 3;
             this._projectComboBoxTest.SelectedIndexChanged += new System.EventHandler(this.TestComboBoxSelectedIndexChanged);
             // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(470, 258);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
             // Index
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -363,6 +351,5 @@
         private System.Windows.Forms.DataGridView _testGridView;
         private System.Windows.Forms.ComboBox _projectComboBox;
         private System.Windows.Forms.ComboBox _projectComboBoxTest;
-        private System.Windows.Forms.TabPage tabPage4;
     }
 }

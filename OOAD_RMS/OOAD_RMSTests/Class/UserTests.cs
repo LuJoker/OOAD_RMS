@@ -11,22 +11,34 @@ namespace OOAD_RMS.Tests
     [TestClass()]
     public class UserTests
     {
-        [TestMethod()]
-        public void UserTest()
+        List<Project> _inProjects;
+        User _user;
+        [TestInitialize()]
+        public void TestInit()
         {
-            Assert.Fail();
+            _user = new User();
+            _inProjects = new List<Project>();
         }
 
         [TestMethod()]
         public void addProjectTest()
         {
-            Assert.Fail();
+            Project pro = new Project();
+            pro.ProjectName = "pro_name";
+            pro.ProjectDescription = "pro_description";
+            _user.addProject(pro);
+            Assert.AreEqual("pro_name", _user.GetInProjects()[0].ProjectName);
+            Assert.AreEqual("pro_description", _user.GetInProjects()[0].ProjectDescription);
         }
 
         [TestMethod()]
         public void GetInProjectsTest()
         {
-            Assert.Fail();
+            Project pro = new Project();
+            pro.ProjectName = "pro_name";
+            pro.ProjectDescription = "pro_description";
+            _user.addProject(pro);
+            Assert.AreEqual(1, _user.GetInProjects().Count);
         }
     }
 }

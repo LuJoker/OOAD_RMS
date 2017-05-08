@@ -11,7 +11,6 @@ namespace OOAD_RMS
         BindingList<Requirement> _requirementList;
         BindingList<Test> _testList;
         List<User> _userList;
-        Button c = new Button();
         public Model()
         {
             _userList = new List<User>();
@@ -41,12 +40,12 @@ namespace OOAD_RMS
             project3.ProjectName = "Project3";
             project3.ProjectDescription = "Project3 789";
             Requirement requirement2 = new Requirement();
-            requirement2.RequirementName = "Re1";
-            requirement2.RequirementDescription = "Re1 123";
+            requirement2.RequirementName = "Re3";
+            requirement2.RequirementDescription = "Re3 123";
             project3.AddRequirement(requirement2);
             Requirement requirement3 = new Requirement();
-            requirement3.RequirementName = "Re2";
-            requirement3.RequirementDescription = "Re2 456";
+            requirement3.RequirementName = "Re4";
+            requirement3.RequirementDescription = "Re4 456";
             project3.AddRequirement(requirement3);
             Test test3 = new Test();
             test3.testName = "Te3";
@@ -147,7 +146,7 @@ namespace OOAD_RMS
                 return false;
         }
 
-        private void setProject(User user)
+        public void setProject(User user)
         {
             _projectList = new BindingList<Project>(user.GetInProjects());
         }

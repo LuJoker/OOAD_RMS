@@ -55,8 +55,6 @@
     <Compile Include="Class\ModelTests.cs" />
     <Compile Include="Class\ProjectTests.cs" />
     <Compile Include="Class\TestTests.cs" />
-    <Compile Include="Class\Requirement.cs" />
-    <Compile Include="Class\UnitTest1.cs" />
     <Compile Include="Class\UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

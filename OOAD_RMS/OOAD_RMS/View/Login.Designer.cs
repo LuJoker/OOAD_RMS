@@ -57,22 +57,24 @@
             // 
             // _accountTextBox
             // 
-            this._accountTextBox.Location = new System.Drawing.Point(96, 49);
+            this._accountTextBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._accountTextBox.Location = new System.Drawing.Point(96, 46);
             this._accountTextBox.Name = "_accountTextBox";
-            this._accountTextBox.Size = new System.Drawing.Size(205, 22);
+            this._accountTextBox.Size = new System.Drawing.Size(205, 29);
             this._accountTextBox.TabIndex = 2;
             // 
             // _passwordTextBox
             // 
-            this._passwordTextBox.Location = new System.Drawing.Point(96, 95);
+            this._passwordTextBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._passwordTextBox.Location = new System.Drawing.Point(96, 92);
             this._passwordTextBox.Name = "_passwordTextBox";
-            this._passwordTextBox.Size = new System.Drawing.Size(205, 22);
+            this._passwordTextBox.Size = new System.Drawing.Size(205, 29);
             this._passwordTextBox.TabIndex = 3;
             // 
             // _okButton
             // 
             this._okButton.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._okButton.Location = new System.Drawing.Point(114, 187);
+            this._okButton.Location = new System.Drawing.Point(114, 180);
             this._okButton.Name = "_okButton";
             this._okButton.Size = new System.Drawing.Size(83, 32);
             this._okButton.TabIndex = 4;

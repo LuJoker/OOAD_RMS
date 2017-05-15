@@ -84,6 +84,29 @@ namespace OOAD_RMS
             deleteTestBtn.HeaderText = "Delete";
             deleteTestBtn.Width = 50;
             deleteTestBtn.DisplayIndex = 3;
+
+            UpdateGridViewFont();
+        }
+
+        private void UpdateGridViewFont()
+        {
+            foreach (DataGridViewColumn c in _projectGridView.Columns)
+            {
+                c.DefaultCellStyle.Font = new Font("微軟正黑體", 16F, GraphicsUnit.Pixel);
+                c.HeaderCell.Style.Font = new Font("微軟正黑體", 12F, FontStyle.Bold);
+            }
+
+            foreach (DataGridViewColumn c in _requirementGridView.Columns)
+            {
+                c.DefaultCellStyle.Font = new Font("微軟正黑體", 16F, GraphicsUnit.Pixel);
+                c.HeaderCell.Style.Font = new Font("微軟正黑體", 12F, FontStyle.Bold);
+            }
+
+            foreach (DataGridViewColumn c in _testGridView.Columns)
+            {
+                c.DefaultCellStyle.Font = new Font("微軟正黑體", 16F, GraphicsUnit.Pixel);
+                c.HeaderCell.Style.Font = new Font("微軟正黑體", 12F, FontStyle.Bold);
+            }
         }
 
 
@@ -231,6 +254,66 @@ namespace OOAD_RMS
             {
                 TestDetailInfo testInfo = new TestDetailInfo((Test)_testGridView.Rows[selectedRow].DataBoundItem);
                 testInfo.ShowDialog();
+            }
+        }
+
+        public void FormatProjectGridViewCell(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            string columnName = _projectGridView.Columns[e.ColumnIndex].Name;
+            Console.WriteLine(columnName);
+            switch (columnName)
+            {
+                case "ProjectDescription":
+                    _projectGridView.Columns[e.ColumnIndex].Width = 700;
+                    break;
+                case "editBtn":
+                    _projectGridView.Columns[e.ColumnIndex].Width = 60;
+                    break;
+                case "deleteBtn":
+                    _projectGridView.Columns[e.ColumnIndex].Width = 60;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void FormatRequirementGridViewCell(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            string columnName = _requirementGridView.Columns[e.ColumnIndex].Name;
+            Console.WriteLine(columnName);
+            switch (columnName)
+            {
+                case "RequirementDescription":
+                    _requirementGridView.Columns[e.ColumnIndex].Width = 700;
+                    break;
+                case "editBtn":
+                    _requirementGridView.Columns[e.ColumnIndex].Width = 60;
+                    break;
+                case "deleteBtn":
+                    _requirementGridView.Columns[e.ColumnIndex].Width = 60;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void FormatTestGridViewCell(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            string columnName = _testGridView.Columns[e.ColumnIndex].Name;
+            Console.WriteLine(columnName);
+            switch (columnName)
+            {
+                case "testDescription":
+                    _testGridView.Columns[e.ColumnIndex].Width = 700;
+                    break;
+                case "editBtn":
+                    _testGridView.Columns[e.ColumnIndex].Width = 60;
+                    break;
+                case "deleteBtn":
+                    _testGridView.Columns[e.ColumnIndex].Width = 60;
+                    break;
+                default:
+                    break;
             }
         }
     }

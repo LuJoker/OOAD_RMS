@@ -90,8 +90,6 @@ namespace OOAD_RMS
             deleteTestBtn.DisplayIndex = 3;
 
             UpdateGridViewFont();
-
-            RefreshMatrixGridView();
         }
 
         private void UpdateGridViewFont()
@@ -144,6 +142,7 @@ namespace OOAD_RMS
                 string requirementName = showAddRequirementDialog.GetRequirementName();
                 string requirementDescription = showAddRequirementDialog.GetRequirementDescription();
                 _model.addRequirement(requirementName, requirementDescription);
+                _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
             }
         }
 
@@ -153,6 +152,7 @@ namespace OOAD_RMS
             if (showAddTestDialog.ShowDialog() == DialogResult.OK)
             {
                 _model.addTest(showAddTestDialog.GetTest());
+                _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
             }
         }
 
@@ -191,7 +191,6 @@ namespace OOAD_RMS
                 {
                     _model.editProject(showAddProjectDialog.GetProjectName(), showAddProjectDialog.GetProjectDescription(), selectedRow);
                 }
-                RefreshMatrixGridView();
             }
             if (e.ColumnIndex == 1 && selectedRow > -1)
             {
@@ -200,7 +199,6 @@ namespace OOAD_RMS
                 if (result == DialogResult.Yes) {
                     _model.deleteProject(selectedRow);
                 }
-                RefreshMatrixGridView();
             }
         }
 
@@ -223,8 +221,8 @@ namespace OOAD_RMS
                 if (requirementDialog.ShowDialog() == DialogResult.OK)
                 {
                     _model.editRequirement(requirementDialog.GetRequirementName(), requirementDialog.GetRequirementDescription(), selectedRow);
+                    _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
                 }
-                RefreshMatrixGridView();
             }
             else if (e.ColumnIndex == 1 && selectedRow > -1)
             {
@@ -234,8 +232,8 @@ namespace OOAD_RMS
                 if (result == DialogResult.Yes)
                 {
                     _model.deleteRequirement(selectedRow);
+                    _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
                 }
-                RefreshMatrixGridView();
             }
         }
 
@@ -251,8 +249,8 @@ namespace OOAD_RMS
 
                 if (testDialog.ShowDialog() == DialogResult.OK)
                 {
+                    _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
                 }
-                RefreshMatrixGridView();
             }
             else if (e.ColumnIndex == 1 && selectedRow > -1)
             {
@@ -262,8 +260,8 @@ namespace OOAD_RMS
                 if (result == DialogResult.Yes)
                 {
                     _model.deleteTest(selectedRow);
+                    _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
                 }
-                RefreshMatrixGridView();
             }
             else
             {
@@ -334,40 +332,7 @@ namespace OOAD_RMS
 
         private void MatrixComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshMatrixGridView();
-        }
-
-        private void RefreshMatrixGridView()
-        {
-            BindingList<Requirement> requirements = _model.getRequirementFromSelectProject(_matrixComboBox.SelectedIndex);
-            BindingList<Test> tests = _model.getTestFromSelectProject(_matrixComboBox.SelectedIndex);
-            _traceAbilityMatrixGridView.Rows.Clear();
-            _traceAbilityMatrixGridView.Columns.Clear();
-
-            DataGridViewTextBoxColumn firstRequirementColumn = new DataGridViewTextBoxColumn();
-            firstRequirementColumn.HeaderText = "";
-            _traceAbilityMatrixGridView.Columns.Add(firstRequirementColumn);
-            foreach (Requirement re in requirements)
-            {
-                DataGridViewTextBoxColumn requirementColumn = new DataGridViewTextBoxColumn();
-                _traceAbilityMatrixGridView.Columns.Add(requirementColumn);
-                requirementColumn.HeaderText = re.RequirementName;
-            }
-
-            foreach (Test te in tests)
-            {
-                _traceAbilityMatrixGridView.Rows.Add(te.testName);
-            }
-
-            for (int i = 0; i < tests.Count; i++)
-            {
-                for (int j = 0; j < requirements.Count; j++)
-                {
-                     List<Requirement> requirementInTest = tests[i].requirements;
-                    if (requirementInTest.Contains(requirements[j]))
-                        _traceAbilityMatrixGridView.Rows[i].Cells[j + 1].Value = "O";
-                }
-            }
+            _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
         }
     }
 }

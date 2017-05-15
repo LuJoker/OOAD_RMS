@@ -47,11 +47,26 @@ namespace OOAD_RMS
             requirement3.RequirementName = "Re4";
             requirement3.RequirementDescription = "Re4 456";
             project3.AddRequirement(requirement3);
+            Requirement requirement4 = new Requirement();
+            requirement4.RequirementName = "Re5";
+            requirement4.RequirementDescription = "Re5 789";
+            project3.AddRequirement(requirement4);
+            Requirement requirement5 = new Requirement();
+            requirement5.RequirementName = "Re6";
+            requirement5.RequirementDescription = "Re6 012";
+            project3.AddRequirement(requirement5);
             Test test3 = new Test();
             test3.testName = "Te3";
             test3.testDescription = "Te3 123";
             test3.AddRequirement(requirement3);
+            test3.AddRequirement(requirement5);
             project3.AddTest(test3);
+            Test test4 = new Test();
+            test4.testName = "Te4";
+            test4.testDescription = "Te4 456";
+            test4.AddRequirement(requirement4);
+            test4.AddRequirement(requirement5);
+            project3.AddTest(test4);
 
             User user1 = new User();
             user1.UserAccount = "admin";
@@ -96,6 +111,37 @@ namespace OOAD_RMS
             if (projectIndex > -1)
                 _testList = new BindingList<Test>(_projectList[projectIndex].GetTests());
             return _testList;
+        }
+
+        public void getTraceAbilityMatrixFromSelectProject(DataGridView grid)
+        {
+            grid.Rows.Clear();
+            grid.Columns.Clear();
+
+            DataGridViewTextBoxColumn firstRequirementColumn = new DataGridViewTextBoxColumn();
+            firstRequirementColumn.HeaderText = "";
+            grid.Columns.Add(firstRequirementColumn);
+            foreach (Requirement re in _requirementList)
+            {
+                DataGridViewTextBoxColumn requirementColumn = new DataGridViewTextBoxColumn();
+                grid.Columns.Add(requirementColumn);
+                requirementColumn.HeaderText = re.RequirementName;
+            }
+
+            foreach (Test te in _testList)
+            {
+                grid.Rows.Add(te.testName);
+            }
+
+            for (int i = 0; i < _testList.Count; i++)
+            {
+                for (int j = 0; j < _requirementList.Count; j++)
+                {
+                    List<Requirement> requirementInTest = _testList[i].requirements;
+                    if (requirementInTest.Contains(_requirementList[j]))
+                        grid.Rows[i].Cells[j + 1].Value = "O";
+                }
+            }
         }
 
         public void addRequirement(string requirementName, string requirementDescription)

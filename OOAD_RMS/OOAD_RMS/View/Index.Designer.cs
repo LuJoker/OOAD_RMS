@@ -46,11 +46,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this._testGridView = new System.Windows.Forms.DataGridView();
             this._projectComboBoxTest = new System.Windows.Forms.ComboBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this._traceAbilityMatrixGridView = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this._matrixComboBox = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this._traceAbilityMatrixGridView = new System.Windows.Forms.DataGridView();
             this._traceMatrix.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
@@ -61,8 +61,8 @@
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._testGridView)).BeginInit();
-            this.tableLayoutPanel3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._traceAbilityMatrixGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -320,11 +320,22 @@
             this._projectComboBoxTest.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._projectComboBoxTest.Font = new System.Drawing.Font("微軟正黑體", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this._projectComboBoxTest.FormattingEnabled = true;
-            this._projectComboBoxTest.Location = new System.Drawing.Point(129, 3);
+            this._projectComboBoxTest.Location = new System.Drawing.Point(130, 3);
             this._projectComboBoxTest.Name = "_projectComboBoxTest";
             this._projectComboBoxTest.Size = new System.Drawing.Size(222, 33);
             this._projectComboBoxTest.TabIndex = 3;
             this._projectComboBoxTest.SelectedIndexChanged += new System.EventHandler(this.TestComboBoxSelectedIndexChanged);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.tableLayoutPanel3);
+            this.tabPage4.Location = new System.Drawing.Point(4, 34);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1071, 549);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "追溯矩陣";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel3
             // 
@@ -343,16 +354,30 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1065, 543);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // tabPage4
+            // _matrixComboBox
             // 
-            this.tabPage4.Controls.Add(this.tableLayoutPanel3);
-            this.tabPage4.Location = new System.Drawing.Point(4, 34);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1071, 549);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "追逤矩陣";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this._matrixComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this._matrixComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._matrixComboBox.Font = new System.Drawing.Font("微軟正黑體", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._matrixComboBox.FormattingEnabled = true;
+            this._matrixComboBox.Location = new System.Drawing.Point(128, 3);
+            this._matrixComboBox.Name = "_matrixComboBox";
+            this._matrixComboBox.Size = new System.Drawing.Size(222, 33);
+            this._matrixComboBox.TabIndex = 4;
+            this._matrixComboBox.SelectedIndexChanged += new System.EventHandler(this.MatrixComboBoxSelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label3.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(96, 40);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "專案追溯";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _traceAbilityMatrixGridView
             // 
@@ -372,31 +397,6 @@
             this._traceAbilityMatrixGridView.RowTemplate.Height = 24;
             this._traceAbilityMatrixGridView.Size = new System.Drawing.Size(1059, 497);
             this._traceAbilityMatrixGridView.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label3.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 40);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "專案追逤";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // _matrixComboBox
-            // 
-            this._matrixComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this._matrixComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._matrixComboBox.Font = new System.Drawing.Font("微軟正黑體", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._matrixComboBox.FormattingEnabled = true;
-            this._matrixComboBox.Location = new System.Drawing.Point(128, 3);
-            this._matrixComboBox.Name = "_matrixComboBox";
-            this._matrixComboBox.Size = new System.Drawing.Size(222, 33);
-            this._matrixComboBox.TabIndex = 4;
-            this._matrixComboBox.SelectedIndexChanged += new System.EventHandler(this.MatrixComboBoxSelectedIndexChanged);
             // 
             // Index
             // 
@@ -419,9 +419,9 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._testGridView)).EndInit();
+            this.tabPage4.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._traceAbilityMatrixGridView)).EndInit();
             this.ResumeLayout(false);
 

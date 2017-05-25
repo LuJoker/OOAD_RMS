@@ -139,7 +139,7 @@ namespace OOAD_RMS.Tests
             Assert.AreEqual("t_description", _model.getTestFromSelectProject(0)[2].testDescription);
         }
 
-        [TestMethod()]
+        [TestMethod()]2
         public void LoginCheckTest()
         {
             Assert.IsTrue(_model.LoginCheck("admin", "admin"));

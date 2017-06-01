@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 using System.Windows.Forms;
 namespace OOAD_RMS
@@ -15,68 +17,26 @@ namespace OOAD_RMS
         {
             _userList = new List<User>();
 
-            Project project1 = new Project();
-            project1.ProjectName = "Project1";
-            project1.ProjectDescription = "Project1 123";
-          
-            Requirement requirement1 = new Requirement();
-            requirement1.RequirementName = "Re1";
-            requirement1.RequirementDescription = "Re1 123";
-            project1.AddRequirement(requirement1);
-            Test test1 = new Test();
-            test1.testName = "Te1";
-            test1.testDescription = "Te1 123";
-            project1.AddTest(test1);
-            Test test2 = new Test();
-            test2.testName = "Te2";
-            test2.testDescription = "Te2 123";
-            project1.AddTest(test2);
+            DataTable userTable = SqlHelper.GetDataTableText("SELECT Account,Password,[Identity] FROM Users GROUP BY Account,Password,[Identity]", new SqlParameter[] { });
 
-            Project project2 = new Project();
-            project2.ProjectName = "Project2";
-            project2.ProjectDescription = "Project2 456";
+            foreach (DataRow userDataRow in userTable.Rows)
+            {
+                User user = new User();
+                user.UserAccount = userDataRow["Account"].ToString();
+                user.UserPassword = userDataRow["Password"].ToString();
+                user.UserIdentity = userDataRow["Identity"].ToString();
 
-            Project project3 = new Project();
-            project3.ProjectName = "Project3";
-            project3.ProjectDescription = "Project3 789";
-            Requirement requirement2 = new Requirement();
-            requirement2.RequirementName = "Re3";
-            requirement2.RequirementDescription = "Re3 123";
-            project3.AddRequirement(requirement2);
-            Requirement requirement3 = new Requirement();
-            requirement3.RequirementName = "Re4";
-            requirement3.RequirementDescription = "Re4 456";
-            project3.AddRequirement(requirement3);
-            Requirement requirement4 = new Requirement();
-            requirement4.RequirementName = "Re5";
-            requirement4.RequirementDescription = "Re5 789";
-            project3.AddRequirement(requirement4);
-            Requirement requirement5 = new Requirement();
-            requirement5.RequirementName = "Re6";
-            requirement5.RequirementDescription = "Re6 012";
-            project3.AddRequirement(requirement5);
-            Test test3 = new Test();
-            test3.testName = "Te3";
-            test3.testDescription = "Te3 123";
-            test3.AddRequirement(requirement3);
-            test3.AddRequirement(requirement5);
-            project3.AddTest(test3);
-            Test test4 = new Test();
-            test4.testName = "Te4";
-            test4.testDescription = "Te4 456";
-            test4.AddRequirement(requirement4);
-            test4.AddRequirement(requirement5);
-            project3.AddTest(test4);
+                DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Users INNER JOIN Project ON Users.ProjectId=Project.Id WHERE Users.Account=@account", new SqlParameter[] { new SqlParameter("@account", user.UserAccount) });
 
-            User user1 = new User();
-            user1.UserAccount = "admin";
-            user1.UserPassword = "admin";
-            user1.UserIdentity = "Manager";
-            user1.addProject(project1);
-            user1.addProject(project2);
-            user1.addProject(project3);
-
-            _userList.Add(user1);
+                foreach (DataRow datarow in projectTable.Rows)
+                {
+                    Project project = new Project();
+                    project.ProjectName = datarow["ProjectName"].ToString();
+                    project.ProjectDescription = datarow["ProjectDescription"].ToString();
+                    user.addProject(project);
+                }
+                _userList.Add(user);
+            }
         }
 
         public void addProject(string projectName, string projectDescription)

@@ -33,6 +33,7 @@
             this._accountTextBox = new System.Windows.Forms.TextBox();
             this._passwordTextBox = new System.Windows.Forms.TextBox();
             this._okButton = new System.Windows.Forms.Button();
+            this._rigisterButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -82,11 +83,21 @@
             this._okButton.UseVisualStyleBackColor = true;
             this._okButton.Click += new System.EventHandler(this.LoginCheck);
             // 
+            // _rigisterButton
+            // 
+            this._rigisterButton.Location = new System.Drawing.Point(226, 226);
+            this._rigisterButton.Name = "_rigisterButton";
+            this._rigisterButton.Size = new System.Drawing.Size(75, 23);
+            this._rigisterButton.TabIndex = 5;
+            this._rigisterButton.Text = "註冊";
+            this._rigisterButton.UseVisualStyleBackColor = true;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(313, 261);
+            this.Controls.Add(this._rigisterButton);
             this.Controls.Add(this._okButton);
             this.Controls.Add(this._passwordTextBox);
             this.Controls.Add(this._accountTextBox);
@@ -108,5 +119,6 @@
         private System.Windows.Forms.TextBox _accountTextBox;
         private System.Windows.Forms.TextBox _passwordTextBox;
         private System.Windows.Forms.Button _okButton;
+        private System.Windows.Forms.Button _rigisterButton;
     }
 }

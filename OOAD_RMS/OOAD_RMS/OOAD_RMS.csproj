@@ -44,6 +44,7 @@
     <Compile Include="Class\Model.cs" />
     <Compile Include="Class\Project.cs" />
     <Compile Include="Class\Requirement.cs" />
+    <Compile Include="Class\SqlHelper.cs" />
     <Compile Include="Class\Test.cs" />
     <Compile Include="Class\TraceabilityMatrix.cs" />
     <Compile Include="Class\User.cs" />

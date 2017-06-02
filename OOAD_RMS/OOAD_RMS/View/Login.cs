@@ -29,5 +29,13 @@ namespace OOAD_RMS
                 Close();
             }
         }
+
+        private void Register(object sender, EventArgs e)
+        {
+            Hide();
+            Register registerForm = new Register();
+            registerForm.ShowDialog();
+            Close();
+        }
     }
 }

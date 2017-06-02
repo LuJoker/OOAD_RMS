@@ -39,6 +39,7 @@ namespace OOAD_RMS
             }
         }
 
+
         public void addProject(string projectName, string projectDescription)
         {
             Project project = new Project();
@@ -150,6 +151,28 @@ namespace OOAD_RMS
             }
             else
                 return false;
+        }
+
+
+        public void registerAccount(string account, string password, string Identity)
+        {
+            DataTable userTable = SqlHelper.GetDataTableText("SELECT IIF(not EXISTS(SELECT* from Users WHERE Account = @account), 'TRUE', 'FALSE' ) as Result", new SqlParameter[] { new SqlParameter("@account", account) });
+
+            String NotExist=userTable.Rows[0]["Result"].ToString();
+
+            if (NotExist == "TRUE")
+            {
+                SqlHelper.ExecuteNonQueryText("INSERT INTO Users (Account,Password,Title) VALUES (@account,@password,@title)", new SqlParameter[] {
+                new SqlParameter("@account", account),
+                new SqlParameter("@password", password),
+                new SqlParameter("@title",Identity)
+            });
+                MessageBox.Show(account + " 註冊成功\n回到登入畫面", "註冊成功");
+            }
+            else
+                MessageBox.Show(account + " 已被註冊", "註冊失敗");
+
+            
         }
 
         public void setProject(User user)

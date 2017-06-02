@@ -13,6 +13,7 @@ namespace OOAD_RMS
         BindingList<Test> _testList;
         List<User> _userList;
         User _currentUser;
+        Project _currentProject;
         public Model()
         {
             _userList = new List<User>();
@@ -121,8 +122,11 @@ namespace OOAD_RMS
 
         public BindingList<Requirement> getRequirementFromSelectProject(int projectIndex)
         {
-            if (projectIndex > -1) 
+            if (projectIndex > -1)
+            {
+                _currentProject = _projectList[projectIndex];
                 _requirementList = new BindingList<Requirement>(_projectList[projectIndex].GetRequirements());
+            }     
             return _requirementList;
         }
 
@@ -166,14 +170,29 @@ namespace OOAD_RMS
 
         public void addRequirement(string requirementName, string requirementDescription)
         {
+            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
+                new SqlParameter("@projectName",  _currentProject.ProjectName),
+                new SqlParameter("@ProjectDescription", _currentProject.ProjectDescription)
+            });
             Requirement requirement = new Requirement();
             requirement.RequirementName = requirementName;
             requirement.RequirementDescription = requirementDescription;
+            SqlHelper.ExecuteNonQueryText("INSERT INTO Requirement VALUES (@RequirementName,@RequirementDescription,@projectId)", new SqlParameter[] {
+                new SqlParameter("@RequirementName", requirementName),
+                new SqlParameter("@RequirementDescription", requirementDescription),
+                new SqlParameter("@projectId", (int)projectTable.Rows[0]["Id"])
+            });
             _requirementList.Add(requirement);
         }
 
         public void editRequirement(string requirementName, string requirementDescription, int index)
         {
+            SqlHelper.ExecuteNonQueryText("UPDATE Requirement SET RequirementName = @requirementName , RequirementDescription = @requirementDescription WHERE RequirementName = @preRequirementName and RequirementDescription = @preRequirementDescription", new SqlParameter[] {
+                new SqlParameter("@requirementName", requirementName),
+                new SqlParameter("@requirementDescription", requirementDescription),
+                new SqlParameter("@preRequirementName", _requirementList[index].RequirementName),
+                new SqlParameter("@preRequirementDescription", _requirementList[index].RequirementDescription)
+            });
             _requirementList[index].RequirementName = requirementName;
             _requirementList[index].RequirementDescription = requirementDescription;
             _requirementList.ResetBindings();
@@ -181,6 +200,16 @@ namespace OOAD_RMS
 
         public void deleteRequirement(int index)
         {
+            DataTable RequirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE Requirementname = @requirementName and RequirementDescription = @requirementDescription", new SqlParameter[] {
+                new SqlParameter("@requirementName",  _requirementList[index].RequirementName),
+                new SqlParameter("@requirementDescription",_requirementList[index].RequirementDescription)
+            });
+            SqlHelper.GetDataTableText("DELETE FROM TestMapRequirement WHERE RequirementId = @requirementId", new SqlParameter[] {
+                new SqlParameter("@requirementId",  RequirementTable.Rows[0]["Id"])
+            });
+            SqlHelper.GetDataTableText("DELETE FROM Requirement WHERE Id = @requirementId", new SqlParameter[] {
+                new SqlParameter("@requirementId",  RequirementTable.Rows[0]["Id"])
+            });
             foreach (Test test in _testList)
                 test.requirements.Remove(_requirementList[index]);
             _requirementList.RemoveAt(index);

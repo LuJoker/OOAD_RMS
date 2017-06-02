@@ -12,6 +12,7 @@ namespace OOAD_RMS
         BindingList<Requirement> _requirementList;
         BindingList<Test> _testList;
         List<User> _userList;
+        User _currentUser;
         public Model()
         {
             _userList = new List<User>();
@@ -70,18 +71,51 @@ namespace OOAD_RMS
             Project project = new Project();
             project.ProjectName = projectName;
             project.ProjectDescription = projectDescription;
+            SqlHelper.ExecuteNonQueryText("INSERT INTO Project VALUES (@projectName,@projectDescription)", new SqlParameter[] {
+                new SqlParameter("@projectName", projectName),
+                new SqlParameter("@projectDescription", projectDescription)
+            });
+            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
+                new SqlParameter("@projectName", projectName),
+                new SqlParameter("@ProjectDescription", projectDescription)
+            });
+            SqlHelper.ExecuteNonQueryText("INSERT INTO Users (Account,Password,Title,ProjectId) VALUES (@account,@password,@title,@projectId)", new SqlParameter[] {
+                new SqlParameter("@account", _currentUser.UserAccount),
+                new SqlParameter("@password", _currentUser.UserPassword),
+                new SqlParameter("@title",_currentUser.UserIdentity),
+                new SqlParameter("@projectId",projectTable.Rows[0]["Id"].ToString())
+            });
+
             _projectList.Add(project);
         }
 
-        public void editProject(string projectName, string projectDesciption,int index)
+        public void editProject(string projectName, string projectDescription, int index)
         {
+            SqlHelper.ExecuteNonQueryText("UPDATE Project SET ProjectName = @ProjectName , ProjectDescription = @projectDescription WHERE ProjectName = @preProjectName and ProjectDescription = @preProjectDescription", new SqlParameter[] {
+                new SqlParameter("@projectName", projectName),
+                new SqlParameter("@ProjectDescription", projectDescription),
+                new SqlParameter("@preProjectName", _projectList[index].ProjectName),
+                new SqlParameter("@preProjectDescription", _projectList[index].ProjectDescription)
+            });
+
             _projectList[index].ProjectName = projectName;
-            _projectList[index].ProjectDescription = projectDesciption;
+            _projectList[index].ProjectDescription = projectDescription;
             _projectList.ResetBindings();
         }
 
         public void deleteProject(int index)
         {
+            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
+                new SqlParameter("@projectName",  _projectList[index].ProjectName),
+                new SqlParameter("@ProjectDescription", _projectList[index].ProjectDescription)
+            });
+            SqlHelper.GetDataTableText("DELETE FROM Users WHERE ProjectId = @ProjectId", new SqlParameter[] {
+                new SqlParameter("@ProjectId",  projectTable.Rows[0]["Id"])
+            });
+            SqlHelper.GetDataTableText("DELETE FROM Project WHERE ProjectName = @ProjectName and ProjectDescription = @ProjectDescription", new SqlParameter[] {
+                new SqlParameter("@ProjectName",  projectTable.Rows[0]["ProjectName"].ToString()),
+                new SqlParameter("@ProjectDescription",  projectTable.Rows[0]["ProjectDescription"].ToString())
+            });
             _projectList.RemoveAt(index);
         }
 
@@ -171,6 +205,7 @@ namespace OOAD_RMS
             List<User> user = _userList.FindAll(x => (x.UserAccount == account) && (x.UserPassword == password));
             if (user.Count == 1)
             {
+                _currentUser = user[0];
                 setProject(user[0]);
                 return true;
             }

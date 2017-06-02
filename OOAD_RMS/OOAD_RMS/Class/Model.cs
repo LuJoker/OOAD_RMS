@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 using System.Windows.Forms;
 namespace OOAD_RMS
 {
@@ -33,6 +32,32 @@ namespace OOAD_RMS
                     Project project = new Project();
                     project.ProjectName = datarow["ProjectName"].ToString();
                     project.ProjectDescription = datarow["ProjectDescription"].ToString();
+
+                    DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE ProjectId=@projectId", new SqlParameter[] { new SqlParameter("@projectId", (int)datarow["Id"]) });
+                    foreach (DataRow reqRow in requirementTable.Rows)
+                    {
+                        Requirement requirement = new Requirement();
+                        requirement.RequirementName = reqRow["RequirementName"].ToString();
+                        requirement.RequirementDescription = reqRow["RequirementDescription"].ToString();
+                        project.AddRequirement(requirement);
+                    }
+
+                    DataTable testTable = SqlHelper.GetDataTableText("SELECT * FROM Test WHERE ProjectId=@projectId", new SqlParameter[] { new SqlParameter("@projectId", (int)datarow["Id"]) });
+                    foreach (DataRow testRow in testTable.Rows)
+                    {
+                        Test test = new Test();
+                        test.testName = testRow["TestName"].ToString();
+                        test.testDescription = testRow["TestDescription"].ToString();
+
+                        DataTable testMapRequirementTable = SqlHelper.GetDataTableText("SELECT * FROM TestMapRequirement INNER JOIN Requirement ON TestMapRequirement.RequirementId = Requirement.Id WHERE TestMapRequirement.TestId=@testId", new SqlParameter[] { new SqlParameter("@testId", (int)testRow["Id"]) });
+                        foreach (DataRow testMapReq in testMapRequirementTable.Rows)
+                        {
+                            Requirement requirement = project.GetRequirements().Find(r => r.RequirementName == testMapReq["RequirementName"].ToString());
+                            test.AddRequirement(requirement);
+                        }
+                        project.AddTest(test);
+                    }
+
                     user.addProject(project);
                 }
                 _userList.Add(user);

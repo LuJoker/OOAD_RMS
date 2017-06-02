@@ -17,14 +17,14 @@ namespace OOAD_RMS
         {
             _userList = new List<User>();
 
-            DataTable userTable = SqlHelper.GetDataTableText("SELECT Account,Password,[Identity] FROM Users GROUP BY Account,Password,[Identity]", new SqlParameter[] { });
+            DataTable userTable = SqlHelper.GetDataTableText("SELECT Account,Password,Title FROM Users GROUP BY Account,Password,Title", new SqlParameter[] { });
 
             foreach (DataRow userDataRow in userTable.Rows)
             {
                 User user = new User();
                 user.UserAccount = userDataRow["Account"].ToString();
                 user.UserPassword = userDataRow["Password"].ToString();
-                user.UserIdentity = userDataRow["Identity"].ToString();
+                user.UserIdentity = userDataRow["Title"].ToString();
 
                 DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Users INNER JOIN Project ON Users.ProjectId=Project.Id WHERE Users.Account=@account", new SqlParameter[] { new SqlParameter("@account", user.UserAccount) });
 
@@ -38,6 +38,7 @@ namespace OOAD_RMS
                 _userList.Add(user);
             }
         }
+
 
         public void addProject(string projectName, string projectDescription)
         {
@@ -150,6 +151,28 @@ namespace OOAD_RMS
             }
             else
                 return false;
+        }
+
+
+        public void registerAccount(string account, string password, string Identity)
+        {
+            DataTable userTable = SqlHelper.GetDataTableText("SELECT IIF(not EXISTS(SELECT* from Users WHERE Account = @account), 'TRUE', 'FALSE' ) as Result", new SqlParameter[] { new SqlParameter("@account", account) });
+
+            String NotExist=userTable.Rows[0]["Result"].ToString();
+
+            if (NotExist == "TRUE")
+            {
+                SqlHelper.ExecuteNonQueryText("INSERT INTO Users (Account,Password,Title) VALUES (@account,@password,@title)", new SqlParameter[] {
+                new SqlParameter("@account", account),
+                new SqlParameter("@password", password),
+                new SqlParameter("@title",Identity)
+            });
+                MessageBox.Show(account + " 註冊成功\n回到登入畫面", "註冊成功");
+            }
+            else
+                MessageBox.Show(account + " 已被註冊", "註冊失敗");
+
+            
         }
 
         public void setProject(User user)

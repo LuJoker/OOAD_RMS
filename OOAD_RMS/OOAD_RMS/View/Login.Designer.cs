@@ -33,7 +33,7 @@
             this._accountTextBox = new System.Windows.Forms.TextBox();
             this._passwordTextBox = new System.Windows.Forms.TextBox();
             this._okButton = new System.Windows.Forms.Button();
-            this._rigisterButton = new System.Windows.Forms.Button();
+            this._registerButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -75,7 +75,7 @@
             // _okButton
             // 
             this._okButton.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this._okButton.Location = new System.Drawing.Point(114, 180);
+            this._okButton.Location = new System.Drawing.Point(58, 177);
             this._okButton.Name = "_okButton";
             this._okButton.Size = new System.Drawing.Size(83, 32);
             this._okButton.TabIndex = 4;
@@ -83,21 +83,23 @@
             this._okButton.UseVisualStyleBackColor = true;
             this._okButton.Click += new System.EventHandler(this.LoginCheck);
             // 
-            // _rigisterButton
+            // _registerButton
             // 
-            this._rigisterButton.Location = new System.Drawing.Point(226, 226);
-            this._rigisterButton.Name = "_rigisterButton";
-            this._rigisterButton.Size = new System.Drawing.Size(75, 23);
-            this._rigisterButton.TabIndex = 5;
-            this._rigisterButton.Text = "註冊";
-            this._rigisterButton.UseVisualStyleBackColor = true;
+            this._registerButton.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold);
+            this._registerButton.Location = new System.Drawing.Point(176, 177);
+            this._registerButton.Name = "_registerButton";
+            this._registerButton.Size = new System.Drawing.Size(83, 32);
+            this._registerButton.TabIndex = 5;
+            this._registerButton.Text = "註冊";
+            this._registerButton.UseVisualStyleBackColor = true;
+            this._registerButton.Click += new System.EventHandler(this.Register);
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(313, 261);
-            this.Controls.Add(this._rigisterButton);
+            this.ClientSize = new System.Drawing.Size(313, 262);
+            this.Controls.Add(this._registerButton);
             this.Controls.Add(this._okButton);
             this.Controls.Add(this._passwordTextBox);
             this.Controls.Add(this._accountTextBox);
@@ -119,6 +121,6 @@
         private System.Windows.Forms.TextBox _accountTextBox;
         private System.Windows.Forms.TextBox _passwordTextBox;
         private System.Windows.Forms.Button _okButton;
-        private System.Windows.Forms.Button _rigisterButton;
+        private System.Windows.Forms.Button _registerButton;
     }
 }

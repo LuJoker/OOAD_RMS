@@ -17,14 +17,14 @@ namespace OOAD_RMS
         {
             _userList = new List<User>();
 
-            DataTable userTable = SqlHelper.GetDataTableText("SELECT Account,Password,[Identity] FROM Users GROUP BY Account,Password,[Identity]", new SqlParameter[] { });
+            DataTable userTable = SqlHelper.GetDataTableText("SELECT Account,Password,Title FROM Users GROUP BY Account,Password,Title", new SqlParameter[] { });
 
             foreach (DataRow userDataRow in userTable.Rows)
             {
                 User user = new User();
                 user.UserAccount = userDataRow["Account"].ToString();
                 user.UserPassword = userDataRow["Password"].ToString();
-                user.UserIdentity = userDataRow["Identity"].ToString();
+                user.UserIdentity = userDataRow["Title"].ToString();
 
                 DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Users INNER JOIN Project ON Users.ProjectId=Project.Id WHERE Users.Account=@account", new SqlParameter[] { new SqlParameter("@account", user.UserAccount) });
 

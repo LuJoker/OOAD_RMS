@@ -12,13 +12,13 @@ namespace OOAD_RMS
         BindingList<Requirement> _requirementList;
         BindingList<Test> _testList;
         List<User> _userList;
-        User _currentUser;
-        Project _currentProject;
+        DBManager _dbManager;
         public Model()
         {
+            _dbManager = new DBManager();
             _userList = new List<User>();
 
-            DataTable userTable = SqlHelper.GetDataTableText("SELECT Account,Password,Title FROM Users GROUP BY Account,Password,Title", new SqlParameter[] { });
+            DataTable userTable = _dbManager.GetUsers();
 
             foreach (DataRow userDataRow in userTable.Rows)
             {
@@ -27,7 +27,7 @@ namespace OOAD_RMS
                 user.UserPassword = userDataRow["Password"].ToString();
                 user.UserIdentity = userDataRow["Title"].ToString();
 
-                DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Users INNER JOIN Project ON Users.ProjectId=Project.Id WHERE Users.Account=@account", new SqlParameter[] { new SqlParameter("@account", user.UserAccount) });
+                DataTable projectTable = _dbManager.GetProjectByUserAccount(user.UserAccount);
 
                 foreach (DataRow datarow in projectTable.Rows)
                 {
@@ -35,7 +35,7 @@ namespace OOAD_RMS
                     project.ProjectName = datarow["ProjectName"].ToString();
                     project.ProjectDescription = datarow["ProjectDescription"].ToString();
 
-                    DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE ProjectId=@projectId", new SqlParameter[] { new SqlParameter("@projectId", (int)datarow["Id"]) });
+                    DataTable requirementTable = _dbManager.GetRequirementByProjectId((int)datarow["Id"]);
                     foreach (DataRow reqRow in requirementTable.Rows)
                     {
                         Requirement requirement = new Requirement();
@@ -44,14 +44,14 @@ namespace OOAD_RMS
                         project.AddRequirement(requirement);
                     }
 
-                    DataTable testTable = SqlHelper.GetDataTableText("SELECT * FROM Test WHERE ProjectId=@projectId", new SqlParameter[] { new SqlParameter("@projectId", (int)datarow["Id"]) });
+                    DataTable testTable = _dbManager.GetTestByProjectId((int)datarow["Id"]);
                     foreach (DataRow testRow in testTable.Rows)
                     {
                         Test test = new Test();
                         test.testName = testRow["TestName"].ToString();
                         test.testDescription = testRow["TestDescription"].ToString();
 
-                        DataTable testMapRequirementTable = SqlHelper.GetDataTableText("SELECT * FROM TestMapRequirement INNER JOIN Requirement ON TestMapRequirement.RequirementId = Requirement.Id WHERE TestMapRequirement.TestId=@testId", new SqlParameter[] { new SqlParameter("@testId", (int)testRow["Id"]) });
+                        DataTable testMapRequirementTable = _dbManager.GetTestMapRequirementByTestId((int)testRow["Id"]);
                         foreach (DataRow testMapReq in testMapRequirementTable.Rows)
                         {
                             Requirement requirement = project.GetRequirements().Find(r => r.RequirementName == testMapReq["RequirementName"].ToString());
@@ -72,33 +72,13 @@ namespace OOAD_RMS
             Project project = new Project();
             project.ProjectName = projectName;
             project.ProjectDescription = projectDescription;
-            SqlHelper.ExecuteNonQueryText("INSERT INTO Project VALUES (@projectName,@projectDescription)", new SqlParameter[] {
-                new SqlParameter("@projectName", projectName),
-                new SqlParameter("@projectDescription", projectDescription)
-            });
-            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
-                new SqlParameter("@projectName", projectName),
-                new SqlParameter("@ProjectDescription", projectDescription)
-            });
-            SqlHelper.ExecuteNonQueryText("INSERT INTO Users (Account,Password,Title,ProjectId) VALUES (@account,@password,@title,@projectId)", new SqlParameter[] {
-                new SqlParameter("@account", _currentUser.UserAccount),
-                new SqlParameter("@password", _currentUser.UserPassword),
-                new SqlParameter("@title",_currentUser.UserIdentity),
-                new SqlParameter("@projectId",projectTable.Rows[0]["Id"].ToString())
-            });
-
+            _dbManager.AddProject(projectName, projectDescription);
             _projectList.Add(project);
         }
 
         public void editProject(string projectName, string projectDescription, int index)
         {
-            SqlHelper.ExecuteNonQueryText("UPDATE Project SET ProjectName = @ProjectName , ProjectDescription = @projectDescription WHERE ProjectName = @preProjectName and ProjectDescription = @preProjectDescription", new SqlParameter[] {
-                new SqlParameter("@projectName", projectName),
-                new SqlParameter("@ProjectDescription", projectDescription),
-                new SqlParameter("@preProjectName", _projectList[index].ProjectName),
-                new SqlParameter("@preProjectDescription", _projectList[index].ProjectDescription)
-            });
-
+            _dbManager.EditProject(_projectList[index].ProjectName, _projectList[index].ProjectDescription, projectName, projectDescription);
             _projectList[index].ProjectName = projectName;
             _projectList[index].ProjectDescription = projectDescription;
             _projectList.ResetBindings();
@@ -106,17 +86,7 @@ namespace OOAD_RMS
 
         public void deleteProject(int index)
         {
-            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
-                new SqlParameter("@projectName",  _projectList[index].ProjectName),
-                new SqlParameter("@ProjectDescription", _projectList[index].ProjectDescription)
-            });
-            SqlHelper.GetDataTableText("DELETE FROM Users WHERE ProjectId = @ProjectId", new SqlParameter[] {
-                new SqlParameter("@ProjectId",  projectTable.Rows[0]["Id"])
-            });
-            SqlHelper.GetDataTableText("DELETE FROM Project WHERE ProjectName = @ProjectName and ProjectDescription = @ProjectDescription", new SqlParameter[] {
-                new SqlParameter("@ProjectName",  projectTable.Rows[0]["ProjectName"].ToString()),
-                new SqlParameter("@ProjectDescription",  projectTable.Rows[0]["ProjectDescription"].ToString())
-            });
+            _dbManager.DeleteProject(_projectList[index].ProjectName, _projectList[index].ProjectDescription);
             _projectList.RemoveAt(index);
         }
 
@@ -124,7 +94,7 @@ namespace OOAD_RMS
         {
             if (projectIndex > -1)
             {
-                _currentProject = _projectList[projectIndex];
+                _dbManager.SetCurrentProject(_projectList[projectIndex]);
                 _requirementList = new BindingList<Requirement>(_projectList[projectIndex].GetRequirements());
             }     
             return _requirementList;
@@ -170,29 +140,16 @@ namespace OOAD_RMS
 
         public void addRequirement(string requirementName, string requirementDescription)
         {
-            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
-                new SqlParameter("@projectName",  _currentProject.ProjectName),
-                new SqlParameter("@ProjectDescription", _currentProject.ProjectDescription)
-            });
             Requirement requirement = new Requirement();
             requirement.RequirementName = requirementName;
             requirement.RequirementDescription = requirementDescription;
-            SqlHelper.ExecuteNonQueryText("INSERT INTO Requirement VALUES (@RequirementName,@RequirementDescription,@projectId)", new SqlParameter[] {
-                new SqlParameter("@RequirementName", requirementName),
-                new SqlParameter("@RequirementDescription", requirementDescription),
-                new SqlParameter("@projectId", (int)projectTable.Rows[0]["Id"])
-            });
+            _dbManager.AddRequirement(requirementName, requirementDescription);
             _requirementList.Add(requirement);
         }
 
         public void editRequirement(string requirementName, string requirementDescription, int index)
         {
-            SqlHelper.ExecuteNonQueryText("UPDATE Requirement SET RequirementName = @requirementName , RequirementDescription = @requirementDescription WHERE RequirementName = @preRequirementName and RequirementDescription = @preRequirementDescription", new SqlParameter[] {
-                new SqlParameter("@requirementName", requirementName),
-                new SqlParameter("@requirementDescription", requirementDescription),
-                new SqlParameter("@preRequirementName", _requirementList[index].RequirementName),
-                new SqlParameter("@preRequirementDescription", _requirementList[index].RequirementDescription)
-            });
+            _dbManager.EditRequirement(_requirementList[index].RequirementName, _requirementList[index].RequirementDescription, requirementName, requirementDescription);
             _requirementList[index].RequirementName = requirementName;
             _requirementList[index].RequirementDescription = requirementDescription;
             _requirementList.ResetBindings();
@@ -200,16 +157,7 @@ namespace OOAD_RMS
 
         public void deleteRequirement(int index)
         {
-            DataTable RequirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE Requirementname = @requirementName and RequirementDescription = @requirementDescription", new SqlParameter[] {
-                new SqlParameter("@requirementName",  _requirementList[index].RequirementName),
-                new SqlParameter("@requirementDescription",_requirementList[index].RequirementDescription)
-            });
-            SqlHelper.GetDataTableText("DELETE FROM TestMapRequirement WHERE RequirementId = @requirementId", new SqlParameter[] {
-                new SqlParameter("@requirementId",  RequirementTable.Rows[0]["Id"])
-            });
-            SqlHelper.GetDataTableText("DELETE FROM Requirement WHERE Id = @requirementId", new SqlParameter[] {
-                new SqlParameter("@requirementId",  RequirementTable.Rows[0]["Id"])
-            });
+            _dbManager.DeleteRequirement(_requirementList[index].RequirementName, _requirementList[index].RequirementDescription);
             foreach (Test test in _testList)
                 test.requirements.Remove(_requirementList[index]);
             _requirementList.RemoveAt(index);
@@ -234,7 +182,7 @@ namespace OOAD_RMS
             List<User> user = _userList.FindAll(x => (x.UserAccount == account) && (x.UserPassword == password));
             if (user.Count == 1)
             {
-                _currentUser = user[0];
+                _dbManager.SetCurrentUser(user[0]);
                 setProject(user[0]);
                 return true;
             }
@@ -245,23 +193,15 @@ namespace OOAD_RMS
 
         public void registerAccount(string account, string password, string Identity)
         {
-            DataTable userTable = SqlHelper.GetDataTableText("SELECT IIF(not EXISTS(SELECT* from Users WHERE Account = @account), 'TRUE', 'FALSE' ) as Result", new SqlParameter[] { new SqlParameter("@account", account) });
-
-            String NotExist=userTable.Rows[0]["Result"].ToString();
-
+            DataTable userTable = _dbManager.GetUsersIsRegister(account);
+            String NotExist = userTable.Rows[0]["Result"].ToString();
             if (NotExist == "TRUE")
             {
-                SqlHelper.ExecuteNonQueryText("INSERT INTO Users (Account,Password,Title) VALUES (@account,@password,@title)", new SqlParameter[] {
-                new SqlParameter("@account", account),
-                new SqlParameter("@password", password),
-                new SqlParameter("@title",Identity)
-            });
+                _dbManager.AddUser(account, password, Identity);
                 MessageBox.Show(account + " 註冊成功\n回到登入畫面", "註冊成功");
             }
             else
                 MessageBox.Show(account + " 已被註冊", "註冊失敗");
-
-            
         }
 
         public void setProject(User user)

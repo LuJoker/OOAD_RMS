@@ -117,6 +117,35 @@ namespace OOAD_RMS
                 new SqlParameter("@projectId", (int)projectTable.Rows[0]["Id"])
             });
         }
+
+        public void AddTest(string testName, string testDescription, List<Requirement> requirements)
+        {
+            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
+                new SqlParameter("@projectName",  _currentProject.ProjectName),
+                new SqlParameter("@projectDescription", _currentProject.ProjectDescription)
+            });
+            SqlHelper.ExecuteNonQueryText("INSERT INTO Test VALUES (@testName,@testDescription,@projectId)", new SqlParameter[] {
+                new SqlParameter("@testName", testName),
+                new SqlParameter("@testDescription", testDescription),
+                new SqlParameter("@projectId", (int)projectTable.Rows[0]["Id"])
+            });
+            DataTable testTable = SqlHelper.GetDataTableText("SELECT * FROM Test WHERE TestName = @testName and TestDescription = @testDescription", new SqlParameter[] {
+                new SqlParameter("@testName",  testName),
+                new SqlParameter("@testDescription", testDescription)
+            });
+            foreach (Requirement req in requirements)
+            {
+                DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE RequirementName = @requirementName and RequirementDescription = @requirementDescription", new SqlParameter[] {
+                    new SqlParameter("@requirementName", req.RequirementName),
+                    new SqlParameter("@requirementDescription", req.RequirementDescription)
+                });
+                SqlHelper.ExecuteNonQueryText("INSERT INTO TestMapRequirement VALUES (@requirementId,@testId,@isCompleted)", new SqlParameter[] {
+                    new SqlParameter("@requirementId", (int)requirementTable.Rows[0]["Id"]),
+                    new SqlParameter("@testId", (int)testTable.Rows[0]["Id"]),
+                    new SqlParameter("@isCompleted", "0")
+                });
+            }
+        }
         #endregion
 
         #region Edit Method
@@ -138,6 +167,35 @@ namespace OOAD_RMS
                 new SqlParameter("@preRequirementName", requirementNameOrigin),
                 new SqlParameter("@preRequirementDescription", requirementDescriptionOrigin)
             });
+        }
+
+        public void EditTest(string testNameOrigin, string testDescriptionOrigin, string testNameEdit, string testDescriptionEdit, List<Requirement> requirementsEdit)
+        {
+            SqlHelper.ExecuteNonQueryText("UPDATE Test SET TestName = @testName , TestDescription = @testDescription WHERE TestName = @preTestName and TestDescription = @preTestDescription", new SqlParameter[] {
+                new SqlParameter("@testName", testNameEdit),
+                new SqlParameter("@testDescription", testDescriptionEdit),
+                new SqlParameter("@preTestName", testNameOrigin),
+                new SqlParameter("@preTestDescription", testDescriptionOrigin)
+            });
+            DataTable testTable = SqlHelper.GetDataTableText("SELECT * FROM Test WHERE TestName = @testName and TestDescription = @testDescription", new SqlParameter[] {
+                new SqlParameter("@testName",  testNameEdit),
+                new SqlParameter("@testDescription", testDescriptionEdit)
+            });
+            SqlHelper.GetDataTableText("DELETE FROM TestMapRequirement WHERE TestId = @testId", new SqlParameter[] {
+                new SqlParameter("@testId", testTable.Rows[0]["Id"])
+            });
+            foreach (Requirement req in requirementsEdit)
+            {
+                DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE RequirementName = @requirementName and RequirementDescription = @requirementDescription", new SqlParameter[] {
+                    new SqlParameter("@requirementName", req.RequirementName),
+                    new SqlParameter("@requirementDescription", req.RequirementDescription)
+                });
+                SqlHelper.ExecuteNonQueryText("INSERT INTO TestMapRequirement VALUES (@requirementId,@testId,@isCompleted)", new SqlParameter[] {
+                    new SqlParameter("@requirementId", (int)requirementTable.Rows[0]["Id"]),
+                    new SqlParameter("@testId", (int)testTable.Rows[0]["Id"]),
+                    new SqlParameter("@isCompleted", "0")
+                });
+            }
         }
         #endregion
 
@@ -168,6 +226,20 @@ namespace OOAD_RMS
             });
             SqlHelper.GetDataTableText("DELETE FROM Requirement WHERE Id = @requirementId", new SqlParameter[] {
                 new SqlParameter("@requirementId", RequirementTable.Rows[0]["Id"])
+            });
+        }
+
+        public void DeleteTest(string testName, string testDescription)
+        {
+            DataTable testTable = SqlHelper.GetDataTableText("SELECT * FROM Test WHERE TestName = @testName and TestDescription = @testDescription", new SqlParameter[] {
+                new SqlParameter("@testName",  testName),
+                new SqlParameter("@testDescription", testDescription)
+            });
+            SqlHelper.GetDataTableText("DELETE FROM TestMapRequirement WHERE TestId = @testId", new SqlParameter[] {
+                new SqlParameter("@testId", testTable.Rows[0]["Id"])
+            });
+            SqlHelper.GetDataTableText("DELETE FROM Test WHERE Id = @testId", new SqlParameter[] {
+                new SqlParameter("@testId", testTable.Rows[0]["Id"])
             });
         }
         #endregion

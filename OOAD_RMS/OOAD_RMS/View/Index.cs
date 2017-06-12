@@ -151,7 +151,7 @@ namespace OOAD_RMS
             ShowAddTestDialog showAddTestDialog = new ShowAddTestDialog(_model);
             if (showAddTestDialog.ShowDialog() == DialogResult.OK)
             {
-                _model.addTest(showAddTestDialog.GetTest());
+                _model.addTest(showAddTestDialog.GetTestName(), showAddTestDialog.GetTestDescription(), showAddTestDialog.GetRequirements());
                 _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
             }
         }
@@ -249,6 +249,7 @@ namespace OOAD_RMS
 
                 if (testDialog.ShowDialog() == DialogResult.OK)
                 {
+                    _model.editTest(testDialog.GetTestName(), testDialog.GetTestDescription(), testDialog.GetRequirements(), selectedRow);
                     _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
                 }
             }

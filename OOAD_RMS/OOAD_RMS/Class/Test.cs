@@ -5,11 +5,12 @@ using System.Text;
 
 namespace OOAD_RMS
 {
-   public class Test
+    public class Test
     {
         private string _testName;
         private string _testDescription;
-        private List<Requirement> _requirements = new List<Requirement>();
+        List<Requirement> _requirements = new List<Requirement>();
+        //Dictionary<bool, Requirement> _requirements = new Dictionary<bool, Requirement>();
 
         public string testName
         {

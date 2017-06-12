@@ -163,20 +163,36 @@ namespace OOAD_RMS
             _requirementList.RemoveAt(index);
         }
 
-        public void addTest(Test test)
+        public void addTest(string testName, string testDescription, List<Requirement> requirements)
         {
+            Test test = new Test();
+            test.testName = testName;
+            test.testDescription = testDescription;
+            test.requirements = requirements;
+            _dbManager.AddTest(testName, testDescription, requirements);
             _testList.Add(test);
         }
 
-        public void editTest()
+        public void editTest(string testName, string testDescription, List<Requirement> requirements, int index)
         {
+            _dbManager.EditTest(_testList[index].testName, _testList[index].testDescription, testName, testDescription, requirements);
+            _testList[index].testName = testName;
+            _testList[index].testDescription = testDescription;
+            _testList[index].requirements = requirements;
             _testList.ResetBindings();
         }
 
         public void deleteTest(int index)
         {
+            _dbManager.DeleteTest(_testList[index].testName, _testList[index].testDescription);
             _testList.RemoveAt(index);
         }
+
+        public void updateTestIsComplete(List<Requirement> requirements, int index)
+        {
+
+        }
+
         public bool LoginCheck(string account, string password)
         {
             List<User> user = _userList.FindAll(x => (x.UserAccount == account) && (x.UserPassword == password));

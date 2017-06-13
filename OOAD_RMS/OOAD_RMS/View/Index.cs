@@ -266,8 +266,13 @@ namespace OOAD_RMS
             }
             else
             {
-                TestDetailInfo testInfo = new TestDetailInfo((Test)_testGridView.Rows[selectedRow].DataBoundItem);
-                testInfo.ShowDialog();
+                TestDetailInfo testInfo = new TestDetailInfo(_model, (Test)_testGridView.Rows[selectedRow].DataBoundItem);
+                
+                if (testInfo.ShowDialog() == DialogResult.OK)
+                {
+                    _model.updateTestIsComplete((Test)_testGridView.Rows[selectedRow].DataBoundItem);
+                    _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
+                }
             }
         }
 
@@ -319,6 +324,9 @@ namespace OOAD_RMS
             {
                 case "testDescription":
                     _testGridView.Columns[e.ColumnIndex].Width = 700;
+                    break;
+                case "requirementisComplete":
+                    _testGridView.Columns[e.ColumnIndex].Visible = false;
                     break;
                 case "editBtn":
                     _testGridView.Columns[e.ColumnIndex].Width = 60;

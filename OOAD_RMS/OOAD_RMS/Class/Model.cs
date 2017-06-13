@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Diagnostics;
 namespace OOAD_RMS
 {
     public class Model
@@ -55,7 +56,7 @@ namespace OOAD_RMS
                         foreach (DataRow testMapReq in testMapRequirementTable.Rows)
                         {
                             Requirement requirement = project.GetRequirements().Find(r => r.RequirementName == testMapReq["RequirementName"].ToString());
-                            test.AddRequirement(requirement);
+                            test.AddRequirement(requirement, (testMapReq["IsCompleted"].ToString() == "True")? true:false);
                         }
                         project.AddTest(test);
                     }
@@ -118,6 +119,8 @@ namespace OOAD_RMS
             foreach (Requirement re in _requirementList)
             {
                 DataGridViewTextBoxColumn requirementColumn = new DataGridViewTextBoxColumn();
+                if (_dbManager.GetRequirementIsComplete(re.RequirementName, re.RequirementDescription))
+                    requirementColumn.DefaultCellStyle.BackColor = System.Drawing.Color.GreenYellow;
                 grid.Columns.Add(requirementColumn);
                 requirementColumn.HeaderText = re.RequirementName;
             }
@@ -133,7 +136,12 @@ namespace OOAD_RMS
                 {
                     List<Requirement> requirementInTest = _testList[i].requirements;
                     if (requirementInTest.Contains(_requirementList[j]))
-                        grid.Rows[i].Cells[j + 1].Value = "O";
+                    {
+                        if (_testList[i].requirementisComplete[_requirementList[j]])
+                            grid.Rows[i].Cells[j + 1].Value = "✓";
+                        else
+                            grid.Rows[i].Cells[j + 1].Value = "O";
+                    }
                 }
             }
         }
@@ -188,9 +196,9 @@ namespace OOAD_RMS
             _testList.RemoveAt(index);
         }
 
-        public void updateTestIsComplete(List<Requirement> requirements, int index)
+        public void updateTestIsComplete(Test test)
         {
-
+            _dbManager.EditTestIsComplete(test);
         }
 
         public bool LoginCheck(string account, string password)

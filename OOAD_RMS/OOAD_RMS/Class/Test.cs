@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Linq;
 
 namespace OOAD_RMS
 {
@@ -9,8 +10,8 @@ namespace OOAD_RMS
     {
         private string _testName;
         private string _testDescription;
-        List<Requirement> _requirements = new List<Requirement>();
-        //Dictionary<bool, Requirement> _requirements = new Dictionary<bool, Requirement>();
+        //List<Requirement> _requirements = new List<Requirement>();
+        Dictionary<Requirement, bool> _requirements = new Dictionary<Requirement, bool>();
 
         public string testName
         {
@@ -36,12 +37,12 @@ namespace OOAD_RMS
             }
         }
 
-        public void AddRequirement(Requirement requirement)
+        public void AddRequirement(Requirement requirement, bool isComplete)
         {
-            _requirements.Add(requirement);
+            _requirements.Add(requirement, isComplete);
         }
 
-        public List<Requirement> requirements
+        public Dictionary<Requirement, bool> requirementisComplete
         {
             get
             {
@@ -50,6 +51,20 @@ namespace OOAD_RMS
             set
             {
                 _requirements = value;
+            }
+        }
+
+        public List<Requirement> requirements
+        {
+            get
+            {
+                return _requirements.Keys.ToList();
+            }
+            set
+            {
+                _requirements.Clear();
+                foreach (Requirement req in value)
+                    _requirements.Add(req, false);
             }
         }
     }

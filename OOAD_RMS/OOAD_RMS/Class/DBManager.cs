@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace OOAD_RMS
 {
@@ -73,6 +74,23 @@ namespace OOAD_RMS
                 new SqlParameter("@testId", testId)
             });
             return testMapRequirementTable;
+        }
+
+        public bool GetRequirementIsComplete(string requirementName, string requirementDescription)
+        {
+            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
+                new SqlParameter("@projectName",  _currentProject.ProjectName),
+                new SqlParameter("@ProjectDescription", _currentProject.ProjectDescription)
+            });
+            DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE RequirementName=@requirementName AND RequirementDescription=@requirementDescription AND ProjectId=@projectId", new SqlParameter[] {
+                new SqlParameter("@requirementName", requirementName),
+                new SqlParameter("@requirementDescription", requirementDescription),
+                new SqlParameter("@projectId", (int)projectTable.Rows[0]["Id"])
+            });
+            DataTable userTable = SqlHelper.GetDataTableText("SELECT IIF(not EXISTS(SELECT* from TestMapRequirement WHERE RequirementId = @requirementId AND IsCompleted=0), 'TRUE', 'FALSE' ) as Result", new SqlParameter[] {
+                new SqlParameter("@requirementId", (int)requirementTable.Rows[0]["Id"])
+            });
+            return ((userTable.Rows[0]["Result"].ToString() == "TRUE"));
         }
 
         #endregion
@@ -194,6 +212,26 @@ namespace OOAD_RMS
                     new SqlParameter("@requirementId", (int)requirementTable.Rows[0]["Id"]),
                     new SqlParameter("@testId", (int)testTable.Rows[0]["Id"]),
                     new SqlParameter("@isCompleted", "0")
+                });
+            }
+        }
+
+        public void EditTestIsComplete(Test test)
+        {
+            DataTable testTable = SqlHelper.GetDataTableText("SELECT * FROM Test WHERE TestName = @testName and TestDescription = @testDescription", new SqlParameter[] {
+                new SqlParameter("@testName",  test.testName),
+                new SqlParameter("@testDescription", test.testDescription)
+            });
+            foreach (Requirement req in test.requirementisComplete.Keys)
+            {
+                DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE RequirementName = @requirementName and RequirementDescription = @requirementDescription", new SqlParameter[] {
+                    new SqlParameter("@requirementName", req.RequirementName),
+                    new SqlParameter("@requirementDescription", req.RequirementDescription)
+                });
+                SqlHelper.ExecuteNonQueryText("UPDATE TestMapRequirement SET IsCompleted=@isCompleted WHERE requirementId=@requirementId AND testId=@testId", new SqlParameter[] {
+                    new SqlParameter("@requirementId", (int)requirementTable.Rows[0]["Id"]),
+                    new SqlParameter("@testId", (int)testTable.Rows[0]["Id"]),
+                    new SqlParameter("@isCompleted", test.requirementisComplete[req] ? "1" : "0")
                 });
             }
         }

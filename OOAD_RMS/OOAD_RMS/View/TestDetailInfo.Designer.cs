@@ -33,6 +33,7 @@
             this._testDescriptionLabel = new System.Windows.Forms.Label();
             this._testReqLabel = new System.Windows.Forms.Label();
             this._testReqInfo = new System.Windows.Forms.CheckedListBox();
+            this._okButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,14 +45,16 @@
             this.tableLayoutPanel1.Controls.Add(this._testDescriptionLabel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this._testReqLabel, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this._testReqInfo, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this._okButton, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(284, 261);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -98,9 +101,22 @@
             this._testReqInfo.FormattingEnabled = true;
             this._testReqInfo.Location = new System.Drawing.Point(3, 108);
             this._testReqInfo.Name = "_testReqInfo";
-            this._testReqInfo.Size = new System.Drawing.Size(278, 150);
+            this._testReqInfo.Size = new System.Drawing.Size(278, 115);
             this._testReqInfo.TabIndex = 4;
             this._testReqInfo.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.FormatTestReqInfo);
+            // 
+            // _okButton
+            // 
+            this._okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this._okButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._okButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this._okButton.Location = new System.Drawing.Point(3, 229);
+            this._okButton.Name = "_okButton";
+            this._okButton.Size = new System.Drawing.Size(278, 29);
+            this._okButton.TabIndex = 5;
+            this._okButton.Text = "確認";
+            this._okButton.UseVisualStyleBackColor = true;
+            this._okButton.Click += new System.EventHandler(this.ClickOkButton);
             // 
             // TestDetailInfo
             // 
@@ -123,5 +139,6 @@
         private System.Windows.Forms.Label _testDescriptionLabel;
         private System.Windows.Forms.Label _testReqLabel;
         private System.Windows.Forms.CheckedListBox _testReqInfo;
+        private System.Windows.Forms.Button _okButton;
     }
 }

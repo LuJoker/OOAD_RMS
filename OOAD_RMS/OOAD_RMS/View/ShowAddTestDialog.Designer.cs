@@ -44,7 +44,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.03412F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.96588F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 83F));
             this.tableLayoutPanel1.Controls.Add(this._okBtn, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this._testNameLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this._testNameTxt, 1, 0);
@@ -68,10 +68,10 @@
             // 
             this._okBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this._okBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._okBtn.Location = new System.Drawing.Point(384, 275);
+            this._okBtn.Location = new System.Drawing.Point(383, 275);
             this._okBtn.Margin = new System.Windows.Forms.Padding(5);
             this._okBtn.Name = "_okBtn";
-            this._okBtn.Size = new System.Drawing.Size(73, 32);
+            this._okBtn.Size = new System.Drawing.Size(74, 32);
             this._okBtn.TabIndex = 3;
             this._okBtn.Text = "確定";
             this._okBtn.UseVisualStyleBackColor = true;

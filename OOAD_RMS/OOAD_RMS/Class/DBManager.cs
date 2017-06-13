@@ -32,7 +32,7 @@ namespace OOAD_RMS
         #region Get Method
         public DataTable GetUsers()
         {
-            DataTable userTable = SqlHelper.GetDataTableText("SELECT Account,Password,Title FROM Users GROUP BY Account,Password,Title", new SqlParameter[] {});
+            DataTable userTable = SqlHelper.GetDataTableText("SELECT Account,Password,Title FROM Users", new SqlParameter[] {});
             return userTable;
         }
 
@@ -46,7 +46,7 @@ namespace OOAD_RMS
 
         public DataTable GetProjectByUserAccount(string account)
         {
-            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Users INNER JOIN Project ON Users.ProjectId=Project.Id WHERE Users.Account=@account", new SqlParameter[] {
+            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Users INNER JOIN UserMapProject ON Users.Id=UserMapProject.UserId INNER JOIN Project ON Project.Id=UserMapProject.ProjectId WHERE Users.Account=@account", new SqlParameter[] {
                 new SqlParameter("@account", account)
             });
             return projectTable;
@@ -98,11 +98,15 @@ namespace OOAD_RMS
                 new SqlParameter("@projectName", projectName),
                 new SqlParameter("@ProjectDescription", projectDescription)
             });
-            SqlHelper.ExecuteNonQueryText("INSERT INTO Users (Account,Password,Title,ProjectId) VALUES (@account,@password,@title,@projectId)", new SqlParameter[] {
+            DataTable userTable = SqlHelper.GetDataTableText("SELECT * FROM User WHERE Account = @account and Password = @password and Title=@title", new SqlParameter[] {
                 new SqlParameter("@account", _currentUser.UserAccount),
                 new SqlParameter("@password", _currentUser.UserPassword),
-                new SqlParameter("@title", _currentUser.UserIdentity),
-                new SqlParameter("@projectId", projectTable.Rows[0]["Id"].ToString())
+                new SqlParameter("@title", _currentUser.UserIdentity)
+            });
+
+            SqlHelper.ExecuteNonQueryText("INSERT INTO UserMapProject VALUES (@projectId,@userId)", new SqlParameter[] {
+                new SqlParameter("@projectId", projectTable.Rows[0]["Id"].ToString()),
+                new SqlParameter("@userId", userTable.Rows[0]["Id"].ToString())
             });
         }
 
@@ -227,7 +231,7 @@ namespace OOAD_RMS
                 new SqlParameter("@projectName", projectName),
                 new SqlParameter("@ProjectDescription", projectDescription)
             });
-            SqlHelper.GetDataTableText("DELETE FROM Users WHERE ProjectId = @ProjectId", new SqlParameter[] {
+            SqlHelper.GetDataTableText("DELETE FROM UserMapProject WHERE ProjectId = @ProjectId", new SqlParameter[] {
                 new SqlParameter("@ProjectId", projectTable.Rows[0]["Id"])
             });
             SqlHelper.GetDataTableText("DELETE FROM Project WHERE ProjectName = @ProjectName and ProjectDescription = @ProjectDescription", new SqlParameter[] {

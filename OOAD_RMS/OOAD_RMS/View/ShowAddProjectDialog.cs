@@ -6,12 +6,15 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace OOAD_RMS
 {
     public partial class ShowAddProjectDialog : Form
     {
-        public ShowAddProjectDialog()
+        Model _model;
+        public ShowAddProjectDialog(Model model)
         {
+            _model = model;
             InitializeComponent();
         }
 
@@ -30,6 +33,12 @@ namespace OOAD_RMS
         public string GetProjectDescription()
         {
             return _projectDescriptionTxt.Text;
+        }
+
+        private void ClickSelectUserBtn(object sender, EventArgs e)
+        {
+            UserCheckList _userCheckList = new UserCheckList(_model);
+            _userCheckList.ShowDialog();
         }
     }
 }

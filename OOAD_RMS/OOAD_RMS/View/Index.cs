@@ -123,7 +123,7 @@ namespace OOAD_RMS
 
         private void ClickAddProjectBtn(object sender, EventArgs e)
         {
-            ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog();
+            ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog(_model);
             if (showAddProjectDialog.ShowDialog() == DialogResult.OK) {
                 string projectName = showAddProjectDialog.GetProjectName();
                 string projectDescription = showAddProjectDialog.GetProjectDescription();
@@ -182,7 +182,7 @@ namespace OOAD_RMS
                 getProjectDescriptionFromDataGridView = _projectGridView.Rows[selectedRow].Cells[3].Value.ToString();
 
 
-                ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog();
+                ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog(_model);
                 showAddProjectDialog.EditProjectName(getProjectNameFromDataGridView);
                 showAddProjectDialog.EditProjectDescription(getProjectDescriptionFromDataGridView);
              

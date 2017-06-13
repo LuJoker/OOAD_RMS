@@ -212,5 +212,10 @@ namespace OOAD_RMS
         {
             return _requirementList;
         }
+
+        public List<User> GetAllUser()
+        {
+            return _userList;
+        }
     }
 }

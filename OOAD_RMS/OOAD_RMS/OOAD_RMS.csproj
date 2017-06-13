@@ -102,6 +102,12 @@
     <Compile Include="View\TestDetailInfo.Designer.cs">
       <DependentUpon>TestDetailInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\UserCheckList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\UserCheckList.Designer.cs">
+      <DependentUpon>UserCheckList.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -135,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\TestDetailInfo.resx">
       <DependentUpon>TestDetailInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UserCheckList.resx">
+      <DependentUpon>UserCheckList.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

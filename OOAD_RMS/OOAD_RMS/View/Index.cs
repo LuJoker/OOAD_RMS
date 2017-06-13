@@ -123,12 +123,13 @@ namespace OOAD_RMS
 
         private void ClickAddProjectBtn(object sender, EventArgs e)
         {
+            List<User> selectedUserList;
             ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog(_model);
             if (showAddProjectDialog.ShowDialog() == DialogResult.OK) {
+                selectedUserList = showAddProjectDialog.GetSelectedUser();
                 string projectName = showAddProjectDialog.GetProjectName();
                 string projectDescription = showAddProjectDialog.GetProjectDescription();
-                _model.addProject(projectName, projectDescription);
-
+                _model.addProject(projectName, projectDescription, selectedUserList);
             }
         }
 
@@ -189,7 +190,7 @@ namespace OOAD_RMS
 
                 if (showAddProjectDialog.ShowDialog() == DialogResult.OK)
                 {
-                    _model.editProject(showAddProjectDialog.GetProjectName(), showAddProjectDialog.GetProjectDescription(), selectedRow);
+                    _model.editProject(showAddProjectDialog.GetProjectName(), showAddProjectDialog.GetProjectDescription(),showAddProjectDialog.GetSelectedUser(), selectedRow);
                 }
             }
             if (e.ColumnIndex == 1 && selectedRow > -1)
@@ -279,7 +280,6 @@ namespace OOAD_RMS
         public void FormatProjectGridViewCell(object sender, DataGridViewCellFormattingEventArgs e)
         {
             string columnName = _projectGridView.Columns[e.ColumnIndex].Name;
-            Console.WriteLine(columnName);
             switch (columnName)
             {
                 case "ProjectDescription":
@@ -299,7 +299,6 @@ namespace OOAD_RMS
         public void FormatRequirementGridViewCell(object sender, DataGridViewCellFormattingEventArgs e)
         {
             string columnName = _requirementGridView.Columns[e.ColumnIndex].Name;
-            Console.WriteLine(columnName);
             switch (columnName)
             {
                 case "RequirementDescription":
@@ -319,7 +318,6 @@ namespace OOAD_RMS
         public void FormatTestGridViewCell(object sender, DataGridViewCellFormattingEventArgs e)
         {
             string columnName = _testGridView.Columns[e.ColumnIndex].Name;
-            Console.WriteLine(columnName);
             switch (columnName)
             {
                 case "testDescription":

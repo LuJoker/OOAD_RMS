@@ -47,12 +47,14 @@
             // _OKBtn
             // 
             this._OKBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this._OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this._OKBtn.Location = new System.Drawing.Point(-1, 223);
             this._OKBtn.Name = "_OKBtn";
             this._OKBtn.Size = new System.Drawing.Size(120, 37);
             this._OKBtn.TabIndex = 1;
             this._OKBtn.Text = "OK";
             this._OKBtn.UseVisualStyleBackColor = true;
+            this._OKBtn.Click += new System.EventHandler(this.ClickOKBtn);
             // 
             // UserCheckList
             // 

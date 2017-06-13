@@ -88,7 +88,7 @@ namespace OOAD_RMS
             });
         }
 
-        public void AddProject(string projectName, string projectDescription)
+        public void AddProject(string projectName, string projectDescription,List<User>selectedUserList)
         {
             SqlHelper.ExecuteNonQueryText("INSERT INTO Project VALUES (@projectName,@projectDescription)", new SqlParameter[] {
                 new SqlParameter("@projectName", projectName),
@@ -98,16 +98,21 @@ namespace OOAD_RMS
                 new SqlParameter("@projectName", projectName),
                 new SqlParameter("@ProjectDescription", projectDescription)
             });
-            DataTable userTable = SqlHelper.GetDataTableText("SELECT * FROM User WHERE Account = @account and Password = @password and Title=@title", new SqlParameter[] {
-                new SqlParameter("@account", _currentUser.UserAccount),
-                new SqlParameter("@password", _currentUser.UserPassword),
-                new SqlParameter("@title", _currentUser.UserIdentity)
-            });
+            
+            foreach (User u in selectedUserList)
+            {
+                DataTable userTable = SqlHelper.GetDataTableText("SELECT * FROM Users WHERE Account = @account and Password = @password and Title=@title", new SqlParameter[] {
+                new SqlParameter("@account", u.UserAccount),
+                new SqlParameter("@password", u.UserPassword),
+                new SqlParameter("@title", u.UserIdentity)
+                });
 
-            SqlHelper.ExecuteNonQueryText("INSERT INTO UserMapProject VALUES (@projectId,@userId)", new SqlParameter[] {
+                SqlHelper.ExecuteNonQueryText("INSERT INTO UserMapProject VALUES (@projectId,@userId)", new SqlParameter[] {
                 new SqlParameter("@projectId", projectTable.Rows[0]["Id"].ToString()),
                 new SqlParameter("@userId", userTable.Rows[0]["Id"].ToString())
-            });
+                });
+            }
+            
         }
 
         public void AddRequirement(string requirementName, string requirementDescription)
@@ -154,8 +159,31 @@ namespace OOAD_RMS
         #endregion
 
         #region Edit Method
-        public void EditProject(string projectNameOrigin, string projectDescriptionOrigin, string projectNameEdit, string projectDescriptionEdit)
+        public void EditProject(string projectNameOrigin, string projectDescriptionOrigin, string projectNameEdit, string projectDescriptionEdit,List<User>selectedUserList)
         {
+            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName AND ProjectDescription = @projectDescription", new SqlParameter[] {
+                new SqlParameter("@projectName", projectNameOrigin),
+                new SqlParameter("@ProjectDescription", projectDescriptionOrigin)
+            });
+
+            SqlHelper.ExecuteNonQueryText("DELETE FROM UserMapProject WHERE ProjectId = @projectId", new SqlParameter[] {
+                new SqlParameter("@projectId", projectTable.Rows[0]["Id"].ToString())
+            });
+
+            foreach (User u in selectedUserList)
+            {
+                DataTable userTable = SqlHelper.GetDataTableText("SELECT * FROM Users WHERE Account = @account and Password = @password and Title=@title", new SqlParameter[] {
+                new SqlParameter("@account", u.UserAccount),
+                new SqlParameter("@password", u.UserPassword),
+                new SqlParameter("@title", u.UserIdentity)
+                });
+
+                SqlHelper.ExecuteNonQueryText("INSERT INTO UserMapProject VALUES (@projectId,@userId)", new SqlParameter[] {
+                new SqlParameter("@projectId", projectTable.Rows[0]["Id"].ToString()),
+                new SqlParameter("@userId", userTable.Rows[0]["Id"].ToString())
+                });
+            }
+
             SqlHelper.ExecuteNonQueryText("UPDATE Project SET ProjectName = @ProjectName , ProjectDescription = @projectDescription WHERE ProjectName = @preProjectName and ProjectDescription = @preProjectDescription", new SqlParameter[] {
                 new SqlParameter("@projectName", projectNameEdit),
                 new SqlParameter("@ProjectDescription", projectDescriptionEdit),

@@ -70,18 +70,18 @@ namespace OOAD_RMS
         }
 
 
-        public void addProject(string projectName, string projectDescription)
+        public void addProject(string projectName, string projectDescription,List<User>selectedUserList)
         {
             Project project = new Project();
             project.ProjectName = projectName;
             project.ProjectDescription = projectDescription;
-            _dbManager.AddProject(projectName, projectDescription);
+            _dbManager.AddProject(projectName, projectDescription, selectedUserList);
             _projectList.Add(project);
         }
 
-        public void editProject(string projectName, string projectDescription, int index)
+        public void editProject(string projectName, string projectDescription,List<User>selectedUserList, int index)
         {
-            _dbManager.EditProject(_projectList[index].ProjectName, _projectList[index].ProjectDescription, projectName, projectDescription);
+            _dbManager.EditProject(_projectList[index].ProjectName, _projectList[index].ProjectDescription, projectName, projectDescription,selectedUserList);
             _projectList[index].ProjectName = projectName;
             _projectList[index].ProjectDescription = projectDescription;
             _projectList.ResetBindings();

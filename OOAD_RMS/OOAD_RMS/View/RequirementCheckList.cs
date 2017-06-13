@@ -48,8 +48,6 @@ namespace OOAD_RMS
 
         public List<Requirement> getRequirements()
         {
-            foreach (Requirement re in _checkedRequirements)
-                Console.WriteLine("RequirementName: " + re.RequirementName);
             return _checkedRequirements;
         }
     }

@@ -76,23 +76,6 @@ namespace OOAD_RMS
             return testMapRequirementTable;
         }
 
-        public bool GetRequirementIsComplete(string requirementName, string requirementDescription)
-        {
-            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
-                new SqlParameter("@projectName",  _currentProject.ProjectName),
-                new SqlParameter("@ProjectDescription", _currentProject.ProjectDescription)
-            });
-            DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE RequirementName=@requirementName AND RequirementDescription=@requirementDescription AND ProjectId=@projectId", new SqlParameter[] {
-                new SqlParameter("@requirementName", requirementName),
-                new SqlParameter("@requirementDescription", requirementDescription),
-                new SqlParameter("@projectId", (int)projectTable.Rows[0]["Id"])
-            });
-            DataTable userTable = SqlHelper.GetDataTableText("SELECT IIF(not EXISTS(SELECT* from TestMapRequirement WHERE RequirementId = @requirementId AND IsCompleted=0), 'TRUE', 'FALSE' ) as Result", new SqlParameter[] {
-                new SqlParameter("@requirementId", (int)requirementTable.Rows[0]["Id"])
-            });
-            return ((userTable.Rows[0]["Result"].ToString() == "TRUE"));
-        }
-
         #endregion
 
         #region Add Method

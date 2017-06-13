@@ -5,6 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Linq;
+
 namespace OOAD_RMS
 {
     public class Model
@@ -110,40 +112,8 @@ namespace OOAD_RMS
 
         public void getTraceAbilityMatrixFromSelectProject(DataGridView grid)
         {
-            grid.Rows.Clear();
-            grid.Columns.Clear();
-
-            DataGridViewTextBoxColumn firstRequirementColumn = new DataGridViewTextBoxColumn();
-            firstRequirementColumn.HeaderText = "";
-            grid.Columns.Add(firstRequirementColumn);
-            foreach (Requirement re in _requirementList)
-            {
-                DataGridViewTextBoxColumn requirementColumn = new DataGridViewTextBoxColumn();
-                if (_dbManager.GetRequirementIsComplete(re.RequirementName, re.RequirementDescription))
-                    requirementColumn.DefaultCellStyle.BackColor = System.Drawing.Color.GreenYellow;
-                grid.Columns.Add(requirementColumn);
-                requirementColumn.HeaderText = re.RequirementName;
-            }
-
-            foreach (Test te in _testList)
-            {
-                grid.Rows.Add(te.testName);
-            }
-
-            for (int i = 0; i < _testList.Count; i++)
-            {
-                for (int j = 0; j < _requirementList.Count; j++)
-                {
-                    List<Requirement> requirementInTest = _testList[i].requirements;
-                    if (requirementInTest.Contains(_requirementList[j]))
-                    {
-                        if (_testList[i].requirementisComplete[_requirementList[j]])
-                            grid.Rows[i].Cells[j + 1].Value = "✓";
-                        else
-                            grid.Rows[i].Cells[j + 1].Value = "O";
-                    }
-                }
-            }
+            TraceabilityMatrix tm = new TraceabilityMatrix(_requirementList.ToList(), _testList.ToList());
+            tm.SetTraceAbilityMatrix(grid);
         }
 
         public void addRequirement(string requirementName, string requirementDescription)

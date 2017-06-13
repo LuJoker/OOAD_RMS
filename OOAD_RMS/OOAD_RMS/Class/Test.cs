@@ -67,5 +67,13 @@ namespace OOAD_RMS
                     _requirements.Add(req, false);
             }
         }
+
+        public bool requirementIsComplete(Requirement requirement)
+        {
+            if (_requirements.ContainsKey(requirement))
+                return _requirements[requirement];
+            else
+                return true;
+        }
     }
 }

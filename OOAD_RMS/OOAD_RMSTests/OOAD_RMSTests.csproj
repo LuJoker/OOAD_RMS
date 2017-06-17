@@ -56,6 +56,7 @@
     <Compile Include="Class\Manager Class\ProjectManageTests.cs" />
     <Compile Include="Class\Manager Class\RequirementManageTests.cs" />
     <Compile Include="Class\Manager Class\TestManageTests.cs" />
+    <Compile Include="Class\Manager Class\UserManagerTests.cs" />
     <Compile Include="Class\Normal Class\TestMapRequirementTests.cs" />
     <Compile Include="Class\Normal Class\UserMapProjectTests.cs" />
     <Compile Include="Class\Normal Class\UserTest.cs" />

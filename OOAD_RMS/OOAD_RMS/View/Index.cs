@@ -5,34 +5,34 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace OOAD_RMS
 {
     public partial class Index : Form
     {
-        Model _model;
-        public Index(Model model)
+        ManagerCollecter _manages;
+        User _user;
+
+        public Index(ManagerCollecter manages, User user)
         {
             InitializeComponent();
-            _model = model;
+            _manages = manages;
+            _user = user;
 
-            BindingSource projectSource = new BindingSource(_model.GetProjects(), null);
+            ChangeProjectDataSource();
 
-            _projectComboBox.DataSource = projectSource;
             _projectComboBox.DisplayMember = "ProjectName";
             _projectComboBox.SelectedIndex = 0;
-
-            _projectComboBoxTest.DataSource = projectSource;
+            
             _projectComboBoxTest.DisplayMember = "ProjectName";
             _projectComboBoxTest.SelectedIndex = 0;
-
-            _matrixComboBox.DataSource = projectSource;
+            
             _matrixComboBox.DisplayMember = "ProjectName";
             _matrixComboBox.SelectedIndex = 0;
 
             DataGridViewButtonColumn editProjectBtn = new DataGridViewButtonColumn();
             _projectGridView.Columns.Add(editProjectBtn);
-            _projectGridView.DataSource = projectSource;
             editProjectBtn.Text = "Edit";
             editProjectBtn.Name = "editBtn";
             editProjectBtn.UseColumnTextForButtonValue = true;
@@ -42,7 +42,6 @@ namespace OOAD_RMS
 
             DataGridViewButtonColumn deleteProjectBtn = new DataGridViewButtonColumn();
             _projectGridView.Columns.Add(deleteProjectBtn);
-            _projectGridView.DataSource = projectSource;
             deleteProjectBtn.Text = "x";
             deleteProjectBtn.Name = "deleteBtn";
             deleteProjectBtn.UseColumnTextForButtonValue = true;
@@ -124,12 +123,16 @@ namespace OOAD_RMS
         private void ClickAddProjectBtn(object sender, EventArgs e)
         {
             List<User> selectedUserList;
-            ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog(_model);
+            ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog(_manages);
             if (showAddProjectDialog.ShowDialog() == DialogResult.OK) {
                 selectedUserList = showAddProjectDialog.GetSelectedUser();
-                string projectName = showAddProjectDialog.GetProjectName();
-                string projectDescription = showAddProjectDialog.GetProjectDescription();
-                _model.addProject(projectName, projectDescription, selectedUserList);
+                Project project = new Project();
+                project.ProjectName = showAddProjectDialog.GetProjectName();
+                project.ProjectDescription = showAddProjectDialog.GetProjectDescription();
+                List<User> users = showAddProjectDialog.GetSelectedUser();
+                users.Add(_user);
+                _manages.ProjectManage.addProject(project, users);
+                ChangeProjectDataSource();
             }
         }
 
@@ -140,65 +143,93 @@ namespace OOAD_RMS
             
             if (showAddRequirementDialog.ShowDialog() == DialogResult.OK)
             {
-                string requirementName = showAddRequirementDialog.GetRequirementName();
-                string requirementDescription = showAddRequirementDialog.GetRequirementDescription();
-                _model.addRequirement(requirementName, requirementDescription);
-                _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
+                Requirement requirement = new Requirement();
+                requirement.RequirementName = showAddRequirementDialog.GetRequirementName();
+                requirement.RequirementDescription = showAddRequirementDialog.GetRequirementDescription();
+                requirement.Project = (Project)_projectComboBox.SelectedItem;
+                _manages.RequirementManage.addRequirement(requirement);
+                ChangeRequirementDataSource();
+                UpdateTraceAbilityMatrix();
             }
         }
 
         private void ClickAddTestBtn(object sender, EventArgs e)
         {
-            ShowAddTestDialog showAddTestDialog = new ShowAddTestDialog(_model);
+            ShowAddTestDialog showAddTestDialog = new ShowAddTestDialog((Project)_projectComboBox.SelectedItem, _manages);
             if (showAddTestDialog.ShowDialog() == DialogResult.OK)
             {
-                _model.addTest(showAddTestDialog.GetTestName(), showAddTestDialog.GetTestDescription(), showAddTestDialog.GetRequirements());
-                _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
+                Test test = new Test();
+                test.TestName = showAddTestDialog.GetTestName();
+                test.TestDescription = showAddTestDialog.GetTestDescription();
+                test.Project = (Project)_projectComboBox.SelectedItem;
+                List<Requirement> requirements = showAddTestDialog.GetRequirements();
+                _manages.TestManage.addTest(test, requirements);
+                ChangeTestDataSource();
+                UpdateTraceAbilityMatrix();
             }
+        }
+
+        private void ChangeProjectDataSource()
+        {
+            BindingSource projectSource = new BindingSource(new BindingList<Project>(_manages.ProjectManage.GetProjects(_user)), null);
+
+            _projectComboBox.DataSource = projectSource;
+            _projectComboBoxTest.DataSource = projectSource;
+            _matrixComboBox.DataSource = projectSource;
+            _projectGridView.DataSource = projectSource;
+        }
+
+        private void ChangeRequirementDataSource()
+        {
+            BindingList<Requirement> requirements = new BindingList<Requirement>(_manages.RequirementManage.GetRequirements((Project)_projectComboBox.SelectedItem));
+            BindingSource requirementSource = new BindingSource(requirements, null);
+            _requirementGridView.DataSource = requirementSource;
+        }
+
+        private void ChangeTestDataSource()
+        {
+            BindingList<Test> tests = new BindingList<Test>(_manages.TestManage.GetTests((Project)_projectComboBoxTest.SelectedItem));
+            BindingSource testSource = new BindingSource(tests, null);
+            _testGridView.DataSource = testSource;
         }
 
         private void ComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindingSource requirementSource = new BindingSource(_model.getRequirementFromSelectProject(_projectComboBox.SelectedIndex), null);
-            _requirementGridView.DataSource = requirementSource;
+            ChangeRequirementDataSource();
         }
         
         private void TestComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindingSource testSource = new BindingSource(_model.getTestFromSelectProject(_projectComboBoxTest.SelectedIndex), null);
-            _testGridView.DataSource = testSource;
+            ChangeTestDataSource();
         }
 
         private void SelectProjectGridViewEvent(object sender, DataGridViewCellEventArgs e)
         {
             int selectedRow = e.RowIndex;
-
-            String getProjectNameFromDataGridView;
-            String getProjectDescriptionFromDataGridView;
+            
             DialogResult result;
             if (e.ColumnIndex == 0 && selectedRow>-1)
             {
-              
-                getProjectNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
-                getProjectDescriptionFromDataGridView = _projectGridView.Rows[selectedRow].Cells[3].Value.ToString();
-
-
-                ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog(_model);
-                showAddProjectDialog.EditProjectName(getProjectNameFromDataGridView);
-                showAddProjectDialog.EditProjectDescription(getProjectDescriptionFromDataGridView);
+                Project project = (Project)_projectGridView.Rows[selectedRow].DataBoundItem;
+                ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog(project, _manages);
              
 
                 if (showAddProjectDialog.ShowDialog() == DialogResult.OK)
                 {
-                    _model.editProject(showAddProjectDialog.GetProjectName(), showAddProjectDialog.GetProjectDescription(),showAddProjectDialog.GetSelectedUser(), selectedRow);
+                    project.ProjectName = showAddProjectDialog.GetProjectName();
+                    project.ProjectDescription = showAddProjectDialog.GetProjectDescription();
+                    _manages.ProjectManage.editProject(project, showAddProjectDialog.GetSelectedUser());
+                    ChangeProjectDataSource();
                 }
             }
             if (e.ColumnIndex == 1 && selectedRow > -1)
             {
-                getProjectNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
+                Project project = (Project)_projectGridView.Rows[selectedRow].DataBoundItem;
+                string getProjectNameFromDataGridView = _projectGridView.Rows[selectedRow].Cells[2].Value.ToString();
                 result=MessageBox.Show("確定要刪除專案: "+ getProjectNameFromDataGridView+" 嗎?", "確定刪除",MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes) {
-                    _model.deleteProject(selectedRow);
+                    _manages.ProjectManage.deleteProject(project);
+                    ChangeProjectDataSource();
                 }
             }
         }
@@ -213,27 +244,29 @@ namespace OOAD_RMS
 
             if (e.ColumnIndex == 0 && selectedRow > -1)
             {
-                getRequirementNameFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[2].Value.ToString();
-                getRequirementDescriptionFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[3].Value.ToString();
-                ShowAddRequirementDialog requirementDialog = new ShowAddRequirementDialog();
-                requirementDialog.EditRequirementName(getRequirementNameFromDataGridView);
-                requirementDialog.EditRequirementDescription(getRequirementDescriptionFromDataGridView);
+                Requirement requirement = (Requirement)_requirementGridView.Rows[selectedRow].DataBoundItem;
+
+                ShowAddRequirementDialog requirementDialog = new ShowAddRequirementDialog(requirement);
 
                 if (requirementDialog.ShowDialog() == DialogResult.OK)
                 {
-                    _model.editRequirement(requirementDialog.GetRequirementName(), requirementDialog.GetRequirementDescription(), selectedRow);
-                    _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
+                    requirement.RequirementName = requirementDialog.GetRequirementName();
+                    requirement.RequirementDescription = requirementDialog.GetRequirementDescription();
+                    ChangeRequirementDataSource();
+                    UpdateTraceAbilityMatrix();
                 }
             }
             else if (e.ColumnIndex == 1 && selectedRow > -1)
             {
+                Requirement requirement = (Requirement)_requirementGridView.Rows[selectedRow].DataBoundItem;
                 getRequirementNameFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[2].Value.ToString();
                 getRequirementDescriptionFromDataGridView = _requirementGridView.Rows[selectedRow].Cells[3].Value.ToString();
                 result = MessageBox.Show("確定要刪除需求: " + getRequirementNameFromDataGridView + " 嗎?", "確定刪除", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    _model.deleteRequirement(selectedRow);
-                    _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
+                    _manages.RequirementManage.deleteRequirement(requirement);
+                    ChangeRequirementDataSource();
+                    UpdateTraceAbilityMatrix();
                 }
             }
         }
@@ -246,33 +279,38 @@ namespace OOAD_RMS
 
             if (e.ColumnIndex == 0 && selectedRow > -1)
             {
-                ShowAddTestDialog testDialog = new ShowAddTestDialog((Test)_testGridView.Rows[selectedRow].DataBoundItem, _model);
+                Test test = (Test)_testGridView.Rows[selectedRow].DataBoundItem;
+                ShowAddTestDialog testDialog = new ShowAddTestDialog((Project)_projectComboBoxTest.SelectedItem ,test, _manages);
 
                 if (testDialog.ShowDialog() == DialogResult.OK)
                 {
-                    _model.editTest(testDialog.GetTestName(), testDialog.GetTestDescription(), testDialog.GetRequirements(), selectedRow);
-                    _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
+                    test.TestName = testDialog.GetTestName();
+                    test.TestDescription = testDialog.GetTestDescription();
+                    _manages.TestManage.editTest(test, testDialog.GetRequirements());
+                    ChangeTestDataSource();
+                    UpdateTraceAbilityMatrix();
                 }
             }
             else if (e.ColumnIndex == 1 && selectedRow > -1)
             {
+                Test test = (Test)_testGridView.Rows[selectedRow].DataBoundItem;
                 getTestNameFromDataGridView = _testGridView.Rows[selectedRow].Cells[2].Value.ToString();
                 getTestDescriptionFromDataGridView = _testGridView.Rows[selectedRow].Cells[3].Value.ToString();
                 DialogResult result = MessageBox.Show("確定要刪除需求: " + getTestNameFromDataGridView + " 嗎?", "確定刪除", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    _model.deleteTest(selectedRow);
-                    _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
+                    _manages.TestManage.deleteTest(test);
+                    ChangeTestDataSource();
+                    UpdateTraceAbilityMatrix();
                 }
             }
             else
             {
-                TestDetailInfo testInfo = new TestDetailInfo(_model, (Test)_testGridView.Rows[selectedRow].DataBoundItem);
+                TestDetailInfo testInfo = new TestDetailInfo(_manages, (Test)_testGridView.Rows[selectedRow].DataBoundItem, (Project)_projectComboBoxTest.SelectedItem);
                 
                 if (testInfo.ShowDialog() == DialogResult.OK)
                 {
-                    _model.updateTestIsComplete((Test)_testGridView.Rows[selectedRow].DataBoundItem);
-                    _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
+                    UpdateTraceAbilityMatrix();
                 }
             }
         }
@@ -299,10 +337,14 @@ namespace OOAD_RMS
         public void FormatRequirementGridViewCell(object sender, DataGridViewCellFormattingEventArgs e)
         {
             string columnName = _requirementGridView.Columns[e.ColumnIndex].Name;
+            Console.WriteLine(columnName);
             switch (columnName)
             {
                 case "RequirementDescription":
                     _requirementGridView.Columns[e.ColumnIndex].Width = 700;
+                    break;
+                case "Project":
+                    _requirementGridView.Columns[e.ColumnIndex].Visible = false;
                     break;
                 case "editBtn":
                     _requirementGridView.Columns[e.ColumnIndex].Width = 60;
@@ -323,7 +365,7 @@ namespace OOAD_RMS
                 case "testDescription":
                     _testGridView.Columns[e.ColumnIndex].Width = 700;
                     break;
-                case "requirementisComplete":
+                case "Project":
                     _testGridView.Columns[e.ColumnIndex].Visible = false;
                     break;
                 case "editBtn":
@@ -339,7 +381,13 @@ namespace OOAD_RMS
 
         private void MatrixComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            _model.getTraceAbilityMatrixFromSelectProject(_traceAbilityMatrixGridView);
+            UpdateTraceAbilityMatrix();
+        }
+
+        private void UpdateTraceAbilityMatrix()
+        {
+            TraceabilityMatrix tcx = new TraceabilityMatrix(_manages.RequirementManage.GetRequirements((Project)_matrixComboBox.SelectedItem), _manages.TestManage.GetTestMapRequirement().FindAll(c => c.Test.Project == _matrixComboBox.SelectedItem && c.Requirement.Project == _matrixComboBox.SelectedItem));
+            tcx.SetTraceAbilityMatrix(_traceAbilityMatrixGridView);
         }
     }
 }

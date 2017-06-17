@@ -44,7 +44,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.16456F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.83544F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 107F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108F));
             this.tableLayoutPanel1.Controls.Add(this._projectNameLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this._projectNameTxt, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this._projectDescriptionLabel, 0, 1);
@@ -53,7 +53,7 @@
             this.tableLayoutPanel1.Controls.Add(this._checkedUserComboBox, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this._selectUserBtn, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tableLayoutPanel1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
@@ -132,7 +132,7 @@
             this._selectUserBtn.Name = "_selectUserBtn";
             this._selectUserBtn.Size = new System.Drawing.Size(88, 29);
             this._selectUserBtn.TabIndex = 4;
-            this._selectUserBtn.Text = "新增成員";
+            this._selectUserBtn.Text = "編輯成員";
             this._selectUserBtn.UseVisualStyleBackColor = true;
             this._selectUserBtn.Click += new System.EventHandler(this.ClickSelectUserBtn);
             // 

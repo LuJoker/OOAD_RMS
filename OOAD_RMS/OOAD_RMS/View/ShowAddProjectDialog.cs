@@ -12,28 +12,24 @@ namespace OOAD_RMS
 {
     public partial class ShowAddProjectDialog : Form
     {
-        Model _model;
+        ManagerCollecter _manages;
         List<User> _selectedUserList = new List<User>();
-        public ShowAddProjectDialog(Model model)
+        public ShowAddProjectDialog(ManagerCollecter manages)
         {
-            _model = model;
+            _manages = manages;
             InitializeComponent();
-            
+            _checkedUserComboBox.DisplayMember = "UserAccount";
         }
 
-        public void EditProjectName(String projectName) {
-            _projectNameTxt.Text = projectName;
-        }
-        public void EditProjectDescription(String projectDescription) {
-            _projectDescriptionTxt.Text = projectDescription;
-            Console.WriteLine(_projectNameTxt.Text);
-            Console.WriteLine("@@@@@");
-            List<User> usersInProject = _model.GetAllUser().FindAll(c => c.GetInProjects().Any(e => e.ProjectName == _projectNameTxt.Text));
-            foreach (User user in usersInProject)
-            {
-                Console.WriteLine(user.UserAccount);
-            }
-            BindingSource bs = new BindingSource(usersInProject, null);
+        public ShowAddProjectDialog(Project project, ManagerCollecter manages)
+        {
+            _manages = manages;
+            InitializeComponent();
+
+            _projectNameTxt.Text = project.ProjectName;
+            _projectDescriptionTxt.Text = project.ProjectDescription;
+            _selectedUserList = _manages.ProjectManage.GetProjectMapUsers(project);
+            BindingSource bs = new BindingSource(_selectedUserList, null);
             _checkedUserComboBox.DataSource = bs;
             _checkedUserComboBox.DisplayMember = "UserAccount";
         }
@@ -50,13 +46,12 @@ namespace OOAD_RMS
 
         private void ClickSelectUserBtn(object sender, EventArgs e)
         {
-            UserCheckList _userCheckList = new UserCheckList(_model);
+            UserCheckList _userCheckList = new UserCheckList(_selectedUserList, _manages);
             if (_userCheckList.ShowDialog() == DialogResult.OK)
             {
                 _selectedUserList = _userCheckList.GetSelectedUser();
                 BindingSource userSource = new BindingSource(_selectedUserList, null);
                 _checkedUserComboBox.DataSource = userSource;
-                _checkedUserComboBox.DisplayMember = "UserAccount";
             }
         }
 

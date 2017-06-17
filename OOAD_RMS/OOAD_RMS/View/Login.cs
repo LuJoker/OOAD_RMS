@@ -10,10 +10,10 @@ namespace OOAD_RMS
 {
     public partial class Login : Form
     {
-        Model _model;
-        public Login(Model model)
+        ManagerCollecter _manages;
+        public Login(ManagerCollecter manages)
         {
-            _model = model;
+            _manages = manages;
             InitializeComponent();
             _passwordTextBox.PasswordChar = '*';
         }
@@ -22,9 +22,10 @@ namespace OOAD_RMS
         {
             string account = _accountTextBox.Text;
             string password = _passwordTextBox.Text;
-            if (_model.LoginCheck(account, password)) {
+            if (_manages.UserManage.LoginCheck(account, password)) {
                 Hide();
-                Index indexForm = new Index(_model);
+                User user = _manages.UserManage.getUser(account, password);
+                Index indexForm = new Index(_manages, user);
                 indexForm.ShowDialog();
                 Close();
             }
@@ -33,7 +34,7 @@ namespace OOAD_RMS
         private void Register(object sender, EventArgs e)
         {
             Hide();
-            Register registerForm = new Register();
+            Register registerForm = new Register(_manages);
             registerForm.ShowDialog();
             Close();
         }

@@ -10,15 +10,27 @@ namespace OOAD_RMS
 {
     public partial class UserCheckList : Form
     {
-        Model _model;
+        ManagerCollecter _manages;
         List<User> _userList = new List<User>();
-        public UserCheckList(Model model)
+        public UserCheckList(List<User> users, ManagerCollecter manages)
         {
-            _model = model;
+            _manages = manages;
             InitializeComponent();
-            BindingSource bs = new BindingSource(_model.GetAllUser(), null);
+            BindingSource bs = new BindingSource(_manages.UserManage.GetUsers(), null);
             ((ListBox)_userCheckedListBox).DataSource = bs;
             ((ListBox)_userCheckedListBox).DisplayMember = "UserAccount";
+
+            for (int i = 0; i < _userCheckedListBox.Items.Count; i++)
+            {
+                foreach (User user in users)
+                {
+                    if (_userCheckedListBox.Items[i].Equals(user))
+                    {
+                        _userCheckedListBox.SetItemChecked(i, true);
+                        break;
+                    }
+                }
+            }
         }
 
         private void ClickOKBtn(object sender, EventArgs e)

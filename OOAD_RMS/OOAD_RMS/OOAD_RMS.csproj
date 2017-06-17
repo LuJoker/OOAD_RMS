@@ -44,14 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\Model.cs" />
-    <Compile Include="Class\Project.cs" />
-    <Compile Include="Class\Requirement.cs" />
-    <Compile Include="Class\SqlHelper.cs" />
-    <Compile Include="Class\DBManager.cs" />
-    <Compile Include="Class\Test.cs" />
-    <Compile Include="Class\TraceabilityMatrix.cs" />
-    <Compile Include="Class\User.cs" />
+    <Compile Include="Class\Manager Class\ManagerCollecter.cs" />
+    <Compile Include="Class\Normal Class\Model.cs" />
+    <Compile Include="Class\Normal Class\Project.cs" />
+    <Compile Include="Class\Manager Class\ProjectManage.cs" />
+    <Compile Include="Class\Normal Class\Requirement.cs" />
+    <Compile Include="Class\Manager Class\RequirementManage.cs" />
+    <Compile Include="Class\Static Class\SqlHelper.cs" />
+    <Compile Include="Class\Static Class\DBManager.cs" />
+    <Compile Include="Class\Normal Class\Test.cs" />
+    <Compile Include="Class\Manager Class\TestManage.cs" />
+    <Compile Include="Class\Normal Class\TestMapRequirement.cs" />
+    <Compile Include="Class\Normal Class\TraceabilityMatrix.cs" />
+    <Compile Include="Class\Normal Class\User.cs" />
+    <Compile Include="Class\Manager Class\UserManage.cs" />
+    <Compile Include="Class\Normal Class\UserMapProject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Index.cs">

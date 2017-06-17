@@ -15,14 +15,11 @@ namespace OOAD_RMS
             InitializeComponent();
         }
 
-        public void EditRequirementName(string requirementName)
+        public ShowAddRequirementDialog(Requirement requirement)
         {
-            _requirementNameTxt.Text = requirementName;
-        }
-
-        public void EditRequirementDescription(string requirementDescription)
-        {
-            _requirementDescriptionTxt.Text = requirementDescription;
+            InitializeComponent();
+            _requirementNameTxt.Text = requirement.RequirementName;
+            _requirementDescriptionTxt.Text = requirement.RequirementDescription;
         }
 
         public string GetRequirementName()

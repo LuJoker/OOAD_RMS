@@ -7,36 +7,46 @@ using System.Linq;
 
 namespace OOAD_RMS
 {
-    public class DBManager
+    public abstract class DBManager
     {
-        private User _currentUser;
-        private Project _currentProject;
+        private static User _currentUser;
+        private static Project _currentProject;
 
         #region Init、SetCurrentUser、SetCurrentProject
-        public DBManager()
-        {
 
+        public static User CurrentUser
+        {
+            get
+            {
+                return _currentUser;
+            }
+            set
+            {
+                _currentUser = value;
+            }
         }
 
-        public void SetCurrentUser(User user)
+        public static Project CurrentProject
         {
-            _currentUser = user;
-        }
-
-        public void SetCurrentProject(Project project)
-        {
-            _currentProject = project;
+            get
+            {
+                return _currentProject;
+            }
+            set
+            {
+                _currentProject = value;
+            }
         }
         #endregion
 
         #region Get Method
-        public DataTable GetUsers()
+        public static DataTable GetUsers()
         {
             DataTable userTable = SqlHelper.GetDataTableText("SELECT Account,Password,Title FROM Users", new SqlParameter[] {});
             return userTable;
         }
 
-        public DataTable GetUsersIsRegister(string account)
+        public static DataTable GetUsersIsRegister(string account)
         {
             DataTable userTable = SqlHelper.GetDataTableText("SELECT IIF(not EXISTS(SELECT* from Users WHERE Account = @account), 'TRUE', 'FALSE' ) as Result", new SqlParameter[] {
                 new SqlParameter("@account", account)
@@ -44,15 +54,29 @@ namespace OOAD_RMS
             return userTable;
         }
 
-        public DataTable GetProjectByUserAccount(string account)
+        public static DataTable GetProjects()
         {
-            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Users INNER JOIN UserMapProject ON Users.Id=UserMapProject.UserId INNER JOIN Project ON Project.Id=UserMapProject.ProjectId WHERE Users.Account=@account", new SqlParameter[] {
+            DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project", new SqlParameter[] {
+            });
+            return projectTable;
+        }
+
+        public static DataTable GetProjectByUserAccount(string account)
+        {
+            DataTable projectTable = SqlHelper.GetDataTableText("SELECT ProjectName,ProjectDescription,Project.Id FROM Users INNER JOIN UserMapProject ON Users.Id=UserMapProject.UserId INNER JOIN Project ON Project.Id=UserMapProject.ProjectId WHERE Users.Account=@account", new SqlParameter[] {
                 new SqlParameter("@account", account)
             });
             return projectTable;
         }
 
-        public DataTable GetRequirementByProjectId(int projectId)
+        public static DataTable GetRequirements()
+        {
+            DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement", new SqlParameter[] {
+            });
+            return requirementTable;
+        }
+
+        public static DataTable GetRequirementByProjectId(int projectId)
         {
             DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE ProjectId=@projectId", new SqlParameter[] {
                 new SqlParameter("@projectId", projectId)
@@ -60,7 +84,14 @@ namespace OOAD_RMS
             return requirementTable;
         }
 
-        public DataTable GetTestByProjectId(int projectId)
+        public static DataTable GetTests()
+        {
+            DataTable testTable = SqlHelper.GetDataTableText("SELECT * FROM Test", new SqlParameter[] {
+            });
+            return testTable;
+        }
+
+        public static DataTable GetTestByProjectId(int projectId)
         {
             DataTable testTable = SqlHelper.GetDataTableText("SELECT * FROM Test WHERE ProjectId=@projectId", new SqlParameter[] {
                 new SqlParameter("@projectId", projectId)
@@ -68,7 +99,7 @@ namespace OOAD_RMS
             return testTable;
         }
 
-        public DataTable GetTestMapRequirementByTestId(int testId)
+        public static DataTable GetTestMapRequirementByTestId(int testId)
         {
             DataTable testMapRequirementTable = SqlHelper.GetDataTableText("SELECT * FROM TestMapRequirement INNER JOIN Requirement ON TestMapRequirement.RequirementId = Requirement.Id WHERE TestMapRequirement.TestId=@testId", new SqlParameter[] {
                 new SqlParameter("@testId", testId)
@@ -79,7 +110,7 @@ namespace OOAD_RMS
         #endregion
 
         #region Add Method
-        public void AddUser(string account, string password, string identity)
+        public static void AddUser(string account, string password, string identity)
         {
             SqlHelper.ExecuteNonQueryText("INSERT INTO Users (Account,Password,Title) VALUES (@account,@password,@title)", new SqlParameter[] {
                 new SqlParameter("@account", account),
@@ -88,7 +119,7 @@ namespace OOAD_RMS
             });
         }
 
-        public void AddProject(string projectName, string projectDescription,List<User>selectedUserList)
+        public static void AddProject(string projectName, string projectDescription,List<User>selectedUserList)
         {
             SqlHelper.ExecuteNonQueryText("INSERT INTO Project VALUES (@projectName,@projectDescription)", new SqlParameter[] {
                 new SqlParameter("@projectName", projectName),
@@ -115,7 +146,7 @@ namespace OOAD_RMS
             
         }
 
-        public void AddRequirement(string requirementName, string requirementDescription)
+        public static void AddRequirement(string requirementName, string requirementDescription)
         {
             DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
                 new SqlParameter("@projectName",  _currentProject.ProjectName),
@@ -128,7 +159,7 @@ namespace OOAD_RMS
             });
         }
 
-        public void AddTest(string testName, string testDescription, List<Requirement> requirements)
+        public static void AddTest(string testName, string testDescription, List<Requirement> requirements)
         {
             DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
                 new SqlParameter("@projectName",  _currentProject.ProjectName),
@@ -159,7 +190,7 @@ namespace OOAD_RMS
         #endregion
 
         #region Edit Method
-        public void EditProject(string projectNameOrigin, string projectDescriptionOrigin, string projectNameEdit, string projectDescriptionEdit,List<User>selectedUserList)
+        public static void EditProject(string projectNameOrigin, string projectDescriptionOrigin, string projectNameEdit, string projectDescriptionEdit,List<User>selectedUserList)
         {
             DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName AND ProjectDescription = @projectDescription", new SqlParameter[] {
                 new SqlParameter("@projectName", projectNameOrigin),
@@ -192,7 +223,7 @@ namespace OOAD_RMS
             });
         }
 
-        public void EditRequirement(string requirementNameOrigin, string requirementDescriptionOrigin, string requirementNameEdit, string requirementDescriptionEdit)
+        public static void EditRequirement(string requirementNameOrigin, string requirementDescriptionOrigin, string requirementNameEdit, string requirementDescriptionEdit)
         {
             SqlHelper.ExecuteNonQueryText("UPDATE Requirement SET RequirementName = @requirementName , RequirementDescription = @requirementDescription WHERE RequirementName = @preRequirementName and RequirementDescription = @preRequirementDescription", new SqlParameter[] {
                 new SqlParameter("@requirementName", requirementNameEdit),
@@ -202,7 +233,7 @@ namespace OOAD_RMS
             });
         }
 
-        public void EditTest(string testNameOrigin, string testDescriptionOrigin, string testNameEdit, string testDescriptionEdit, List<Requirement> requirementsEdit)
+        public static void EditTest(string testNameOrigin, string testDescriptionOrigin, string testNameEdit, string testDescriptionEdit, List<Requirement> requirementsEdit)
         {
             SqlHelper.ExecuteNonQueryText("UPDATE Test SET TestName = @testName , TestDescription = @testDescription WHERE TestName = @preTestName and TestDescription = @preTestDescription", new SqlParameter[] {
                 new SqlParameter("@testName", testNameEdit),
@@ -231,29 +262,29 @@ namespace OOAD_RMS
             }
         }
 
-        public void EditTestIsComplete(Test test)
+        public static void EditTestIsComplete(Test test)
         {
             DataTable testTable = SqlHelper.GetDataTableText("SELECT * FROM Test WHERE TestName = @testName and TestDescription = @testDescription", new SqlParameter[] {
-                new SqlParameter("@testName",  test.testName),
-                new SqlParameter("@testDescription", test.testDescription)
+                new SqlParameter("@testName",  test.TestName),
+                new SqlParameter("@testDescription", test.TestDescription)
             });
-            foreach (Requirement req in test.requirementisComplete.Keys)
-            {
-                DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE RequirementName = @requirementName and RequirementDescription = @requirementDescription", new SqlParameter[] {
-                    new SqlParameter("@requirementName", req.RequirementName),
-                    new SqlParameter("@requirementDescription", req.RequirementDescription)
-                });
-                SqlHelper.ExecuteNonQueryText("UPDATE TestMapRequirement SET IsCompleted=@isCompleted WHERE requirementId=@requirementId AND testId=@testId", new SqlParameter[] {
-                    new SqlParameter("@requirementId", (int)requirementTable.Rows[0]["Id"]),
-                    new SqlParameter("@testId", (int)testTable.Rows[0]["Id"]),
-                    new SqlParameter("@isCompleted", test.requirementisComplete[req] ? "1" : "0")
-                });
-            }
+            //foreach (Requirement req in test.requirementisComplete.Keys)
+            //{
+            //    DataTable requirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE RequirementName = @requirementName and RequirementDescription = @requirementDescription", new SqlParameter[] {
+            //        new SqlParameter("@requirementName", req.RequirementName),
+            //        new SqlParameter("@requirementDescription", req.RequirementDescription)
+            //    });
+            //    SqlHelper.ExecuteNonQueryText("UPDATE TestMapRequirement SET IsCompleted=@isCompleted WHERE requirementId=@requirementId AND testId=@testId", new SqlParameter[] {
+            //        new SqlParameter("@requirementId", (int)requirementTable.Rows[0]["Id"]),
+            //        new SqlParameter("@testId", (int)testTable.Rows[0]["Id"]),
+            //        new SqlParameter("@isCompleted", test.requirementisComplete[req] ? "1" : "0")
+            //    });
+            //}
         }
         #endregion
 
         #region Delete Method
-        public void DeleteProject(string projectName, string projectDescription)
+        public static void DeleteProject(string projectName, string projectDescription)
         {
             DataTable projectTable = SqlHelper.GetDataTableText("SELECT * FROM Project WHERE ProjectName = @projectName and ProjectDescription = @projectDescription", new SqlParameter[] {
                 new SqlParameter("@projectName", projectName),
@@ -268,7 +299,7 @@ namespace OOAD_RMS
             });
         }
 
-        public void DeleteRequirement(string requirementName, string requirementDescription)
+        public static void DeleteRequirement(string requirementName, string requirementDescription)
         {
             DataTable RequirementTable = SqlHelper.GetDataTableText("SELECT * FROM Requirement WHERE Requirementname = @requirementName and RequirementDescription = @requirementDescription", new SqlParameter[] {
                 new SqlParameter("@requirementName", requirementName),
@@ -282,7 +313,7 @@ namespace OOAD_RMS
             });
         }
 
-        public void DeleteTest(string testName, string testDescription)
+        public static void DeleteTest(string testName, string testDescription)
         {
             DataTable testTable = SqlHelper.GetDataTableText("SELECT * FROM Test WHERE TestName = @testName and TestDescription = @testDescription", new SqlParameter[] {
                 new SqlParameter("@testName",  testName),

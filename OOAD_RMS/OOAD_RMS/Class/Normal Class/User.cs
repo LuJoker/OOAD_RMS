@@ -9,7 +9,6 @@ namespace OOAD_RMS
         private string _account;
         private string _password;
         private string _identity;
-        private List<Project> _inProjects = new List<Project>();
 
         public User()
         {
@@ -49,16 +48,6 @@ namespace OOAD_RMS
             {
                 _identity = value;
             }
-        }
-
-        public void addProject(Project project)
-        {
-            _inProjects.Add(project);
-        }
-
-        public List<Project> GetInProjects()
-        {
-            return _inProjects;
         }
     }
 }

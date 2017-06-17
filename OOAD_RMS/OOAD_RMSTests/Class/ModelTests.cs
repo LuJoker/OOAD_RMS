@@ -26,12 +26,12 @@ namespace OOAD_RMS.Tests
             requirement1.RequirementDescription = "Re1 123";
             project1.AddRequirement(requirement1);
             Test test1 = new Test();
-            test1.testName = "Te1";
-            test1.testDescription = "Te1 123";
+            test1.TestName = "Te1";
+            test1.TestDescription = "Te1 123";
             project1.AddTest(test1);
             Test test2 = new Test();
-            test2.testName = "Te2";
-            test2.testDescription = "Te2 123";
+            test2.TestName = "Te2";
+            test2.TestDescription = "Te2 123";
             project1.AddTest(test2);
 
             Project project2 = new Project();
@@ -50,8 +50,8 @@ namespace OOAD_RMS.Tests
             requirement3.RequirementDescription = "Re2 456";
             project3.AddRequirement(requirement3);
             Test test3 = new Test();
-            test3.testName = "Te3";
-            test3.testDescription = "Te3 123";
+            test3.TestName = "Te3";
+            test3.TestDescription = "Te3 123";
             test3.AddRequirement(requirement3);
             project3.AddTest(test3);
 
@@ -97,7 +97,7 @@ namespace OOAD_RMS.Tests
         [TestMethod()]
         public void getTestFromSelectProjectTest()
         {
-            Assert.AreEqual("Te1", _model.getTestFromSelectProject(0)[0].testName);
+            Assert.AreEqual("Te1", _model.getTestFromSelectProject(0)[0].TestName);
         }
 
         [TestMethod()]
@@ -131,12 +131,12 @@ namespace OOAD_RMS.Tests
         public void addTestTest()
         {
             Test test1 = new Test();
-            test1.testName = "t_name";
-            test1.testDescription = "t_description";
+            test1.TestName = "t_name";
+            test1.TestDescription = "t_description";
             _model.getTestFromSelectProject(0);
             _model.addTest(test1);
-            Assert.AreEqual("t_name", _model.getTestFromSelectProject(0)[2].testName);
-            Assert.AreEqual("t_description", _model.getTestFromSelectProject(0)[2].testDescription);
+            Assert.AreEqual("t_name", _model.getTestFromSelectProject(0)[2].TestName);
+            Assert.AreEqual("t_description", _model.getTestFromSelectProject(0)[2].TestDescription);
         }
 
         [TestMethod()]2

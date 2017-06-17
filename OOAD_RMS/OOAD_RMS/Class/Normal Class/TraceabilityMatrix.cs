@@ -9,44 +9,48 @@ namespace OOAD_RMS
     public class TraceabilityMatrix
     {
         private List<Requirement> _requirements;
-        private List<Test> _tests;
+        private List<TestMapRequirement> _testMapRequirement;
 
-        public TraceabilityMatrix(List<Requirement> requirements, List<Test> tests)
+        public TraceabilityMatrix(List<Requirement> requirements,List<TestMapRequirement> testMapRequirement)
         {
             _requirements = requirements;
-            _tests = tests;
+            _testMapRequirement = testMapRequirement;
         }
 
         public void SetTraceAbilityMatrix(DataGridView grid)
         {
             grid.Rows.Clear();
             grid.Columns.Clear();
-
+            
+            //x軸 (需求)
             DataGridViewTextBoxColumn firstRequirementColumn = new DataGridViewTextBoxColumn();
             firstRequirementColumn.HeaderText = "";
             grid.Columns.Add(firstRequirementColumn);
             foreach (Requirement re in _requirements)
             {
                 DataGridViewTextBoxColumn requirementColumn = new DataGridViewTextBoxColumn();
-                if (_tests.All(c => c.requirementIsComplete(re) == true))
+                if (_testMapRequirement.FindAll(f => f.Requirement == re).All(c => c.IsComplete == true))
                     requirementColumn.DefaultCellStyle.BackColor = System.Drawing.Color.GreenYellow;
                 grid.Columns.Add(requirementColumn);
                 requirementColumn.HeaderText = re.RequirementName;
             }
 
-            foreach (Test te in _tests)
+            //y軸 (測試)
+            List<Test> tests = _testMapRequirement.Select(t => t.Test).GroupBy(g => g).Select(s => s.Key).ToList();
+            foreach (Test te in tests)
             {
-                grid.Rows.Add(te.testName);
+                grid.Rows.Add(te.TestName);
             }
 
-            for (int i = 0; i < _tests.Count; i++)
+            //掃每個格子
+            for (int i = 0; i < tests.Count; i++)
             {
                 for (int j = 0; j < _requirements.Count; j++)
                 {
-                    List<Requirement> requirementInTest = _tests[i].requirements;
+                    List<Requirement> requirementInTest = _testMapRequirement.FindAll(f => f.Test == tests[i]).Select(s => s.Requirement).ToList();
                     if (requirementInTest.Contains(_requirements[j]))
                     {
-                        if (_tests[i].requirementisComplete[_requirements[j]])
+                        if (_testMapRequirement.Find(f => f.Requirement == _requirements[j] && f.Test == tests[i]).IsComplete)
                             grid.Rows[i].Cells[j + 1].Value = "✓";
                         else
                             grid.Rows[i].Cells[j + 1].Value = "O";

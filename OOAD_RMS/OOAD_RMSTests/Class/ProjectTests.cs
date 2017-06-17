@@ -39,8 +39,8 @@ namespace OOAD_RMS.Tests
         public void AddTestTest()
         {
             Test test1 = new Test();
-            test1.testName = "test_name";
-            test1.testDescription = "test_description";
+            test1.TestName = "test_name";
+            test1.TestDescription = "test_description";
             _project.AddTest(test1);
             Assert.AreEqual("test_name",_project.GetTests()[0].testName);
             Assert.AreEqual("test_description", _project.GetTests()[0].testDescription);
@@ -60,8 +60,8 @@ namespace OOAD_RMS.Tests
         public void GetTestsTest()
         {
             Test test1 = new Test();
-            test1.testName = "test_name";
-            test1.testDescription = "test_description";
+            test1.TestName = "test_name";
+            test1.TestDescription = "test_description";
             _project.AddTest(test1);
             Assert.AreEqual(1, _project.GetTests().Count);
         }

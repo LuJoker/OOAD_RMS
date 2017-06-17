@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace OOAD_RMS
 {
     public class Requirement
     {
+        private Project _project;
         private string _requirementName;
         private string _requirementDescription;
 
@@ -33,5 +35,16 @@ namespace OOAD_RMS
             }
         }
 
+        public Project Project
+        {
+            get
+            {
+                return _project;
+            }
+            set
+            {
+                _project = value;
+            }
+        }
     }
 }

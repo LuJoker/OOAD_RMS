@@ -12,10 +12,10 @@ namespace OOAD_RMS
         [STAThread]
         static void Main()
         {
-            Model model = new Model();
             Application.EnableVisualStyles();
-           // Application.SetCompatibleTextRenderingDefault(true);
-            Application.Run(new Login(model));
+            // Application.SetCompatibleTextRenderingDefault(true);
+            ManagerCollecter manages = new ManagerCollecter();
+            Application.Run(new Login(manages));
         }
     }
 }

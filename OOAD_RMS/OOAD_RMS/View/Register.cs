@@ -10,10 +10,10 @@ namespace OOAD_RMS
 {
     public partial class Register : Form
     {
-        Model _model;
-        public Register()
+        ManagerCollecter _manages;
+        public Register(ManagerCollecter manages)
         {
-            _model = new Model();
+            _manages = manages;
             InitializeComponent();
         }
 
@@ -23,9 +23,9 @@ namespace OOAD_RMS
             string account = _accountTextBox.Text;
             string password = _passwordTextBox.Text;
             string title = "Member";
-            _model.registerAccount(account, password, title);
+            _manages.UserManage.registerAccount(account, password, title);
 
-            Login LoginForm = new Login(_model);
+            Login LoginForm = new Login(_manages);
             LoginForm.ShowDialog();
             Close();
         }

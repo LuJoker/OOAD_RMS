@@ -5,37 +5,41 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace OOAD_RMS
 {
     public partial class ShowAddTestDialog : Form
     {
-        Model _model;
+        ManagerCollecter _manages;
         List<Requirement> _requirement;
-        public ShowAddTestDialog(Model model)
+        Project _project;
+        public ShowAddTestDialog(Project project, ManagerCollecter manages)
         {
-            _model = model;
+            _manages = manages;
+            _project = project;
             InitializeComponent();
             _testRequirementComboBox.DisplayMember = "RequirementName";
             _requirement = new List<Requirement>();
         }
 
-        public ShowAddTestDialog(Test test, Model model)
+        public ShowAddTestDialog(Project project, Test test, ManagerCollecter manages)
         {
-            _model = model;
+            _manages = manages;
+            _project = project;
             InitializeComponent();
             _testRequirementComboBox.DisplayMember = "RequirementName";
 
-            _testNameTxt.Text = test.testName;
-            _testDescriptionTxt.Text = test.testDescription;
-            _requirement = test.requirements;
-            BindingSource requirementSource = new BindingSource(test.requirements, null);
+            _testNameTxt.Text = test.TestName;
+            _testDescriptionTxt.Text = test.TestDescription;
+            _requirement = manages.TestManage.GetTestMapRequirement().FindAll(c => c.Test == test).Select(t => t.Requirement).ToList();
+            BindingSource requirementSource = new BindingSource(_requirement, null);
             _testRequirementComboBox.DataSource = requirementSource;
         }
 
         private void ClickEditRequirementList(object sender, EventArgs e)
         {
-            RequirementCheckList requirementCheckList = new RequirementCheckList(_requirement, _model);
+            RequirementCheckList requirementCheckList = new RequirementCheckList(_project, _requirement, _manages);
 
             if (requirementCheckList.ShowDialog() == DialogResult.OK)
             {

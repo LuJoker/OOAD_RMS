@@ -5,22 +5,23 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace OOAD_RMS
 {
     public partial class RequirementCheckList : Form
     {
-        Model _model;
+        ManagerCollecter _manages;
         List<Requirement> _checkedRequirements = new List<Requirement>();
-        public RequirementCheckList(List<Requirement> requirements, Model model)
+        public RequirementCheckList(Project project, List<Requirement> requirements, ManagerCollecter manages)
         {
-            _model = model;
+            _manages = manages;
             InitializeComponent();
 
-            BindingSource bs = new BindingSource(_model.GetRequirement(), null);
+            BindingSource bs = new BindingSource(_manages.RequirementManage.GetRequirements(project), null);
             ((ListBox)_requirementCheckedListBox).DataSource = bs;
             ((ListBox)_requirementCheckedListBox).DisplayMember = "RequirementName";
-            Height = 90 + _model.GetRequirement().Count * 20;
+            Height = 90 + _manages.RequirementManage.GetRequirements(project).Count * 20;
 
             for (int i = 0; i < _requirementCheckedListBox.Items.Count; i++)
             {

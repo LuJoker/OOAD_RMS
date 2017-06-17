@@ -36,7 +36,7 @@ namespace OOAD_RMS
             }
 
             //y軸 (測試)
-            List<Test> tests = _testMapRequirement.Select(t => t.Test).GroupBy(g => g).Select(s => s.Key).ToList();
+            List<Test> tests = _testMapRequirement.Select(t => t.Test).GroupBy(g => g).Select(s => s.Key).ToList().OrderBy(y => y.TestName).ToList();
             foreach (Test te in tests)
             {
                 grid.Rows.Add(te.TestName);

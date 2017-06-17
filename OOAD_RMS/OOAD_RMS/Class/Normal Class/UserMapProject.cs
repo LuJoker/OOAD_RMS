@@ -7,26 +7,32 @@ namespace OOAD_RMS
 {
     public class UserMapProject
     {
-        Tuple<User, Project> _userMapProject;
+        User _user;
+        Project _project;
 
         public UserMapProject(User user, Project project)
         {
-            _userMapProject = new Tuple<User, Project>(user, project);
+            _user = user;
+            _project = project;
         }
 
         public User User
         {
-            get
-            {
-                return _userMapProject.Item1;
+            get {
+                return _user;
+            }
+            set {
+                _user = value;
             }
         }
 
         public Project Project
         {
-            get
-            {
-                return _userMapProject.Item2;
+            get {
+                return _project;
+            }
+            set {
+                _project = value;
             }
         }
     }

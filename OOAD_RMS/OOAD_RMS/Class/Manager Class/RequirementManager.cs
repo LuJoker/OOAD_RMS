@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OOAD_RMS
 {
-    public class RequirementManage
+    public class RequirementManager
     {
         List<Requirement> _requirements = new List<Requirement>();
 

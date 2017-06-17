@@ -52,11 +52,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Class\ModelTests.cs" />
-    <Compile Include="Class\ProjectTests.cs" />
-    <Compile Include="Class\TestTests.cs" />
-    <Compile Include="Class\UserTests.cs" />
+    <Compile Include="Class\Manager Class\ManagerCollecterTests.cs" />
+    <Compile Include="Class\Manager Class\ProjectManageTests.cs" />
+    <Compile Include="Class\Manager Class\RequirementManageTests.cs" />
+    <Compile Include="Class\Manager Class\TestManageTests.cs" />
+    <Compile Include="Class\Normal Class\TestMapRequirementTests.cs" />
+    <Compile Include="Class\Normal Class\UserMapProjectTests.cs" />
+    <Compile Include="Class\Normal Class\UserTest.cs" />
+    <Compile Include="Class\Normal Class\ProjectTests.cs" />
+    <Compile Include="Class\Normal Class\TestTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Class\Normal Class\RequirementTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OOAD_RMS\OOAD_RMS.csproj">

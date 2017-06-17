@@ -5,18 +5,18 @@ using System.Text;
 
 namespace OOAD_RMS
 {
-    public class TestManage
+    public class TestManager
     {
         List<TestMapRequirement> _tests;
 
-        public TestManage()
+        public TestManager()
         {
             _tests = new List<TestMapRequirement>();
         }
 
-        public void addTest(TestMapRequirement test)
+        public void addTest(Test test, Requirement requirement, bool isComplete)
         {
-            _tests.Add(test);
+            _tests.Add(new TestMapRequirement(test, requirement, isComplete));
         }
 
         public void addTest(Test test, List<Requirement> requirements)

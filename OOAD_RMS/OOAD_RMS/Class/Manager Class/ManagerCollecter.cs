@@ -8,17 +8,17 @@ namespace OOAD_RMS
 {
     public class ManagerCollecter
     {
-        UserManage _userManage;
-        ProjectManage _projectManage;
-        RequirementManage _requirementManage;
-        TestManage _testManage;
+        UserManager _userManage;
+        ProjectManager _projectManage;
+        RequirementManager _requirementManage;
+        TestManager _testManage;
 
         public ManagerCollecter()
         {
-            _userManage = new UserManage();
-            _projectManage = new ProjectManage();
-            _requirementManage = new RequirementManage();
-            _testManage = new TestManage();
+            _userManage = new UserManager();
+            _projectManage = new ProjectManager();
+            _requirementManage = new RequirementManager();
+            _testManage = new TestManager();
 
             DataTable projectTable = DBManager.GetProjects();
             List<Project> projects = new List<Project>();
@@ -53,8 +53,7 @@ namespace OOAD_RMS
                     {
                         Requirement reqRelateTest = _requirementManage.GetRequirements(project).Find(c => (c.RequirementName == testMapReq["RequirementName"].ToString()));
                         requirementsMap.Add(reqRelateTest);
-                        TestMapRequirement testMapRequirement = new TestMapRequirement(test, reqRelateTest, (testMapReq["IsCompleted"].ToString() == "True") ? true : false);
-                        _testManage.addTest(testMapRequirement);
+                        _testManage.addTest(test, reqRelateTest, (testMapReq["IsCompleted"].ToString() == "True") ? true : false);
                     }
                 }
             }
@@ -78,14 +77,14 @@ namespace OOAD_RMS
             }
         }
 
-        public UserManage UserManage
+        public UserManager UserManage
         {
             get {
                 return _userManage;
             }
         }
 
-        public ProjectManage ProjectManage
+        public ProjectManager ProjectManage
         {
             get
             {
@@ -93,7 +92,7 @@ namespace OOAD_RMS
             }
         }
 
-        public RequirementManage RequirementManage
+        public RequirementManager RequirementManage
         {
             get
             {
@@ -101,7 +100,7 @@ namespace OOAD_RMS
             }
         }
 
-        public TestManage TestManage
+        public TestManager TestManage
         {
             get
             {

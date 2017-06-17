@@ -7,10 +7,10 @@ using System.Windows.Forms;
 
 namespace OOAD_RMS
 {
-    public class UserManage
+    public class UserManager
     {
         List<User> _users;
-        public UserManage()
+        public UserManager()
         {
             _users = new List<User>();
         }

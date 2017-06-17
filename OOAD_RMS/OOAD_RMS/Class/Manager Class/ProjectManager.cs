@@ -5,10 +5,10 @@ using System.Text;
 
 namespace OOAD_RMS
 {
-    public class ProjectManage
+    public class ProjectManager
     {
         List<UserMapProject> _projects;
-        public ProjectManage()
+        public ProjectManager()
         {
             _projects = new List<UserMapProject>();
         }

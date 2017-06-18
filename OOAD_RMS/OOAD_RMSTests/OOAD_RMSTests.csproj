@@ -53,7 +53,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Class\Manager Class\ManagerCollecterTests.cs" />
     <Compile Include="Class\Manager Class\ProjectManageTests.cs" />
     <Compile Include="Class\Manager Class\RequirementManageTests.cs" />
     <Compile Include="Class\Manager Class\TestManageTests.cs" />

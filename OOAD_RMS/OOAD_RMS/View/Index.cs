@@ -336,12 +336,15 @@ namespace OOAD_RMS
             }
             else
             {
-                TestDetailInfo testInfo = new TestDetailInfo(_manages, (Test)_testGridView.Rows[selectedRow].DataBoundItem, (Project)_projectComboBoxTest.SelectedItem);
-                
-                if (testInfo.ShowDialog() == DialogResult.OK)
+                if (e.RowIndex > -1)
                 {
-                    UpdateTraceAbilityMatrix();
-                }
+                    TestDetailInfo testInfo = new TestDetailInfo(_manages, (Test)_testGridView.Rows[selectedRow].DataBoundItem, (Project)_projectComboBoxTest.SelectedItem);
+
+                    if (testInfo.ShowDialog() == DialogResult.OK)
+                    {
+                        UpdateTraceAbilityMatrix();
+                    }
+                } 
             }
         }
 

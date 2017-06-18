@@ -44,7 +44,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.16456F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.83544F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
             this.tableLayoutPanel1.Controls.Add(this._projectNameLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this._projectNameTxt, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this._projectDescriptionLabel, 0, 1);
@@ -79,9 +79,9 @@
             // 
             this._projectNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this._projectNameTxt, 2);
-            this._projectNameTxt.Location = new System.Drawing.Point(97, 3);
+            this._projectNameTxt.Location = new System.Drawing.Point(96, 3);
             this._projectNameTxt.Name = "_projectNameTxt";
-            this._projectNameTxt.Size = new System.Drawing.Size(343, 29);
+            this._projectNameTxt.Size = new System.Drawing.Size(344, 29);
             this._projectNameTxt.TabIndex = 0;
             // 
             // _projectDescriptionLabel
@@ -118,7 +118,7 @@
             // 
             this._checkedUserComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._checkedUserComboBox.FormattingEnabled = true;
-            this._checkedUserComboBox.Location = new System.Drawing.Point(97, 200);
+            this._checkedUserComboBox.Location = new System.Drawing.Point(96, 200);
             this._checkedUserComboBox.Name = "_checkedUserComboBox";
             this._checkedUserComboBox.Size = new System.Drawing.Size(232, 28);
             this._checkedUserComboBox.TabIndex = 5;
@@ -130,7 +130,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this._selectUserBtn.Location = new System.Drawing.Point(3, 200);
             this._selectUserBtn.Name = "_selectUserBtn";
-            this._selectUserBtn.Size = new System.Drawing.Size(88, 29);
+            this._selectUserBtn.Size = new System.Drawing.Size(87, 29);
             this._selectUserBtn.TabIndex = 4;
             this._selectUserBtn.Text = "編輯成員";
             this._selectUserBtn.UseVisualStyleBackColor = true;

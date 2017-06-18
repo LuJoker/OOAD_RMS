@@ -47,7 +47,7 @@ namespace OOAD_RMS
 
         public List<Project> GetProjects(User user)
         {
-            return _projects.OrderBy(y => y.Project.ProjectName).ToList().FindAll(c => c.User == user).Select(t => t.Project).ToList();
+             return _projects.OrderBy(y => y.Project.ProjectName).ToList().FindAll(c => c.User == user).Select(t => t.Project).ToList();
         }
     }
 }

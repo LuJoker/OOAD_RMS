@@ -14,6 +14,8 @@ namespace OOAD_RMS
         ManagerCollecter _manages;
         User _user;
 
+        
+
         public Index(ManagerCollecter manages, User user)
         {
             InitializeComponent();
@@ -118,23 +120,35 @@ namespace OOAD_RMS
             }
         }
 
+        //List<Project> projects;
+        //if (_manages.ProjectManager.GetProjects(_user).Exists(e => e.ProjectName == ""))
 
 
         private void ClickAddProjectBtn(object sender, EventArgs e)
         {
             List<User> selectedUserList;
-            ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog(_manages);
-            if (showAddProjectDialog.ShowDialog() == DialogResult.OK) {
+            ShowAddProjectDialog showAddProjectDialog = new ShowAddProjectDialog(_manages);  
+             if (showAddProjectDialog.ShowDialog() == DialogResult.OK)
+            {
                 selectedUserList = showAddProjectDialog.GetSelectedUser();
                 Project project = new Project();
-                project.ProjectName = showAddProjectDialog.GetProjectName();
-                project.ProjectDescription = showAddProjectDialog.GetProjectDescription();
-                List<User> users = showAddProjectDialog.GetSelectedUser();
-                users.Add(_user);
-                _manages.ProjectManage.addProject(project, users);
-                ChangeProjectDataSource();
+                if (showAddProjectDialog.GetProjectName() == "" || showAddProjectDialog.GetProjectDescription() == "")
+                    MessageBox.Show("輸入框偵測到空白\n請重新加入專案", "Wrong format", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else if (_manages.ProjectManage.GetProjects(_user).Exists(c => c.ProjectName == showAddProjectDialog.GetProjectName())) {
+                    MessageBox.Show("已存在 "+showAddProjectDialog.GetProjectName()+ "\n請重新加入專案", "Wrong Added", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    project.ProjectName = showAddProjectDialog.GetProjectName();
+                    project.ProjectDescription = showAddProjectDialog.GetProjectDescription();
+                    List<User> users = showAddProjectDialog.GetSelectedUser();
+                    users.Add(_user);
+                    _manages.ProjectManage.addProject(project, users);
+                    ChangeProjectDataSource();
+                }
             }
         }
+
 
         private void ClickAddRequirementBtn(object sender, EventArgs e)
         {
@@ -144,12 +158,20 @@ namespace OOAD_RMS
             if (showAddRequirementDialog.ShowDialog() == DialogResult.OK)
             {
                 Requirement requirement = new Requirement();
-                requirement.RequirementName = showAddRequirementDialog.GetRequirementName();
-                requirement.RequirementDescription = showAddRequirementDialog.GetRequirementDescription();
-                requirement.Project = (Project)_projectComboBox.SelectedItem;
-                _manages.RequirementManage.addRequirement(requirement);
-                ChangeRequirementDataSource();
-                UpdateTraceAbilityMatrix();
+                if (showAddRequirementDialog.GetRequirementName() == "" || showAddRequirementDialog.GetRequirementDescription() == "")
+                    MessageBox.Show("輸入框偵測到空白\n請重新加入需求", "Wrong format", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else if (_manages.RequirementManage.GetRequirements((Project)_projectComboBox.SelectedItem).Exists(c => c.RequirementName == showAddRequirementDialog.GetRequirementName())) {
+                    MessageBox.Show("已存在 " + showAddRequirementDialog.GetRequirementName()+ "\n請重新加入需求", "Wrong Added", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    requirement.RequirementName = showAddRequirementDialog.GetRequirementName();
+                    requirement.RequirementDescription = showAddRequirementDialog.GetRequirementDescription();
+                    requirement.Project = (Project)_projectComboBox.SelectedItem;
+                    _manages.RequirementManage.addRequirement(requirement);
+                    ChangeRequirementDataSource();
+                    UpdateTraceAbilityMatrix();
+                }
             }
         }
 
@@ -159,13 +181,21 @@ namespace OOAD_RMS
             if (showAddTestDialog.ShowDialog() == DialogResult.OK)
             {
                 Test test = new Test();
-                test.TestName = showAddTestDialog.GetTestName();
-                test.TestDescription = showAddTestDialog.GetTestDescription();
-                test.Project = (Project)_projectComboBox.SelectedItem;
-                List<Requirement> requirements = showAddTestDialog.GetRequirements();
-                _manages.TestManage.addTest(test, requirements);
-                ChangeTestDataSource();
-                UpdateTraceAbilityMatrix();
+                if (showAddTestDialog.GetTestName() == "" || showAddTestDialog.GetTestDescription() == "")
+                    MessageBox.Show("輸入框偵測到空白\n請重新加入測試", "Wrong format", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else if (_manages.TestManage.GetTests((Project)_projectComboBox.SelectedItem).Exists(c => c.TestName == showAddTestDialog.GetTestName())) {
+                    MessageBox.Show("已存在 " + showAddTestDialog.GetTestName() + "\n請重新加入測試", "Wrong Added", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    test.TestName = showAddTestDialog.GetTestName();
+                    test.TestDescription = showAddTestDialog.GetTestDescription();
+                    test.Project = (Project)_projectComboBox.SelectedItem;
+                    List<Requirement> requirements = showAddTestDialog.GetRequirements();
+                    _manages.TestManage.addTest(test, requirements);
+                    ChangeTestDataSource();
+                    UpdateTraceAbilityMatrix();
+                }
             }
         }
 
@@ -306,12 +336,15 @@ namespace OOAD_RMS
             }
             else
             {
-                TestDetailInfo testInfo = new TestDetailInfo(_manages, (Test)_testGridView.Rows[selectedRow].DataBoundItem, (Project)_projectComboBoxTest.SelectedItem);
-                
-                if (testInfo.ShowDialog() == DialogResult.OK)
+                if (e.RowIndex > -1)
                 {
-                    UpdateTraceAbilityMatrix();
-                }
+                    TestDetailInfo testInfo = new TestDetailInfo(_manages, (Test)_testGridView.Rows[selectedRow].DataBoundItem, (Project)_projectComboBoxTest.SelectedItem);
+
+                    if (testInfo.ShowDialog() == DialogResult.OK)
+                    {
+                        UpdateTraceAbilityMatrix();
+                    }
+                } 
             }
         }
 

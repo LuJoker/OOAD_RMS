@@ -53,18 +53,20 @@ namespace OOAD_RMS.Tests
             _um.addUser(_admin);
             _um.addUser(_member);
             userList = _um.GetUsers();
+            Assert.AreEqual("admin", userList[0].UserAccount);
+            Assert.AreEqual("Jeff", userList[1].UserAccount);
         }
 
-        [TestMethod()]
-        public void LoginCheckTest()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void LoginCheckTest()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void registerAccountTest()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void registerAccountTest()
+        //{
+        //    Assert.Fail();
+        //}
     }
 }

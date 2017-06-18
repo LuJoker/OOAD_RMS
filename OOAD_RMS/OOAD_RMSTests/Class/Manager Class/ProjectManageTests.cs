@@ -66,13 +66,13 @@ namespace OOAD_RMS.Tests
         [TestMethod()]
         public void editProjectTest()
         {
-            List<User> userList = new List<User>();
+            List<Project> projectList;
             _project.ProjectName = "editpn";
             _project.ProjectDescription = "editpd";
             _pm.editProject(_project, _users);
-            userList = _pm.GetProjectMapUsers(_project);
-            Assert.AreEqual("admin", userList.Find(x => x.UserAccount == "admin").UserAccount);
-            Assert.AreEqual("Jeff", userList.Find(x => x.UserAccount == "Jeff").UserAccount);
+            projectList = _pm.GetProjects(_admin);
+            Assert.AreEqual("editpn", projectList[0].ProjectName);
+            Assert.AreEqual("editpd", projectList[0].ProjectDescription);
         }
 
         [TestMethod()]

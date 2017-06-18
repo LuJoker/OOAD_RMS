@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -58,6 +59,7 @@
     <Compile Include="Class\Manager Class\TestManageTests.cs" />
     <Compile Include="Class\Manager Class\UserManagerTests.cs" />
     <Compile Include="Class\Normal Class\TestMapRequirementTests.cs" />
+    <Compile Include="Class\Normal Class\TraceabilityMatrixTests.cs" />
     <Compile Include="Class\Normal Class\UserMapProjectTests.cs" />
     <Compile Include="Class\Normal Class\UserTest.cs" />
     <Compile Include="Class\Normal Class\ProjectTests.cs" />

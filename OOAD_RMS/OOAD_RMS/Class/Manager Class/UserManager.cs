@@ -9,7 +9,7 @@ namespace OOAD_RMS
 {
     public class UserManager
     {
-        List<User> _users;
+        private List<User> _users;
         public UserManager()
         {
             _users = new List<User>();

@@ -7,7 +7,7 @@ namespace OOAD_RMS
 {
     public class TestManager
     {
-        List<TestMapRequirement> _tests;
+        private List<TestMapRequirement> _tests;
 
         public TestManager()
         {

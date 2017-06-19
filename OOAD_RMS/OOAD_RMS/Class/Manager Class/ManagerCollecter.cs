@@ -8,10 +8,10 @@ namespace OOAD_RMS
 {
     public class ManagerCollecter
     {
-        UserManager _userManage;
-        ProjectManager _projectManage;
-        RequirementManager _requirementManage;
-        TestManager _testManage;
+        private UserManager _userManage;
+        private ProjectManager _projectManage;
+        private RequirementManager _requirementManage;
+        private TestManager _testManage;
 
         public ManagerCollecter()
         {

@@ -7,8 +7,8 @@ namespace OOAD_RMS
 {
     public class UserMapProject
     {
-        User _user;
-        Project _project;
+        private User _user;
+        private Project _project;
 
         public UserMapProject(User user, Project project)
         {

@@ -7,9 +7,9 @@ namespace OOAD_RMS
 {
     public class TestMapRequirement
     {
-        Test _test;
-        Requirement _requirement;
-        bool _isComplete;
+        private Test _test;
+        private Requirement _requirement;
+        private bool _isComplete;
 
         public TestMapRequirement(Test test, Requirement req, bool isComplete)
         {

@@ -7,7 +7,7 @@ namespace OOAD_RMS
 {
     public class ProjectManager
     {
-        List<UserMapProject> _projects;
+        private List<UserMapProject> _projects;
         public ProjectManager()
         {
             _projects = new List<UserMapProject>();

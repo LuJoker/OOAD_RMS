@@ -7,7 +7,7 @@ namespace OOAD_RMS
 {
     public class RequirementManager
     {
-        List<Requirement> _requirements = new List<Requirement>();
+        private List<Requirement> _requirements = new List<Requirement>();
 
         public void addRequirement(Requirement requirement)
         {
